@@ -3,10 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.chanmratekoko</groupId>
 	<artifactId>mmcalendar</artifactId>
-	<version>0.0.1-beta</version>
+	<version>0.0.1-alpha</version>
 	<name>Myanmar Calendar</name>
 	<description>Myanmar Calendar</description>
-
 
 	<url>https://github.com/chanmratekoko/mmcalendar</url>
 
@@ -19,8 +18,10 @@
 
 	<developers>
 		<developer>
+			<id>chanmratekoko</id>
 			<name>Chan Mrate Ko Ko</name>
 			<email>chanmratekoko.dev@gmail.com</email>
+			<url>https://github.com/chanmratekoko</url>
 			<organization>CMKK</organization>
 			<organizationUrl>com.github.chanmratekoko</organizationUrl>
 		</developer>
@@ -32,10 +33,23 @@
 		<url>https://github.com/chanmratekoko/mmcalendar/tree/master</url>
 	</scm>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jdk.version>1.6</jdk.version>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
 		<!-- Test Dependencies -->
 		<junit.version>4.12</junit.version>
 	</properties>
@@ -68,5 +82,95 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>simplelogger.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<configuration>
+					<quiet>true</quiet>
+					<show>protected</show>
+					<linksource>true</linksource>
+					<tags>
+						<tag>
+							<name>querycommands</name>
+							<placement>m</placement>
+							<head>Number of query commands sent:</head>
+						</tag>
+					</tags>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadoc</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<quiet>true</quiet>
+							<show>public</show>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.2</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
 
 </project>
