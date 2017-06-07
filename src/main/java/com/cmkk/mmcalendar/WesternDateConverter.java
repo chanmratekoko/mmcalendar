@@ -221,7 +221,7 @@ public class WesternDateConverter {
 	 * 
 	 * @param year
 	 * @param month
-	 * @return
+	 * @return Julian day number of end of the month
 	 */
 	public static int getJulianDayNumberOfEndOfMonth(int year, int month) {
 		int js = getJulianDayNumbeOstartOfMonth(year, month);

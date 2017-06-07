@@ -10,8 +10,8 @@ public class AstroConverter {
 
 	/**
 	 * 
-	 * @param myanmarDate
-	 * @return
+	 * @param myanmarDate Object
+	 * @return Astro
 	 */
 	public static Astro mmDate2Astro(MyanmarDate myanmarDate) {
 		return astro((int) myanmarDate.mm, (int) myanmarDate.mml, (int) myanmarDate.md, (int) myanmarDate.wd, (int) myanmarDate.my);
@@ -25,7 +25,7 @@ public class AstroConverter {
 	 * @param md day of the month [0-30]
 	 * @param wd weekday [0=sat, 1=sun, ..., 6=fri]
 	 * @param my Myanmar year
-	 * @return
+	 * @return Astro
 	 *  
 	 */
 	private static Astro astro(int mm, int mml, int md, int wd, int my) {

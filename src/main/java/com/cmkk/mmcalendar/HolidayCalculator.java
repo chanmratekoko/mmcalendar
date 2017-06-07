@@ -73,7 +73,7 @@ public final class HolidayCalculator {
 	 *            day [0-30]
 	 * @param mp
 	 *            moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
-	 * @return
+	 * @return List of holiday String
 	 */
 	static List<String> mhol(double my, int mm, int md, int mp) {
 
@@ -112,7 +112,7 @@ public final class HolidayCalculator {
 	 *            Myanmar year
 	 * @param mmt
 	 *            myanmar month type [oo=0, hnaung=1
-	 * @return
+	 * @return List of holiday String
 	 */
 	public static List<String> thingyan(double jdn, double my, int mmt) {
 
@@ -166,7 +166,7 @@ public final class HolidayCalculator {
 	 * 
 	 * @param jd
 	 *            Julian day number
-	 * @return
+	 * @return List of holiday String
 	 */
 	public static List<String> ohol(double jd) {
 
@@ -186,7 +186,7 @@ public final class HolidayCalculator {
 	 * 
 	 * @param jd
 	 *            Julian Day Number,
-	 * @param ct
+	 * @param calendarType
 	 *            calendar type [Optional argument: 0=english (default),
 	 *            1=Gregorian, 2=Julian]
 	 * @return dependency: DoE(), j2w()
@@ -274,7 +274,7 @@ public final class HolidayCalculator {
 	 *            day [0-30]
 	 * @param mp
 	 *            moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
-	 * @return
+	 * @return List of holiday String
 	 */
 	public static List<String> mcd(double my, int mm, int md, int mp) {
 
@@ -322,7 +322,8 @@ public final class HolidayCalculator {
 	/**
 	 * 
 	 * @param myanmarDate
-	 * @return
+	 *            MyanmarDate
+	 * @return List of holiday String
 	 */
 	public static List<String> getHoliday(MyanmarDate myanmarDate) {
 
@@ -346,7 +347,7 @@ public final class HolidayCalculator {
 	/**
 	 * 
 	 * @param myanmarDate
-	 * @return
+	 * @return boolean
 	 */
 	public static boolean isHoliday(MyanmarDate myanmarDate) {
 		return getHoliday(myanmarDate).size() > 0 ? true : false;
@@ -355,7 +356,7 @@ public final class HolidayCalculator {
 	/**
 	 * 
 	 * @param holidayList
-	 * @return
+	 * @return boolean
 	 */
 	public static boolean isHoliday(List<String> holidayList) {
 		return holidayList.size() > 0 ? true : false;
@@ -364,7 +365,7 @@ public final class HolidayCalculator {
 	/**
 	 * 
 	 * @param myanmarDate
-	 * @return
+	 * @return List of holiday String
 	 */
 	public static List<String> getAnniversary(MyanmarDate myanmarDate) {
 		List<String> ecd = ecd(myanmarDate.jd, Config.CALENDARTYPE); // anniversary
