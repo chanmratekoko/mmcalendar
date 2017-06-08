@@ -1,5 +1,5 @@
-# mmcalendar
-**Myanmar Calender** for Android and Java applications.
+# Myanmar Calendar
+**Myanmar Calendar** for Android and Java applications.
 For more information see [the website][1] and [the wiki][2].
 
 
@@ -15,14 +15,32 @@ Download [the latest JAR][3] or grab via Maven:
 </dependency>
 ```
 
-
 or Gradle:
 ```groovy
-compile 'compile 'com.github.chanmratekoko:mmcalendar:0.0.1-alpha''
+compile 'com.github.chanmratekoko:mmcalendar:0.0.1-alpha'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
+
+## How to use
+
+### Java
+
+```java
+		//Default Language Myanmar Unicode 
+		LanguageCatalog languageCatalog = new LanguageCatalog(Language.ENGLISH);
+		MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 6, 6);		
+
+		String sasanaYear = myanmarDate.getBuddhistEra(languageCatalog);
+		String myanmarYear = myanmarDate.getYear(languageCatalog);
+		String myanmarMonth = myanmarDate.getMyanmarMonth(languageCatalog);
+		String fortnightDay = myanmarDate.getFortnightDay(languageCatalog);
+		String weekDay = myanmarDate.getWeekDay(languageCatalog);
+		
+		Astro astro = AstroConverter.mmDate2Astro(myanmarDate);
+
+```
 
 # License
 ```
@@ -49,8 +67,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-[1]: http://square.github.io/okhttp
-[2]: https://github.com/square/okhttp/wiki
+[1]: https://chanmratekoko.github.io/mmcalendar/
+[2]: https://github.com/chanmratekoko/mmcalendar/wiki
 [3]: https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=mmcalendar&v=LATEST
 
 [snap]: https://oss.sonatype.org/content/repositories/snapshots/
