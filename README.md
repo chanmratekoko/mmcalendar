@@ -28,18 +28,31 @@ Snapshots of the development version are available in [Sonatype's `snapshots` re
 ### Java
 
 ```java
-		//Default Language Myanmar Unicode 
-		LanguageCatalog languageCatalog = new LanguageCatalog(Language.ENGLISH);
-		MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 6, 6);		
+//Default Language Myanmar Unicode 
+LanguageCatalog languageCatalog = new LanguageCatalog(Language.ENGLISH);
+MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 6, 6);		
 
-		String sasanaYear = myanmarDate.getBuddhistEra(languageCatalog);
-		String myanmarYear = myanmarDate.getYear(languageCatalog);
-		String myanmarMonth = myanmarDate.getMyanmarMonth(languageCatalog);
-		String fortnightDay = myanmarDate.getFortnightDay(languageCatalog);
-		String weekDay = myanmarDate.getWeekDay(languageCatalog);
-		
-		Astro astro = AstroConverter.mmDate2Astro(myanmarDate);
+String sasanaYear = myanmarDate.getBuddhistEra(languageCatalog);
+String myanmarYear = myanmarDate.getYear(languageCatalog);
+String myanmarMonth = myanmarDate.getMyanmarMonth(languageCatalog);
+String fortnightDay = myanmarDate.getFortnightDay(languageCatalog);
+String weekDay = myanmarDate.getWeekDay(languageCatalog);
 
+Astro astro = AstroConverter.mmDate2Astro(myanmarDate);
+
+```
+
+### Kotlin
+
+```kotlin
+var languageCatalog : LanguageCatalog = LanguageCatalog(Language.ENGLISH)
+var myanmarDate : MyanmarDate = MyanmarDateConverter.convert(2017, 6, 8)
+
+myanmarDate.getBuddhistEra(languageCatalog)
+myanmarDate.getYear(languageCatalog)
+myanmarDate.getMyanmarMonth(languageCatalog)
+myanmarDate.getFortnightDay(languageCatalog)
+myanmarDate.getWeekDay(languageCatalog)
 ```
 
 # License
