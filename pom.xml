@@ -7,7 +7,7 @@
 	<name>Myanmar Calendar</name>
 	<description>Myanmar Calendar</description>
 
-	<url>https://github.com/chanmratekoko/mmcalendar</url>
+	<url>https://chanmratekoko.github.io/mmcalendar/</url>
 
 	<licenses>
 		<license>
@@ -20,6 +20,7 @@
 		<developer>
 			<id>chanmratekoko</id>
 			<name>Chan Mrate Ko Ko</name>
+			<timezone>+6:30</timezone>
 			<email>chanmratekoko.dev@gmail.com</email>
 			<url>https://github.com/chanmratekoko</url>
 			<organization>CMKK</organization>
@@ -80,7 +81,6 @@
 			<version>1.3</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>

@@ -23,7 +23,7 @@ compile 'com.github.chanmratekoko:mmcalendar:0.0.1-alpha'
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
 
-## How to use
+## Usage
 
 ### Java
 
@@ -48,18 +48,28 @@ Astro astro = AstroConverter.mmDate2Astro(myanmarDate);
 var languageCatalog : LanguageCatalog = LanguageCatalog(Language.ENGLISH)
 var myanmarDate : MyanmarDate = MyanmarDateConverter.convert(2017, 6, 8)
 
-myanmarDate.getBuddhistEra(languageCatalog)
-myanmarDate.getYear(languageCatalog)
-myanmarDate.getMyanmarMonth(languageCatalog)
-myanmarDate.getFortnightDay(languageCatalog)
-myanmarDate.getWeekDay(languageCatalog)
+var sasanaYear = myanmarDate.getBuddhistEra(languageCatalog)
+var myanmarYear = myanmarDate.getYear(languageCatalog)
+var myanmarMonth = myanmarDate.getMyanmarMonth(languageCatalog)
+var fortnightDay = myanmarDate.getFortnightDay(languageCatalog)
+var weekDay = myanmarDate.getWeekDay(languageCatalog)
+
+var astro : Astro = AstroConverter.mmDate2Astro(myanmarDate)
 ```
+
+### Demo
+- [Web](http://mc1500.com/)
+
+
+##Concept reference resources:
+1. [Myanmar Calendar Javascript Project by Ko Yan Naing Aye](https://github.com/yan9a/mcal)
+2. [Algorithm, Program and Calculation of Myanmar Calendar](http://cool-emerald.blogspot.sg/2013/06/algorithm-program-and-calculation-of.html)
 
 # License
 ```
 MIT License
 
-Copyright (c) 2017 chanmratekoko
+Copyright (c) 2017 Chan Mrate Ko Ko
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -79,6 +89,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+#Contributing to Myanmar Calendar
+
+Just make pull request. You are in!
+
+
 
 [1]: https://chanmratekoko.github.io/mmcalendar/
 [2]: https://github.com/chanmratekoko/mmcalendar/wiki
