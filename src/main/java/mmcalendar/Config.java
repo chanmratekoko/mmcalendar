@@ -1,4 +1,4 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 
 /**

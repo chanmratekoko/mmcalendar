@@ -1,4 +1,4 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -567,7 +567,8 @@ public class LanguageCatalog {
 	}
 
 	public void setLanguage(Language language) {
-		if (language == null) throw new NullPointerException(); 
+        if (language == null)
+            throw new IllegalArgumentException("Language cannot be null");		
 		this.language = language;
 	}
 

@@ -1,4 +1,4 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 /**
  * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>

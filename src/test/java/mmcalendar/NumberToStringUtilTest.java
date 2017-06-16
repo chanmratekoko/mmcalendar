@@ -1,7 +1,10 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import mmcalendar.LanguageCatalog;
+import mmcalendar.NumberToStringUtil;
 
 public class NumberToStringUtilTest {
 

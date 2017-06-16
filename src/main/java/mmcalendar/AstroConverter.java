@@ -1,4 +1,4 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 /**
  * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
@@ -13,9 +13,10 @@ public class AstroConverter {
 	 * @param myanmarDate Object
 	 * @return Astro
 	 */
-	public static Astro mmDate2Astro(MyanmarDate myanmarDate) {
+	public static Astro convert(MyanmarDate myanmarDate) {
 		return astro((int) myanmarDate.mm, (int) myanmarDate.mml, (int) myanmarDate.md, (int) myanmarDate.wd, (int) myanmarDate.my);
 	}
+	
 	/**
 	 * More Detail
 	 * <a href="http://cool-emerald.blogspot.sg/2013/12/myanmar-astrological-calendar-days.html">More details</a>

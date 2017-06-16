@@ -1,4 +1,4 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 import java.util.HashMap;
 import java.util.Map;

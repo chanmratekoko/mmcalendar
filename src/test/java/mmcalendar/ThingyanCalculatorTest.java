@@ -1,8 +1,14 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import mmcalendar.Config;
+import mmcalendar.Thingyan;
+import mmcalendar.ThingyanCalculator;
+import mmcalendar.WesternDate;
+import mmcalendar.WesternDateConverter;
 
 public class ThingyanCalculatorTest {
 

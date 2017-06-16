@@ -1,7 +1,14 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import mmcalendar.Astro;
+import mmcalendar.AstroConverter;
+import mmcalendar.MyanmarDate;
+import mmcalendar.MyanmarDateConverter;
+import mmcalendar.MyanmarMonth;
+
 import static org.hamcrest.Matchers.*;
 
 import java.util.ArrayList;
@@ -13,7 +20,7 @@ public class MyanmarDateConverterTest {
 	@Test
 	public void calculateWithAstro(){
 		MyanmarDate myanmarDate = MyanmarDateConverter.convert(1983, 12, 31);
-		Astro astro = AstroConverter.mmDate2Astro(myanmarDate);
+		Astro astro = AstroConverter.convert(myanmarDate);
 		System.out.println(myanmarDate.toString());
 		System.out.println(astro.toString());
 	}

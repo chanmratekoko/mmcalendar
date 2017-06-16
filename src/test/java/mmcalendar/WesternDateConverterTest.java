@@ -1,9 +1,13 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
+
+import mmcalendar.Config;
+import mmcalendar.WesternDate;
+import mmcalendar.WesternDateConverter;
 
 public class WesternDateConverterTest {
 

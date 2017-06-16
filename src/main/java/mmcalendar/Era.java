@@ -1,4 +1,4 @@
-package com.cmkk.mmcalendar;
+package mmcalendar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,6 @@ final class Era {
 		era_1_1.NM = -1;
 		era_1_1.fme = new int[][] { { 205, 1 }, { 246, 1 }, { 471, 1 }, { 572, -1 }, { 651, 1 }, { 653, 2 }, { 656, 1 },
 				{ 672, 1 }, { 729, 1 }, { 767, -1 } };
-		// "fme":[[205,1],[246,1]],//if Tin Naing Toe & Dr. Than Tun as
 		// reference
 		era_1_1.wte = new int[][] {}; // exceptions for watat years
 
@@ -75,7 +74,6 @@ final class Era {
 		era_1_2.NM = -1;
 		era_1_2.fme = new int[][] { { 813, -1 }, { 849, -1 }, { 851, -1 }, { 854, -1 }, { 927, -1 }, { 933, -1 },
 				{ 936, -1 }, { 938, -1 }, { 949, -1 }, { 952, -1 }, { 963, -1 }, { 968, -1 }, { 1039, -1 } };
-		// "fme":[[813,-1],[854,-1],[1039,-1]],//if Tin Naing Toe & Dr. Than Tun
 		// as reference
 		era_1_2.wte = new int[][] {};
 		G_ERAS.add(era_1_2);
