@@ -196,6 +196,7 @@ public class AstroConverter {
 		/* 0=Binga, 1=Atun, 2=Yaza, 3=Adipati, 4=Marana, 5=Thike, 6=Puti */
 		astro.mahabote = mahabote;
 		astro.nakhat = nakhat;
+		astro.yearName = my % 12;
 
 		return astro;
 	}

@@ -28,6 +28,10 @@ public class Astro {
 	double mahabote;
 	/* 0=orc, 1=elf, 2=human */
 	double nakhat;
+	//{"ပုဿနှစ်","မာခနှစ်","ဖ္လကိုန်သံဝစ္ဆိုဝ်ရနှစ်","စယ်နှစ်",
+			//"ပိသျက်နှစ်","စိဿနှစ်","အာသတ်နှစ်","သရဝန်နှစ်",
+			//"ဘဒ္ဒြသံဝစ္ဆုံရ်နှစ်","အာသိန်နှစ်","ကြတိုက်နှစ်","မြိက္ကသိုဝ်နှစ်"}
+	int yearName;
 
 	protected Astro() {
 	}
@@ -237,6 +241,13 @@ public class Astro {
 		String[] nk = new String[] { "Orc", "Elf", "Human" };
 		return languageCatalog.translate(nk[(int) nakhat]);
 	}
+	
+	public String getYearName(){		
+		String[] yearNames = new String[] {"\u1015\u102F\u103F\u1014\u103E\u1005\u103A","\u1019\u102C\u1001\u1014\u103E\u1005\u103A","\u1016\u1039\u101C\u1000\u102D\u102F\u1014\u103A\u101E\u1036\u101D\u1005\u1039\u1006\u102D\u102F\u101D\u103A\u101B\u1014\u103E\u1005\u103A","\u1005\u101A\u103A\u1014\u103E\u1005\u103A",
+				"\u1015\u102D\u101E\u103B\u1000\u103A\u1014\u103E\u1005\u103A","\u1005\u102D\u103F\u1014\u103E\u1005\u103A","\u1021\u102C\u101E\u1010\u103A\u1014\u103E\u1005\u103A","\u101E\u101B\u101D\u1014\u103A\u1014\u103E\u1005\u103A",
+				"\u1018\u1012\u1039\u1012\u103C\u101E\u1036\u101D\u1005\u1039\u1006\u102F\u1036\u101B\u103A\u1014\u103E\u1005\u103A","\u1021\u102C\u101E\u102D\u1014\u103A\u1014\u103E\u1005\u103A","\u1000\u103C\u1010\u102D\u102F\u1000\u103A\u1014\u103E\u1005\u103A","\u1019\u103C\u102D\u1000\u1039\u1000\u101E\u102D\u102F\u101D\u103A\u1014\u103E\u1005\u103A"};
+		return yearNames[yearName];
+	}
 
 	@Override
 	public String toString() {
@@ -303,12 +314,16 @@ public class Astro {
 			stringBuilder.append(getShanyat(languageCatalog));
 		}
 
+
 		stringBuilder.append("\u1014\u1002\u102B\u1038\u1001\u1031\u102B\u1004\u103A\u1038" + getNagahle(languageCatalog) + "\u101E\u102D\u102F\u1037\u101C\u103E\u100A\u103A\u1037\u101E\u100A\u103A\u104B");
 		stringBuilder.append(" " + languageCatalog.getLanguage().getComma() + " ");
 		stringBuilder.append(getMahabote(languageCatalog) + "\u1016\u103D\u102C\u1038");
 		stringBuilder.append(" " + languageCatalog.getLanguage().getComma() + " ");
 		stringBuilder.append(getNakhat(languageCatalog) + "\u1014\u1000\u1039\u1001\u1010\u103A");
 
+		stringBuilder.append(" " + languageCatalog.getLanguage().getComma() + " ");
+		stringBuilder.append(getYearName());
+		
 		return stringBuilder.toString();
 	}
 
