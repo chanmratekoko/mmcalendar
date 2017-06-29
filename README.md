@@ -10,14 +10,14 @@ Download [the latest JAR][3] or grab via Maven:
 ```xml
 <dependency>
   <groupId>com.github.chanmratekoko</groupId>
-  <artifactId>mmcalendar</artifactId>
-  <version>0.0.1-alpha</version>
+  <artifactId>myanmar-calendar</artifactId>
+  <version>1.0</version>
 </dependency>
 ```
 
 or Gradle:
 ```groovy
-compile 'com.github.chanmratekoko:mmcalendar:0.0.1-alpha'
+compile 'com.github.chanmratekoko:myanmar-calendar:1.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
