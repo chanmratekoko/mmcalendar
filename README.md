@@ -28,7 +28,7 @@ Snapshots of the development version are available in [Sonatype's `snapshots` re
 ### Java
 
 ```java
-//Default Language Myanmar Unicode 
+//Default Language Myanmar Unicode
 LanguageCatalog languageCatalog = new LanguageCatalog(Language.ENGLISH);
 MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 6, 6);		
 
@@ -98,6 +98,6 @@ Just make pull request. You are in!
 
 [1]: https://chanmratekoko.github.io/mmcalendar/
 [2]: https://github.com/chanmratekoko/mmcalendar/wiki
-[3]: https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=mmcalendar&v=LATEST
+[3]: https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST
 
 [snap]: https://oss.sonatype.org/content/repositories/snapshots/
