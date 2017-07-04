@@ -18,10 +18,12 @@ public final class HolidayCalculator {
 	private static final int[] ghEid2 = new int[] { 2456936, 2457290, 2457644 };
 
 	/**
-	 * Chinese New Yea
+	 * Chinese New Year
+	 * ref http://www.mom.gov.sg/employment-practices/public-holidays
+	 * ref https://en.wikipedia.org/wiki/Chinese_New_Year
 	 */
 	private static final int[] ghCNY = new int[] { 2456689, 2456690, 2457073, 2457074, 2457427, 2457428, 2457782,
-			2457783 };
+			2457783, 2458166, 2458167};
 
 	private static final int[] ghDiwali = new int[] { 2456599, 2456953, 2457337, 2457691, 2458045, 2458429 };
 	private static final int[] ghEid = new int[] { 2456513, 2456867, 2457221, 2457576, 2457930, 2458285 };
