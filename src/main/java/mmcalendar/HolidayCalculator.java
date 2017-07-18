@@ -202,29 +202,29 @@ public final class HolidayCalculator {
 		List<String> holiday = new ArrayList<String>();
 
 		WesternDate wd = WesternDateConverter.j2w(jd, calendarType);
-		double doe = DoE(wd.year);
+		double doe = DoE(wd.getYear());
 
-		if ((wd.year >= 1915) && (wd.month == 2) && (wd.day == 13)) {
+		if ((wd.getYear() >= 1915) && (wd.getMonth() == 2) && (wd.getDay() == 13)) {
 			holiday.add("G. Aung San BD");
-		} else if ((wd.year >= 1969) && (wd.month == 2) && (wd.day == 14)) {
+		} else if ((wd.getYear() >= 1969) && (wd.getMonth() == 2) && (wd.getDay() == 14)) {
 			holiday.add("Valentines Day");
-		} else if ((wd.year >= 1970) && (wd.month == 4) && (wd.day == 22)) {
+		} else if ((wd.getYear() >= 1970) && (wd.getMonth() == 4) && (wd.getDay() == 22)) {
 			holiday.add("Earth Day");
-		} else if ((wd.year >= 1392) && (wd.month == 4) && (wd.day == 1)) {
+		} else if ((wd.getYear() >= 1392) && (wd.getMonth() == 4) && (wd.getDay() == 1)) {
 			holiday.add("April Fools Day");
-		} else if ((wd.year >= 1948) && (wd.month == 5) && (wd.day == 8)) {
+		} else if ((wd.getYear() >= 1948) && (wd.getMonth() == 5) && (wd.getDay() == 8)) {
 			holiday.add("Red Cross Day");
-		} else if ((wd.year >= 1994) && (wd.month == 10) && (wd.day == 5)) {
+		} else if ((wd.getYear() >= 1994) && (wd.getMonth() == 10) && (wd.getDay() == 5)) {
 			holiday.add("World Teachers Day");
-		} else if ((wd.year >= 1947) && (wd.month == 10) && (wd.day == 24)) {
+		} else if ((wd.getYear() >= 1947) && (wd.getMonth() == 10) && (wd.getDay() == 24)) {
 			holiday.add("United Nations Day");
-		} else if ((wd.year >= 1753) && (wd.month == 10) && (wd.day == 31)) {
+		} else if ((wd.getYear() >= 1753) && (wd.getMonth() == 10) && (wd.getDay() == 31)) {
 			holiday.add("Halloween");
 		}
 
-		if ((wd.year >= 1876) && (jd == doe)) {
+		if ((wd.getYear() >= 1876) && (jd == doe)) {
 			holiday.add("Easter");
-		} else if ((wd.year >= 1876) && (jd == (doe - 2))) {
+		} else if ((wd.getYear() >= 1876) && (jd == (doe - 2))) {
 			holiday.add("Good Friday");
 		} else if (BinarySearchUtil.search(jd, ghEid2) >= 0) {
 			holiday.add("Eid");
@@ -331,7 +331,7 @@ public final class HolidayCalculator {
 
 		WesternDate westernDate = WesternDateConverter.j2w(myanmarDate.jd, Config.CALENDARTYPE);
 		// Office Off
-		List<String> hde = ehol((int) westernDate.year, (int) westernDate.month, (int) westernDate.day);
+		List<String> hde = ehol(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay());
 		List<String> hdm = mhol(myanmarDate.my, (int) myanmarDate.mm, (int) myanmarDate.md, (int) myanmarDate.mp);
 		List<String> hdt = thingyan(myanmarDate.jd, myanmarDate.my, (int) myanmarDate.mmt);
 		List<String> hdo = ohol(myanmarDate.jd); // Diwali Eid

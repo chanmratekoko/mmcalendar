@@ -8,15 +8,21 @@ package mmcalendar;
  *
  */
 public class WesternDate {
-		
-	double year;
-	double month;
-	double day;
-	double hour;
-	double minute;
-	double second;
-	
-	WesternDate() {		
+
+	private double year;
+	private double month;
+	private double day;
+	private double hour;
+	private double minute;
+	private double second;
+
+	WesternDate(double year, double month, double day, double hour, double minute, double second) {
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.hour = hour;
+		this.minute = minute;
+		this.second = second;
 	}
 
 	public int getYear() {

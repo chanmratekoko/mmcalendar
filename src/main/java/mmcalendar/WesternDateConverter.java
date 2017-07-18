@@ -37,7 +37,7 @@ public class WesternDateConverter {
 	 *            (default=2361222)])
 	 * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
 	 */
-	private static WesternDate j2w(double jd, int ct, double SG) {
+	public static WesternDate j2w(double jd, int ct, double SG) {
 
 		// ct=ct||0;
 		if (ct < 0) {
@@ -91,15 +91,7 @@ public class WesternDateConverter {
 		n = Math.floor(jf);
 		s = (jf - n) * 60;
 
-		WesternDate westernDate = new WesternDate();
-		westernDate.year = (int) y;
-		westernDate.month = (int) m;
-		westernDate.day = (int) d;
-		westernDate.hour = (int) h;
-		westernDate.minute = (int) n;
-		westernDate.second = (int) s;
-
-		return westernDate;
+		return new WesternDate(y, m, d, h, n, s);
 	}
 
 	/**
@@ -227,5 +219,5 @@ public class WesternDateConverter {
 		int js = getJulianDayNumbeOstartOfMonth(year, month);
 		int eml = getLengthOfMonth(year, month, Config.CALENDARTYPE.getNumber());
 		return js + eml - 1;
-	}
+	}	
 }

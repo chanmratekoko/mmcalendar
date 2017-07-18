@@ -12,22 +12,26 @@ public class Thingyan {
 	/**
 	 * atat time
 	 */
-	double ja;
+	private double ja;
 	/**
 	 * akya time
 	 */
-	double jk;
+	private double jk;
 	/**
 	 * atat day
 	 */
-	double da;
+	private double da;
 
 	/**
 	 * akya day
 	 */
-	double dk;
+	private double dk;
 
-	protected Thingyan() {
+	Thingyan(double ja, double jk, double da, double dk) {
+		this.ja = ja;
+		this.jk = jk;
+		this.da = da;
+		this.dk = dk;
 	}
 
 	/**

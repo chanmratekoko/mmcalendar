@@ -7,7 +7,7 @@ import mmcalendar.Astro;
 import mmcalendar.AstroConverter;
 import mmcalendar.MyanmarDate;
 import mmcalendar.MyanmarDateConverter;
-import mmcalendar.MyanmarMonth;
+import mmcalendar.MyanmarMonths;
 
 import static org.hamcrest.Matchers.*;
 
@@ -57,7 +57,7 @@ public class MyanmarDateConverterTest {
 	
 	@Test
 	public void getMyanmarMonth(){
-		MyanmarMonth myanmarMonth = MyanmarDateConverter.getMyanmarMonth(1380, 3);
+		MyanmarMonths myanmarMonth = MyanmarDateConverter.getMyanmarMonth(1380, 3);
 		
 		List<Integer> index = new ArrayList<Integer>();
 		List<String> list = new ArrayList<String>();
@@ -66,9 +66,9 @@ public class MyanmarDateConverterTest {
 		index.add(3);
 		list.add("Nayon");
 		index.add(0);
-		list.add("1st Waso");
+		list.add("First Waso");
 		index.add(4);
-		list.add("2nd Waso");
+		list.add("Second Waso");
 		index.add(5);
 		list.add("Wagaung");
 		index.add(6);
@@ -89,9 +89,9 @@ public class MyanmarDateConverterTest {
 		list.add("Late Tagu");
 		
 		assertThat(index, hasItem(13));		
-		Assert.assertEquals(list, myanmarMonth.getList());
+		Assert.assertEquals(list, myanmarMonth.getMonthNameList());
 		Assert.assertEquals(index, myanmarMonth.getIndex());
-		Assert.assertEquals(3, myanmarMonth.getNowIndex());
+		Assert.assertEquals(3, myanmarMonth.getCurrentIndex());
 
 	}
 	

@@ -30,13 +30,7 @@ public class ThingyanCalculator {
 		double da = Math.round(ja);
 		double dk = Math.round(jk);
 
-		Thingyan thingyan = new Thingyan();
-		thingyan.ja = ja;
-		thingyan.jk = jk;
-		thingyan.da = da;
-		thingyan.dk = dk;
-
-		return thingyan;
+		return new Thingyan(ja, jk, da, dk);
 	}
 
 }

@@ -46,8 +46,11 @@ public class LanguageCatalog {
 		myanmar.put("November", "\u1014\u102D\u102F\u101D\u1004\u103A\u1018\u102C");
 		myanmar.put("December", "\u1012\u102E\u1007\u1004\u103A\u1018\u102C");
 		myanmar.put("First Waso", "\u1015\u101D\u102B\u1006\u102D\u102F");
+		myanmar.put("Second Waso", "\u1012\u102F\u101D\u102B\u1006\u102D\u102F");
 		myanmar.put("Tagu", "\u1010\u1014\u103A\u1001\u1030\u1038");
+		myanmar.put("Late Tagu", "\u1014\u103E\u1031\u102C\u1004\u103A\u1038\u1010\u1014\u103A\u1001\u1030\u1038");		
 		myanmar.put("Kason", "\u1000\u1006\u102F\u1014\u103A");
+		myanmar.put("Late Kason", "\u1014\u103E\u1031\u102C\u1004\u103A\u1038\u1000\u1006\u102F\u1014\u103A");
 		myanmar.put("Nayon", "\u1014\u101A\u102F\u1014\u103A");
 		myanmar.put("Waso", "\u101D\u102B\u1006\u102D\u102F");
 		myanmar.put("Wagaung", "\u101D\u102B\u1001\u1031\u102B\u1004\u103A");
@@ -177,8 +180,11 @@ public class LanguageCatalog {
 		english.put("November", "November");
 		english.put("December", "December");
 		english.put("First Waso", "First Waso");
+		english.put("Second Waso", "\u1012\u102F\u101D\u102B\u1006\u102D\u102F");
 		english.put("Tagu", "Tagu");
+		english.put("Late Tagu", "Late Tagu");	
 		english.put("Kason", "Kason");
+		english.put("Late Kason", "Late Kason");
 		english.put("Nayon", "Nayon");
 		english.put("Waso", "Waso");
 		english.put("Wagaung", "Wagaung");
@@ -308,8 +314,11 @@ public class LanguageCatalog {
 		mon.put("November", "\u1014\u101D\u103A\u101D\u102B\u1019\u103A\u1017\u102C");
 		mon.put("December", "\u1012\u102E\u1007\u103C\u1031\u1014\u103A\u1017\u102C");
 		mon.put("First Waso", "\u1002\u102D\u1010\u102F\u1015-\u1012\u1039\u1002\u102D\u102F\u1014\u103A");
+		mon.put("Second Waso", "\u1012\u102F\u101D\u102B\u1006\u102D\u102F"); //need to translate
 		mon.put("Tagu", "\u1002\u102D\u1010\u102F\u1005\u1032");
+		mon.put("Late Tagu", "\u1014\u103E\u1031\u102C\u1004\u103A\u1038\u1010\u1014\u103A\u1001\u1030\u1038");  //need to translate
 		mon.put("Kason", "\u1002\u102D\u1010\u102F\u1015\u101E\u102C\u103A");
+		mon.put("Late Kason", "\u1014\u103E\u1031\u102C\u1004\u103A\u1038\u1000\u1006\u102F\u1014\u103A"); //need to translate
 		mon.put("Nayon", "\u1002\u102D\u1010\u102F\u1007\u103E\u1031\u103A");
 		mon.put("Waso", "\u1002\u102D\u1010\u102F\u1012\u1039\u1002\u102D\u102F\u1014\u103A");
 		mon.put("Wagaung", "\u1002\u102D\u1010\u102F\u1001\u1039\u100D\u1032\u101E\u1033");
@@ -443,8 +452,11 @@ public class LanguageCatalog {
 		zawgyi.put("November", "\u1014\u102D\u102F\u101D\u1004\u1039\u1018\u102C");
 		zawgyi.put("December", "\u1012\u102E\u1007\u1004\u1039\u1018\u102C");
 		zawgyi.put("First Waso", "\u1015\u101D\u102B\u1006\u102D\u102F");
+		zawgyi.put("Second Waso", "\u1012\u102F\u101D\u102B\u1006\u102D\u102F");
 		zawgyi.put("Tagu", "\u1010\u1014\u1039\u1001\u1030\u1038");
+		zawgyi.put("Late Tagu", "\u1031\u108F\u103D\u102C\u1004\u1039\u1038\u1010\u1014\u1039\u1001\u1030\u1038");
 		zawgyi.put("Kason", "\u1000\u1006\u102F\u1014\u1039");
+		zawgyi.put("Late Kason", "\u1031\u108F\u103D\u102C\u1004\u1039\u1038\u1000\u1006\u102F\u1014\u1039");
 		zawgyi.put("Nayon", "\u1014\u101A\u102F\u1014\u1039");
 		zawgyi.put("Waso", "\u101D\u102B\u1006\u102D\u102F");
 		zawgyi.put("Wagaung", "\u101D\u102B\u1031\u1001\u102B\u1004\u1039");

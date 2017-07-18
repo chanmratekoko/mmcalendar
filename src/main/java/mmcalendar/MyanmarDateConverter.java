@@ -1,6 +1,8 @@
 package mmcalendar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,7 +13,7 @@ import java.util.Map;
  */
 public class MyanmarDateConverter {
 
-	static final String[] EMA = { "1st Waso", "Tagu", "Kason", "Nayon", "Waso", "Wagaung", "Tawthalin", "Thadingyut",
+	static final String[] EMA = { "First Waso", "Tagu", "Kason", "Nayon", "Waso", "Wagaung", "Tawthalin", "Thadingyut",
 			"Tazaungmon", "Nadaw", "Pyatho", "Tabodwe", "Tabaung", "Late Tagu", "Late Kason" };
 
 	public static MyanmarDate convert(int year, int month, int day) {
@@ -51,7 +53,7 @@ public class MyanmarDateConverter {
 	 *         30] fortnight day [1 to 15] moon phase [0=waxing, 1=full moon,
 	 *         2=waning, 3=new moon] week day [0=sat, 1=sun, ..., 6=fri]
 	 */
-	private static MyanmarDate j2m(double jd) {
+	public static MyanmarDate j2m(double jd) {
 
 		double jdn, dd, myl, mmt, a, b, c, e, f, mm, md, mml, mp, fd, wd;
 
@@ -274,7 +276,7 @@ public class MyanmarDateConverter {
 	 *            fortnight day [1 to 15]
 	 * @return julian day number
 	 */
-	private static double m2j(double my, double mm, double mmt, double mp, double fd) {
+	public static double m2j(double my, double mm, double mmt, double mp, double fd) {
 
 		double b, c, mml, m1, m2, md, dd;
 
@@ -337,8 +339,8 @@ public class MyanmarDateConverter {
 	 *            Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12 ]
 	 * @return
 	 */
-	public static MyanmarMonth getMyanmarMonth(double my, double mm) {
-		int i = 0;
+	public static MyanmarMonths getMyanmarMonth(double my, double mm) {
+
 		double j1 = Math.round(Constants.SY * my + Constants.MO) + 1;
 		double j2 = Math.round(Constants.SY * (my + 1) + Constants.MO);
 
@@ -360,36 +362,29 @@ public class MyanmarDateConverter {
 		if (mm > ei) {
 			mm = ei;
 		}
+		
+		List<Integer> index = new ArrayList<Integer>();
+		List<String> monthNameList = new ArrayList<String>();
+		int currentIndex = 0;
 
-		MyanmarMonth myanmarMonth = new MyanmarMonth();
-
-		for (i = si; i <= ei; i++) {
+		for (int i = si; i <= ei; i++) {
 			if (i == 4 && M1.myt != 0) {
-				myanmarMonth.index.add(0);
-				myanmarMonth.list.add(EMA[0]);
+				index.add(0);
+				monthNameList.add(EMA[0]);
 				if (mm == 0) {
-					myanmarMonth.nowIndex = 0;
+					currentIndex = 0;
 				}
 			}
-			myanmarMonth.index.add(i);
-			myanmarMonth.list.add(((i == 4 && M1.myt != 0) ? "2nd " : "") + EMA[i]);
+			index.add(i);
+			monthNameList.add(((i == 4 && M1.myt != 0) ? "Second " : "") + EMA[i]);
 
 			//if (i == mm)  
 			if(Math.abs(i - mm) < 0.0000001 ) {
-				myanmarMonth.nowIndex = i;
+				currentIndex = i;
 			}
 		}
 
-		return myanmarMonth;
-	}
-
-	public static void main(String[] args) {
-		MyanmarMonth myanmarMonth = getMyanmarMonth(1380, 3);
-
-		for (int i = 0; i < myanmarMonth.index.size(); i++) {
-			System.out.println(myanmarMonth.index.get(i) + "\t" + myanmarMonth.list.get(i));
-		}
-		System.out.println(myanmarMonth.nowIndex);
-	}
+		return new MyanmarMonths(index, monthNameList, currentIndex);
+	}	
 
 }
