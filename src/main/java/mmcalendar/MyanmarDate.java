@@ -1,5 +1,7 @@
 package mmcalendar;
 
+import java.io.Serializable;
+
 /**
  * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
  * 
@@ -7,12 +9,17 @@ package mmcalendar;
  * @version 1.0
  *
  */
-public class MyanmarDate {
+public class MyanmarDate implements Serializable, Cloneable, Comparable<MyanmarDate> {
+
+	private static final long serialVersionUID = 1L;
 
 	static final String[] MMA = { "First Waso", "Tagu", "Kason", "Nayon", "Waso", "Wagaung", "Tawthalin", "Thadingyut",
 			"Tazaungmon", "Nadaw", "Pyatho", "Tabodwe", "Tabaung" };
 
-	static final String[] MSA = { "waxing", "full moon", "waning", "new moon" };
+	/**
+	 * New Moon mean Dark moon
+	 */
+	static final String[] MSA = { "waxing", "full moon", "waning", "new moon" }; 
 
 	/**
 	 * Week Days
@@ -22,54 +29,56 @@ public class MyanmarDate {
 	/**
 	 * Myanmar year
 	 */
-	double my;
+	int myear;
 
 	/**
 	 * year type [0=common, 1=little watat, 2=big watat]
 	 */
-	double myt;
+	int yearType;
 
 	/**
-	 * year length [354, 384, or 385 days]
+	 * myl : year length [normal = 354, small watat = 384, or big watat = 385 days]
 	 */
-	double myl;
+	int yearLength;
 
 	/**
+	 * mm :
 	 * month Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd) Waso=4, Wagaung=5,
 	 * Tawthalin=6, Thadingyut=7, Tazaungmon=8, Nadaw=9, Pyatho=10, Tabodwe=11,
 	 * Tabaung=12
 	 */
-	double mm;
+	int mmonth;
 
 	/**
 	 * mmt: month type [1=hnaung, 0= Oo]
 	 */
-	double mmt;
+	int monthType;
 
 	/**
 	 * mml: month length [29 or 30 days]
 	 */
-	double mml;
+	int monthLength;
 
 	/**
 	 * md: month day [1 to 30]
 	 */
-	double md;
+	int monthDay;
 
 	/**
 	 * fd: fortnight day [1 to 15],
 	 */
-	double fd;
+	int fortnightDay;
 
 	/**
+	 * 
 	 * mp :moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon],
 	 */
-	double mp;
+	int moonPhase;
 
 	/**
 	 * wd: week day [0=sat, 1=sun, ..., 6=fri]
 	 */
-	double wd;
+	int weekDay;
 
 	/**
 	 * julian day number
@@ -81,9 +90,9 @@ public class MyanmarDate {
 
 	/**
 	 * 
-	 * @param my
+	 * @param myear
 	 *            Myanmar year
-	 * @param mm
+	 * @param mmonth
 	 *            month Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd) Waso=4,
 	 *            Wagaung=5, Tawthalin=6, Thadingyut=7, Tazaungmon=8, Nadaw=9,
 	 *            Pyatho=10, Tabodwe=11, Tabaung=12
@@ -91,15 +100,15 @@ public class MyanmarDate {
 	 *            month type [1=hnaung, 0= Oo]
 	 * @param fd
 	 *            fortnight day [1 to 15],
-	 * @param mp
+	 * @param moonPhase
 	 *            moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon],
 	 */
-	public MyanmarDate(int my, int mm, int mmt, int fd, int mp) {
+	public MyanmarDate(int myear, int mmonth, int mmt, int fd, int moonPhase) {
 		
-		if (my < 0){
+		if (myear < 0){
 			throw new IllegalArgumentException("Myanmar year must be positive number");
 		}
-		if (mm < 0 || mm > 13){
+		if (mmonth < 0 || mmonth > 13){
 			throw new IllegalArgumentException("Month must be 0 to 12");
 		}
 		if (mmt < 0 || mmt > 1){
@@ -108,19 +117,19 @@ public class MyanmarDate {
 		if (fd < 1 || fd > 15){
 			throw new IllegalArgumentException("Fortnight day must be 0 to 15");
 		}
-		if (mp < 0 || mp > 3){
+		if (moonPhase < 0 || moonPhase > 3){
 			throw new IllegalArgumentException("Moon phase must be 0 to 3");
 		}
 		
-		this.my = my;
-		this.mm = mm;
-		this.mmt = mmt;		
-		this.fd = fd;
-		this.mp = mp;
+		this.myear = myear;
+		this.mmonth = mmonth;
+		this.monthType = mmt;		
+		this.fortnightDay = fd;
+		this.moonPhase = moonPhase;
 	}
 
 	public String getBuddhistEra(LanguageCatalog languageCatalog) {
-		return NumberToStringUtil.convert(my + 1182, languageCatalog);
+		return NumberToStringUtil.convert(myear + 1182, languageCatalog);
 	}
 
 	public String getBuddhistEra() {
@@ -128,7 +137,7 @@ public class MyanmarDate {
 	}
 
 	public String getYear(LanguageCatalog languageCatalog) {
-		return NumberToStringUtil.convert(my, languageCatalog);
+		return NumberToStringUtil.convert(myear, languageCatalog);
 	}
 
 	public String getYear() {
@@ -136,7 +145,7 @@ public class MyanmarDate {
 	}
 
 	public int getYearInt() {
-		return (int) my;
+		return myear;
 	}
 
 	/**
@@ -145,7 +154,7 @@ public class MyanmarDate {
 	 */
 	public int getYearType() {
 		/* 0=common, 1=little watat, 2=big watat */
-		return (int) mmt;
+		return yearType;
 	}
 
 	public String getMnt() {
@@ -155,39 +164,48 @@ public class MyanmarDate {
 	public String getMnt(LanguageCatalog languageCatalog) {
 		/* 0=common, 1=little watat, 2=big watat */
 		StringBuilder stringBuilder = new StringBuilder();
-		if (mmt > 0) {
+		if (monthType > 0) {
 			stringBuilder.append(languageCatalog.translate("Late"));
 		}
 
-		if (myt > 0 && mm == 4) {
+		if (yearType > 0 && mmonth == 4) {
 			stringBuilder.append(languageCatalog.translate("Second"));
 		}
 
 		return stringBuilder.toString();
 	}
 
+	/**
+	 * Myanmar Year Length
+	 * @return [normal=354, small watat=384, big watat=385]
+	 */
 	public int getYearLength() {
-		return (int) myl;
+		return yearLength;
 	}
 
-	public String getMyanmarMonth() {
-		return getMyanmarMonth(LanguageCatalog.getInstance());
+	public String getMonthName() {
+		return getMonthName(LanguageCatalog.getInstance());
 	}
 
-	public String getMyanmarMonth(LanguageCatalog languageCatalog) {
-		int mmIndex = (int) this.mm;
-		return languageCatalog.translate(MMA[mmIndex]);
+	public String getMonthName(LanguageCatalog languageCatalog) {
+		return getMnt() + languageCatalog.translate(MMA[this.mmonth]);
 	}
 
 	/**
-	 * Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd) Waso=4, Wagaung=5, *
-	 * Tawthalin=6, Thadingyut=7, Tazaungmon=8, Nadaw=9, Pyatho=10, Tabodwe=11,
-	 * * Tabaung=12
-	 * 
-	 * @return
+	 * @return int Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd) Waso=4,
+	 *         Wagaung=5, * Tawthalin=6, Thadingyut=7, Tazaungmon=8, Nadaw=9,
+	 *         Pyatho=10, Tabodwe=11, * Tabaung=12
 	 */
 	public int getMonth() {
-		return (int) mm;
+		return mmonth;
+	}
+	
+	/**
+	 * moon phase 
+	 * @return [0=waxing, 1=full moon, 2=waning, 3=new moon]
+	 */
+	public int getMoonPhraseInt(){
+		return moonPhase;
 	}
 
 	public String getMoonPhase() {
@@ -195,8 +213,7 @@ public class MyanmarDate {
 	}
 
 	public String getMoonPhase(LanguageCatalog languageCatalog) {
-		int mpIndex = (int) this.mp;
-		return languageCatalog.translate(MSA[mpIndex]);
+		return languageCatalog.translate(MSA[this.moonPhase]);
 	}
 
 	/**
@@ -204,7 +221,7 @@ public class MyanmarDate {
 	 * @return month length [29 or 30 days]
 	 */
 	public int getMonthLength() {
-		return (int) mml;
+		return monthLength;
 	}
 
 	/**
@@ -212,15 +229,15 @@ public class MyanmarDate {
 	 * @return month day [1 to 30]
 	 */
 	public int getMonthDay() {
-		return (int) md;
+		return monthDay;
 	}
 
 	/**
 	 * 
-	 * @return month type [1=hnaung, 0= Oo]
+	 * @return month type [1 = hnaung, 0 = Oo]
 	 */
 	public int getMonthType() {
-		return (int) mmt;
+		return monthType;
 	}
 
 	/**
@@ -228,7 +245,7 @@ public class MyanmarDate {
 	 * @return fortnight day [1 to 15],
 	 */
 	public int getFortnightDayInt() {
-		return (int) fd;
+		return fortnightDay;
 	}
 
 	public String getFortnightDay() {
@@ -236,7 +253,7 @@ public class MyanmarDate {
 	}
 
 	public String getFortnightDay(LanguageCatalog languageCatalog) {
-		return ((mp % 2) == 0) ? NumberToStringUtil.convert(fd, languageCatalog) : "";
+		return ((moonPhase % 2) == 0) ? NumberToStringUtil.convert(fortnightDay, languageCatalog) : "";
 	}
 
 	/**
@@ -244,7 +261,7 @@ public class MyanmarDate {
 	 * @return week day [0=sat, 1=sun, ..., 6=fri]
 	 */
 	public int getWeekDayInt() {
-		return (int) wd;
+		return weekDay;
 	}
 
 	public String getWeekDay() {
@@ -252,16 +269,15 @@ public class MyanmarDate {
 	}
 
 	public String getWeekDay(LanguageCatalog languageCatalog) {
-		int wdIndex = (int) this.wd;
-		return languageCatalog.translate(WDA[wdIndex]);
+		return languageCatalog.translate(WDA[this.weekDay]);
 	}
 
 	/**
 	 * 
 	 * @return julian day number
 	 */
-	public int getJulianDayNumber() {
-		return (int) jd;
+	public double getJulianDayNumber() {
+		return jd;
 	}
 
 	/**
@@ -269,11 +285,11 @@ public class MyanmarDate {
 	 * @return moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon],
 	 */
 	public int getMoonPhrase() {
-		return (int) mp;
+		return moonPhase;
 	}
 
 	public boolean isWeekend() {
-		return ((wd == 0) || (wd == 1)) ? true : false;
+		return ((weekDay == 0) || (weekDay == 1)) ? true : false;
 	}
 
 	@Override
@@ -295,7 +311,8 @@ public class MyanmarDate {
 		stringBuilder.append(" " + languageCatalog.getLanguage().getComma() + " ");
 
 		stringBuilder.append(" ");
-		stringBuilder.append(getMyanmarMonth(languageCatalog));
+		stringBuilder.append(getMonthName(languageCatalog));
+		stringBuilder.append(" ");
 		stringBuilder.append(getMoonPhase(languageCatalog));
 
 		stringBuilder.append(" ");
@@ -308,4 +325,62 @@ public class MyanmarDate {
 		return stringBuilder.toString();
 	}
 
+	@Override
+	public int compareTo(MyanmarDate anotherMyanmarDate) {		
+		return Double.compare(jd, anotherMyanmarDate.jd);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + fortnightDay;
+		long temp;
+		temp = Double.doubleToLongBits(jd);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + mmonth;
+		result = prime * result + monthDay;
+		result = prime * result + monthLength;
+		result = prime * result + monthType;
+		result = prime * result + moonPhase;
+		result = prime * result + myear;
+		result = prime * result + weekDay;
+		result = prime * result + yearLength;
+		result = prime * result + yearType;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MyanmarDate other = (MyanmarDate) obj;
+		if (fortnightDay != other.fortnightDay)
+			return false;
+		if (Double.doubleToLongBits(jd) != Double.doubleToLongBits(other.jd))
+			return false;
+		if (mmonth != other.mmonth)
+			return false;
+		if (monthDay != other.monthDay)
+			return false;
+		if (monthLength != other.monthLength)
+			return false;
+		if (monthType != other.monthType)
+			return false;
+		if (moonPhase != other.moonPhase)
+			return false;
+		if (myear != other.myear)
+			return false;
+		if (weekDay != other.weekDay)
+			return false;
+		if (yearLength != other.yearLength)
+			return false;
+		if (yearType != other.yearType)
+			return false;
+		return true;
+	}
 }

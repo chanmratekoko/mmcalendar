@@ -14,10 +14,10 @@ public class MyanmarMonths {
 
 	private List<Integer> index = new ArrayList<Integer>();
 	private List<String> monthNameList = new ArrayList<String>();
-	private int currentIndex;
+	private int currentIndex; //Calculation Month
 
-	public MyanmarMonths(List<Integer> index, List<String> monthNameList, int currentIndex) {
-		this.index =  new ArrayList<Integer>(index);
+	protected MyanmarMonths(List<Integer> index, List<String> monthNameList, int currentIndex) {
+		this.index = new ArrayList<Integer>(index);
 		this.monthNameList = new ArrayList<String>(monthNameList);
 		this.currentIndex = currentIndex;
 	}
@@ -29,20 +29,20 @@ public class MyanmarMonths {
 	public List<String> getMonthNameList() {
 		return monthNameList;
 	}
-	
-	public List<String> getMonthNameList(LanguageCatalog languageCatalog) {		
-		if(languageCatalog.getLanguage() == Language.ENGLISH){
+
+	public List<String> getMonthNameList(LanguageCatalog languageCatalog) {
+		if (languageCatalog.getLanguage() == Language.ENGLISH) {
 			return monthNameList;
-		}		
+		}
 		List<String> temp = new ArrayList<String>();
-		for (String string : monthNameList){
+		for (String string : monthNameList) {
 			temp.add(languageCatalog.translate(string));
-		}		
+		}
 		return temp;
 	}
 
 	public int getCurrentIndex() {
 		return currentIndex;
 	}
-	
+
 }

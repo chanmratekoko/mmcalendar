@@ -13,22 +13,29 @@ import java.util.List;
 public final class HolidayCalculator {
 
 	/**
+	 * Don't let anyone instantiate this class.
+	 */
+	private HolidayCalculator() {
+	}
+
+	/**
 	 * Eid
 	 */
 	private static final int[] ghEid2 = new int[] { 2456936, 2457290, 2457644 };
 
 	/**
-	 * Chinese New Year
-	 * ref http://www.mom.gov.sg/employment-practices/public-holidays
-	 * ref https://en.wikipedia.org/wiki/Chinese_New_Year
+	 * Chinese New Year ref
+	 * http://www.mom.gov.sg/employment-practices/public-holidays ref
+	 * https://en.wikipedia.org/wiki/Chinese_New_Year
 	 */
 	private static final int[] ghCNY = new int[] { 2456689, 2456690, 2457073, 2457074, 2457427, 2457428, 2457782,
-			2457783, 2458166, 2458167};
+			2457783, 2458166, 2458167 };
 
 	private static final int[] ghDiwali = new int[] { 2456599, 2456953, 2457337, 2457691, 2458045, 2458429 };
 	private static final int[] ghEid = new int[] { 2456513, 2456867, 2457221, 2457576, 2457930, 2458285 };
 
 	/**
+	 * Check for English Holiday
 	 * 
 	 * @param gy
 	 *            year
@@ -36,9 +43,9 @@ public final class HolidayCalculator {
 	 *            month [Jan=1, ... , Dec=12]
 	 * @param gd
 	 *            day [0-31]
-	 * @return Holiday Strings
+	 * @return Name of Holiday Strings List if exist
 	 */
-	static List<String> ehol(int gy, int gm, int gd) {
+	static List<String> englishHoliday(int gy, int gm, int gd) {
 
 		List<String> holiday = new ArrayList<String>();
 
@@ -66,40 +73,41 @@ public final class HolidayCalculator {
 	}
 
 	/**
+	 * Check for Myanmar Holiday
 	 * 
-	 * @param my
+	 * @param myear
 	 *            Myanmar Year
-	 * @param mm
+	 * @param mmonth
 	 *            Myanmar month [Tagu=1, ... , Tabaung=12]
-	 * @param md
-	 *            day [0-30]
-	 * @param mp
-	 *            moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
-	 * @return List of holiday String
+	 * @param monthDay
+	 *            Myanmar Month day [0-30]
+	 * @param moonPhase
+	 *            Moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
+	 * @return Name of Holiday Strings List if exist
 	 */
-	static List<String> mhol(double my, int mm, int md, int mp) {
+	static List<String> myanmarHoliday(double myear, int mmonth, int monthDay, int moonPhase) {
 
 		List<String> holiday = new ArrayList<String>();
 
-		if ((mm == 2) && (mp == 1)) {
+		if ((mmonth == 2) && (moonPhase == 1)) {
 			holiday.add("Buddha Day");
 		} // Vesak day
-		else if ((mm == 4) && (mp == 1)) {
+		else if ((mmonth == 4) && (moonPhase == 1)) {
 			holiday.add("Start of Buddhist Lent");
 		} // Warso day
-		else if ((mm == 7) && (mp == 1)) {
+		else if ((mmonth == 7) && (moonPhase == 1)) {
 			holiday.add("End of Buddhist Lent");
-		} else if ((my >= 1379) && (mm == 7) && (md == 14 || md == 16)) {
+		} else if ((myear >= 1379) && (mmonth == 7) && (monthDay == 14 || monthDay == 16)) {
 			holiday.add("Holiday");
-		} else if ((mm == 8) && (mp == 1)) {
+		} else if ((mmonth == 8) && (moonPhase == 1)) {
 			holiday.add("Tazaungdaing");
-		} else if ((my >= 1379) && (mm == 8) && (md == 14)) {
+		} else if ((myear >= 1379) && (mmonth == 8) && (monthDay == 14)) {
 			holiday.add("Holiday");
-		} else if ((my >= 1282) && (mm == 8) && (md == 25)) {
+		} else if ((myear >= 1282) && (mmonth == 8) && (monthDay == 25)) {
 			holiday.add("National Day");
-		} else if ((mm == 10) && (md == 1)) {
+		} else if ((mmonth == 10) && (monthDay == 1)) {
 			holiday.add("Karen New Year Day");
-		} else if ((mm == 12) && (mp == 1)) {
+		} else if ((mmonth == 12) && (moonPhase == 1)) {
 			holiday.add("Tabaung Pwe");
 		}
 
@@ -110,13 +118,13 @@ public final class HolidayCalculator {
 	 * 
 	 * @param jdn
 	 *            Julian Day Number to check
-	 * @param my
+	 * @param myear
 	 *            Myanmar year
-	 * @param mmt
-	 *            myanmar month type [oo=0, hnaung=1
+	 * @param monthType
+	 *            Myanmar month type [oo=0, hnaung=1
 	 * @return List of holiday String
 	 */
-	public static List<String> thingyan(double jdn, double my, int mmt) {
+	public static List<String> thingyan(double jdn, double myear, int monthType) {
 
 		// start of Thingyan
 		int BGNTG = 1100;
@@ -128,10 +136,10 @@ public final class HolidayCalculator {
 		// start of third era
 		int SE3 = 1312;
 
-		double ja = Constants.SY * (my + mmt) + Constants.MO;
+		double ja = Constants.SY * (myear + monthType) + Constants.MO;
 		double jk;
 
-		if (my >= SE3) {
+		if (myear >= SE3) {
 			jk = ja - 2.169918982;
 		} else {
 			jk = ja - 2.1675;
@@ -145,7 +153,7 @@ public final class HolidayCalculator {
 			holiday.add("Myanmar New Year Day");
 		}
 
-		if ((my + mmt) >= BGNTG) {
+		if ((myear + monthType) >= BGNTG) {
 			if (jdn == atn) {
 				holiday.add("Thingyan Atat");
 			} else if ((jdn > akn) && (jdn < atn)) {
@@ -154,7 +162,7 @@ public final class HolidayCalculator {
 				holiday.add("Thingyan Akya");
 			} else if (jdn == (akn - 1)) {
 				holiday.add("Thingyan Akyo");
-			} else if (((my + mmt) >= 1369) && ((my + mmt) < 1379)
+			} else if (((myear + monthType) >= 1369) && ((myear + monthType) < 1379)
 					&& ((jdn == (akn - 2)) || ((jdn >= (atn + 2)) && (jdn <= (akn + 7))))) {
 				holiday.add("Holiday");
 			}
@@ -164,13 +172,13 @@ public final class HolidayCalculator {
 	}
 
 	/**
-	 * Diwali or Eid
+	 * Other holidays (ohol) Diwali or Eid
 	 * 
 	 * @param jd
 	 *            Julian day number
 	 * @return List of holiday String
 	 */
-	public static List<String> ohol(double jd) {
+	public static List<String> otherHolidays(double jd) {
 
 		List<String> holiday = new ArrayList<String>();
 
@@ -185,13 +193,16 @@ public final class HolidayCalculator {
 	}
 
 	/**
+	 * Anniversary day
 	 * 
 	 * @param jd
 	 *            Julian Day Number,
 	 * @param calendarType
 	 *            calendar type [Optional argument: 0=english (default),
 	 *            1=Gregorian, 2=Julian]
-	 * @return dependency: DoE(), j2w()
+	 * @return
+	 * 
+	 * 		dependency: DoE(), j2w()
 	 */
 	public static List<String> ecd(double jd, CalendarType calendarType) {
 		// ct=ct||0;
@@ -201,7 +212,7 @@ public final class HolidayCalculator {
 
 		List<String> holiday = new ArrayList<String>();
 
-		WesternDate wd = WesternDateConverter.j2w(jd, calendarType);
+		WesternDate wd = WesternDateConverter.convert(jd, calendarType);
 		double doe = DoE(wd.getYear());
 
 		if ((wd.getYear() >= 1915) && (wd.getMonth() == 2) && (wd.getDay() == 13)) {
@@ -242,14 +253,14 @@ public final class HolidayCalculator {
 	 * "Practical Astronomy with your Calculator or Spreadsheet," 4th Etd,
 	 * Cambridge university press, 2011. Page-4.
 	 * 
-	 * @param y
-	 *            year
+	 * @param year
+	 *            Western year
 	 * @return julian day number dependency: w2j()
 	 */
-	private static double DoE(double y) {
-		double a = y % 19;
-		double b = Math.floor(y / 100);
-		double c = y % 100;
+	private static double DoE(int year) {
+		double a = year % 19;
+		double b = Math.floor(year / 100);
+		double c = year % 100;
 		double d = Math.floor(b / 4);
 		double e = b % 4;
 		double f = Math.floor((b + 8) / 25);
@@ -260,62 +271,63 @@ public final class HolidayCalculator {
 		double l = (32 + 2 * e + 2 * i - h - k) % 7;
 		double m = Math.floor((a + 11 * h + 22 * l) / 451);
 		double q = h + l - 7 * m + 114;
-		double p = (q % 31) + 1;
-		double n = Math.floor(q / 31);
+		int day = (int) ((q % 31) + 1);
+		int month = (int) Math.floor(q / 31);
 		// this is for Gregorian
-		return WesternDateConverter.w2j(y, n, p, 1, 0);
+		return WesternDateKernel.w2j(year, month, day, 1, 0);
 	}
 
 	/**
+	 * Myanmar Anniversary day
 	 * 
-	 * @param my
+	 * @param myear
 	 *            Myanmar year
-	 * @param mm
+	 * @param mmonth
 	 *            Myanmar month [Tagu=1, ... , Tabaung=12]
-	 * @param md
-	 *            day [0-30]
-	 * @param mp
-	 *            moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
+	 * @param monthDay
+	 *            Month day [1 to 30]
+	 * @param moonPhase
+	 *            Moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
 	 * @return List of holiday String
 	 */
-	public static List<String> mcd(double my, int mm, int md, int mp) {
+	public static List<String> mcd(double myear, int mmonth, int monthDay, int moonPhase) {
 
 		List<String> holiday = new ArrayList<String>();
 
-		if ((my >= 1309) && (mm == 11) && (md == 16)) {
+		if ((myear >= 1309) && (mmonth == 11) && (monthDay == 16)) {
 			holiday.add("Mon National Day");
 		} // the ancient founding of Hanthawady
-		else if ((mm == 9) && (md == 1)) {
+		else if ((mmonth == 9) && (monthDay == 1)) {
 			holiday.add("Shan New Year Day");
-			if (my >= 1306) {
+			if (myear >= 1306) {
 				holiday.add("Authors Day");
 			}
 		} // Nadaw waxing moon 1
-		else if ((mm == 3) && (mp == 1)) {
+		else if ((mmonth == 3) && (moonPhase == 1)) {
 			holiday.add("Mahathamaya Day");
 		} // Nayon full moon
-		else if ((mm == 6) && (mp == 1)) {
+		else if ((mmonth == 6) && (moonPhase == 1)) {
 			holiday.add("Garudhamma Day");
 		} // Tawthalin full moon
-		else if ((my >= 1356) && (mm == 10) && (mp == 1)) {
+		else if ((myear >= 1356) && (mmonth == 10) && (moonPhase == 1)) {
 			holiday.add("Mothers Day");
 		} // Pyatho full moon
-		else if ((my >= 1370) && (mm == 12) && (mp == 1)) {
+		else if ((myear >= 1370) && (mmonth == 12) && (moonPhase == 1)) {
 			holiday.add("Fathers Day");
 		} // Tabaung full moon
-		else if ((mm == 5) && (mp == 1)) {
+		else if ((mmonth == 5) && (moonPhase == 1)) {
 			holiday.add("Metta Day");
 			// if(my>=1324) {hs[h++]="Mon Revolution Day";}//Mon Revolution day
 		} // Waguang full moon
-		else if ((mm == 5) && (md == 10)) {
+		else if ((mmonth == 5) && (monthDay == 10)) {
 			holiday.add("Taungpyone Pwe");
 		} // Taung Pyone Pwe
-		else if ((mm == 5) && (md == 23)) {
+		else if ((mmonth == 5) && (monthDay == 23)) {
 			holiday.add("Yadanagu Pwe");
 		} // Yadanagu Pwe
 
-		// else if((my>=1119) && (mm==2) && (md==23)) {hs[h++]="Mon Fallen
-		// Day";}
+		// else if((my>=1119) && (mm==2) && (md==23))
+		// {hs[h++]="Mon Fallen Day";}
 		// else if((mm==12) && (md==12)) {hs[h++]="Mon Women Day";}
 
 		return holiday;
@@ -329,12 +341,13 @@ public final class HolidayCalculator {
 	 */
 	public static List<String> getHoliday(MyanmarDate myanmarDate) {
 
-		WesternDate westernDate = WesternDateConverter.j2w(myanmarDate.jd, Config.CALENDARTYPE);
+		WesternDate westernDate = WesternDateConverter.convert(myanmarDate.jd, Config.CALENDARTYPE);
 		// Office Off
-		List<String> hde = ehol(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay());
-		List<String> hdm = mhol(myanmarDate.my, (int) myanmarDate.mm, (int) myanmarDate.md, (int) myanmarDate.mp);
-		List<String> hdt = thingyan(myanmarDate.jd, myanmarDate.my, (int) myanmarDate.mmt);
-		List<String> hdo = ohol(myanmarDate.jd); // Diwali Eid
+		List<String> hde = englishHoliday(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay());
+		List<String> hdm = myanmarHoliday(myanmarDate.myear, myanmarDate.mmonth, myanmarDate.monthDay,
+				myanmarDate.moonPhase);
+		List<String> hdt = thingyan(myanmarDate.jd, myanmarDate.myear, myanmarDate.monthType);
+		List<String> hdo = otherHolidays(myanmarDate.jd); // Diwali Eid
 
 		List<String> holiday = new ArrayList<String>();
 
@@ -349,6 +362,7 @@ public final class HolidayCalculator {
 	/**
 	 * 
 	 * @param myanmarDate
+	 *            MyanmarDate object
 	 * @return boolean
 	 */
 	public static boolean isHoliday(MyanmarDate myanmarDate) {
@@ -358,6 +372,7 @@ public final class HolidayCalculator {
 	/**
 	 * 
 	 * @param holidayList
+	 *            List Of Holiday
 	 * @return boolean
 	 */
 	public static boolean isHoliday(List<String> holidayList) {
@@ -367,12 +382,13 @@ public final class HolidayCalculator {
 	/**
 	 * 
 	 * @param myanmarDate
+	 *            MyanmarDate Object
 	 * @return List of holiday String
 	 */
 	public static List<String> getAnniversary(MyanmarDate myanmarDate) {
 		List<String> ecd = ecd(myanmarDate.jd, Config.CALENDARTYPE); // anniversary
 																		// day
-		List<String> mcd = mcd(myanmarDate.my, (int) myanmarDate.mm, (int) myanmarDate.md, (int) myanmarDate.mp);
+		List<String> mcd = mcd(myanmarDate.myear, myanmarDate.mmonth, myanmarDate.monthDay, myanmarDate.moonPhase);
 
 		List<String> holiday = new ArrayList<String>();
 

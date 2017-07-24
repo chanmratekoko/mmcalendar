@@ -1,45 +1,78 @@
 package mmcalendar;
 
+import java.io.Serializable;
+
 /**
+ * Astrological info
+ *
  * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
  * @author Chan Mrate Ko Ko
  * @version 1.0
  *
  */
-public class Astro {
+public class Astro implements Serializable, Cloneable {
 
-	double sabbath;
-	double sabbatheve;
-	double yatyaza;
-	double pyathada;
-	double thamanyo;
-	double amyeittasote;
-	double warameittugyi;
-	double warameittunge;
-	double yatpote;
-	double thamaphyu;
-	double nagapor;
-	double yatyotema;
-	double mahayatkyan;
-	double shanyat;
-	/* 0=west, 1=north, 2=east, 3=south */
-	double nagahle;
-	/* 0=Binga, 1=Atun, 2=Yaza, 3=Adipati, 4= Marana, 5=Thike, 6=Puti */
-	double mahabote;
-	/* 0=orc, 1=elf, 2=human */
-	double nakhat;
+	private static final long serialVersionUID = 704868696259464344L;
+	
+	int sabbath;
+	int sabbatheve;
+	int yatyaza;
+	int pyathada;
+	int thamanyo;
+	int amyeittasote;
+	int warameittugyi;
+	int warameittunge;
+	int yatpote;
+	int thamaphyu;
+	int nagapor;
+	int yatyotema;
+	int mahayatkyan;
+	int shanyat;
+	/* 0 = west, 1 = north, 2 = east, 3 = south */
+	int nagahle;
+	/* 0 = Binga, 1 = Atun, 2 = Yaza, 3 = Adipati, 4 = Marana, 5 = Thike, 6 = Puti */
+	int mahabote;
+	/* 0 = orc, 1 = elf, 2 = human */
+	int nakhat;
 	//{"ပုဿနှစ်","မာခနှစ်","ဖ္လကိုန်သံဝစ္ဆိုဝ်ရနှစ်","စယ်နှစ်",
 			//"ပိသျက်နှစ်","စိဿနှစ်","အာသတ်နှစ်","သရဝန်နှစ်",
 			//"ဘဒ္ဒြသံဝစ္ဆုံရ်နှစ်","အာသိန်နှစ်","ကြတိုက်နှစ်","မြိက္ကသိုဝ်နှစ်"}
 	int yearName;
 
 	protected Astro() {
+	}	
+
+	/**
+	 * 
+	 * @return [ if greater 0 is Yatyaza ]
+	 */
+	public int getYatyaza() {
+		return yatyaza;
 	}
 
+	/**
+	 * 
+	 * @return [ 0 = none ,  1 = Pyathada , 2 = Afternoon Pyathada]
+	 */
+	public int getPyathada() {
+		return pyathada;
+	}
+
+	/**
+	 * 
+	 * @return String ["Yatyaza", "Pyathada" or "Afternoon Pyathada" or None ""]
+	 * 		Output String Depend On Default LanguageCatalog on Config
+	 */
 	public String getAstroligicalDay() {
 		return getAstroligicalDay(LanguageCatalog.getInstance());
 	}
 
+	/**
+	 * 
+	 * @param languageCatalog LanguageCatalog
+	 * @return String ["Yatyaza", "Pyathada" or Afternoon Pyathada or None ""]
+	 * 		Output String Depend On LanguageCatalog
+	 */
 	public String getAstroligicalDay(LanguageCatalog languageCatalog) {
 		StringBuilder stringBuilder = new StringBuilder();
 		if (yatyaza > 0) {
@@ -61,6 +94,13 @@ public class Astro {
 		return getSabbath(LanguageCatalog.getInstance());
 	}
 
+	/**
+	 * 
+	 * @param languageCatalog LanguageCatalog
+	 * @return String ["" , "" or none "" ]
+	 * 		Output String Depend On LanguageCatalog
+	 * 		{Calculation depend on sabbath or sabbatheve}
+	 */
 	public String getSabbath(LanguageCatalog languageCatalog) {
 		StringBuilder stringBuilder = new StringBuilder();
 		if (sabbath > 0) {
@@ -80,7 +120,7 @@ public class Astro {
 	}
 
 	public String getThamanyo(LanguageCatalog languageCatalog) {
-		return (thamanyo > 0) ? languageCatalog.translate("Thamanyo") : "";
+		return isThamanyo() ? languageCatalog.translate("Thamanyo") : "";
 	}
 
 	public boolean isAmyeittasote() {
@@ -92,7 +132,7 @@ public class Astro {
 	}
 
 	public String getAmyeittasote(LanguageCatalog languageCatalog) {
-		return (amyeittasote > 0) ? languageCatalog.translate("Amyeittasote") : "";
+		return isAmyeittasote() ? languageCatalog.translate("Amyeittasote") : "";
 	}
 
 	public boolean isWarameittugyi() {
@@ -104,7 +144,7 @@ public class Astro {
 	}
 
 	public String getWarameittugyi(LanguageCatalog languageCatalog) {
-		return (warameittugyi > 0) ? languageCatalog.translate("Warameittugyi") : "";
+		return isWarameittugyi() ? languageCatalog.translate("Warameittugyi") : "";
 	}
 
 	public boolean isWarameittunge() {
@@ -116,7 +156,7 @@ public class Astro {
 	}
 
 	public String getWarameittunge(LanguageCatalog languageCatalog) {
-		return (warameittunge > 0) ? languageCatalog.translate("Warameittunge") : "";
+		return isWarameittunge() ? languageCatalog.translate("Warameittunge") : "";
 	}
 
 	public boolean isYatpote() {
@@ -128,7 +168,7 @@ public class Astro {
 	}
 
 	public String getYatpote(LanguageCatalog languageCatalog) {
-		return (yatpote > 0) ? languageCatalog.translate("Yatpote") : "";
+		return isYatpote() ? languageCatalog.translate("Yatpote") : "";
 	}
 
 	public boolean isThamaphyu() {
@@ -140,7 +180,7 @@ public class Astro {
 	}
 
 	public String getThamaphyu(LanguageCatalog languageCatalog) {
-		return (thamaphyu > 0) ? languageCatalog.translate("Thamaphyu") : "";
+		return isThamaphyu() ? languageCatalog.translate("Thamaphyu") : "";
 	}
 
 	public boolean isNagapor() {
@@ -152,7 +192,7 @@ public class Astro {
 	}
 
 	public String getNagapor(LanguageCatalog languageCatalog) {
-		return (nagapor > 0) ? languageCatalog.translate("Nagapor") : "";
+		return isNagapor() ? languageCatalog.translate("Nagapor") : "";
 	}
 
 	public boolean isYatyotema() {
@@ -164,7 +204,7 @@ public class Astro {
 	}
 
 	public String getYatyotema(LanguageCatalog languageCatalog) {
-		return (yatyotema > 0) ? languageCatalog.translate("Yatyotema") : "";
+		return isYatyotema() ? languageCatalog.translate("Yatyotema") : "";
 	}
 
 	public boolean isMahayatkyan() {
@@ -176,7 +216,7 @@ public class Astro {
 	}
 
 	public String getMahayatkyan(LanguageCatalog languageCatalog) {
-		return (mahayatkyan > 0) ? languageCatalog.translate("Mahayatkyan") : "";
+		return isMahayatkyan() ? languageCatalog.translate("Mahayatkyan") : "";
 	}
 
 	public boolean isShanyat() {
@@ -188,7 +228,7 @@ public class Astro {
 	}
 
 	public String getShanyat(LanguageCatalog languageCatalog) {
-		return (shanyat > 0) ? languageCatalog.translate("Shanyat") : "";
+		return isShanyat() ? languageCatalog.translate("Shanyat") : "";
 	}
 
 	public String getNagahle() {
@@ -200,7 +240,7 @@ public class Astro {
 	 * @return 0=west, 1=north, 2=east, 3=south
 	 */
 	public int getNagahleInt() {
-		return (int) nagahle;
+		return nagahle;
 	}
 
 	public String getNagahle(LanguageCatalog languageCatalog) {
@@ -217,7 +257,7 @@ public class Astro {
 	 * @return 0=Binga, 1=Atun, 2=Yaza, 3=Adipati, 4= Marana, 5=Thike, 6=Puti
 	 */
 	public int getMahaboteInt() {
-		return (int) mahabote;
+		return mahabote;
 	}
 
 	public String getMahabote(LanguageCatalog languageCatalog) {
@@ -231,17 +271,26 @@ public class Astro {
 
 	/**
 	 * 
-	 * @return 0=orc, 1= elf, 2=human
+	 * @return 0 = orc, 1 = elf, 2=human
 	 */
 	public int getNakhatInt() {
-		return (int) nakhat;
+		return nakhat;
 	}
 
+	/**
+	 * 
+	 * @param languageCatalog LanguageCatalog
+	 * @return String [ "Orc" or "Elf" or "Human"]
+	 */
 	public String getNakhat(LanguageCatalog languageCatalog) {
 		String[] nk = new String[] { "Orc", "Elf", "Human" };
 		return languageCatalog.translate(nk[(int) nakhat]);
 	}
 	
+	/**
+	 * 
+	 * @return String Myanmar Year Name
+	 */
 	public String getYearName(){		
 		String[] yearNames = new String[] {"\u1015\u102F\u103F\u1014\u103E\u1005\u103A","\u1019\u102C\u1001\u1014\u103E\u1005\u103A","\u1016\u1039\u101C\u1000\u102D\u102F\u1014\u103A\u101E\u1036\u101D\u1005\u1039\u1006\u102D\u102F\u101D\u103A\u101B\u1014\u103E\u1005\u103A","\u1005\u101A\u103A\u1014\u103E\u1005\u103A",
 				"\u1015\u102D\u101E\u103B\u1000\u103A\u1014\u103E\u1005\u103A","\u1005\u102D\u103F\u1014\u103E\u1005\u103A","\u1021\u102C\u101E\u1010\u103A\u1014\u103E\u1005\u103A","\u101E\u101B\u101D\u1014\u103A\u1014\u103E\u1005\u103A",
@@ -260,7 +309,7 @@ public class Astro {
 		stringBuilder.append(getAstroligicalDay());
 
 		if (isSabbath()) {
-			stringBuilder.append(" " + languageCatalog.getLanguage().getComma() + " ");
+			stringBuilder.append(languageCatalog.getLanguage().getComma() + " ");
 			stringBuilder.append(getSabbath(languageCatalog));
 		}
 
@@ -327,4 +376,77 @@ public class Astro {
 		return stringBuilder.toString();
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + amyeittasote;
+		result = prime * result + mahabote;
+		result = prime * result + mahayatkyan;
+		result = prime * result + nagahle;
+		result = prime * result + nagapor;
+		result = prime * result + nakhat;
+		result = prime * result + pyathada;
+		result = prime * result + sabbath;
+		result = prime * result + sabbatheve;
+		result = prime * result + shanyat;
+		result = prime * result + thamanyo;
+		result = prime * result + thamaphyu;
+		result = prime * result + warameittugyi;
+		result = prime * result + warameittunge;
+		result = prime * result + yatpote;
+		result = prime * result + yatyaza;
+		result = prime * result + yatyotema;
+		result = prime * result + yearName;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Astro other = (Astro) obj;
+		if (amyeittasote != other.amyeittasote)
+			return false;
+		if (mahabote != other.mahabote)
+			return false;
+		if (mahayatkyan != other.mahayatkyan)
+			return false;
+		if (nagahle != other.nagahle)
+			return false;
+		if (nagapor != other.nagapor)
+			return false;
+		if (nakhat != other.nakhat)
+			return false;
+		if (pyathada != other.pyathada)
+			return false;
+		if (sabbath != other.sabbath)
+			return false;
+		if (sabbatheve != other.sabbatheve)
+			return false;
+		if (shanyat != other.shanyat)
+			return false;
+		if (thamanyo != other.thamanyo)
+			return false;
+		if (thamaphyu != other.thamaphyu)
+			return false;
+		if (warameittugyi != other.warameittugyi)
+			return false;
+		if (warameittunge != other.warameittunge)
+			return false;
+		if (yatpote != other.yatpote)
+			return false;
+		if (yatyaza != other.yatyaza)
+			return false;
+		if (yatyotema != other.yatyotema)
+			return false;
+		if (yearName != other.yearName)
+			return false;
+		return true;
+	}
+	
 }

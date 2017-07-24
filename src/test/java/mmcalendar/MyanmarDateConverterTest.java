@@ -19,7 +19,7 @@ public class MyanmarDateConverterTest {
 	
 	@Test
 	public void calculateWithAstro(){
-		MyanmarDate myanmarDate = MyanmarDateConverter.convert(1983, 12, 31);
+		MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 7, 24);
 		Astro astro = AstroConverter.convert(myanmarDate);
 		System.out.println(myanmarDate.toString());
 		System.out.println(astro.toString());
@@ -57,7 +57,7 @@ public class MyanmarDateConverterTest {
 	
 	@Test
 	public void getMyanmarMonth(){
-		MyanmarMonths myanmarMonth = MyanmarDateConverter.getMyanmarMonth(1380, 3);
+		MyanmarMonths myanmarMonth = MyanmarDateKernel.getMyanmarMonth(1380, 3);
 		
 		List<Integer> index = new ArrayList<Integer>();
 		List<String> list = new ArrayList<String>();

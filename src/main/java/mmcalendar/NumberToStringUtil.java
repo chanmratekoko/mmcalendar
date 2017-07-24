@@ -8,13 +8,19 @@ package mmcalendar;
  * @version 1.0
  *
  */
-public class NumberToStringUtil {
+public final class NumberToStringUtil {
+	
+    /**
+     * Don't let anyone instantiate this class.
+     */
+	private NumberToStringUtil() {
+	}
 
 	/**
 	 * Number to String
-	 * @param number
-	 * @param languageCatalog
-	 * @return
+	 * @param number Number 
+	 * @param languageCatalog LanguageCatalog object
+	 * @return String
 	 */
 	public static String convert(double number, LanguageCatalog languageCatalog) {
 		int r = 0;

@@ -115,7 +115,9 @@ final class Era {
 
 	}
 
-	protected Era() {
-		super();		
+    /**
+     * Don't let anyone instantiate this class.
+     */
+	private Era() {
 	}	
 }

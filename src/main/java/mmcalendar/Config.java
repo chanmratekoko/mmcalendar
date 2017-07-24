@@ -7,8 +7,8 @@ package mmcalendar;
  * @version 1.0
  *
  */
-public class Config {
-
+public final class Config {
+	
 	/**
 	 * beginning and end of the calendar
 	 */
@@ -27,13 +27,18 @@ public class Config {
 	public static final int MLT = 1062;
 	public static final int MUT = 1379;
 
-	//public static int TYPE = 0;
+	public static CalendarType CALENDARTYPE = CalendarType.ENGLISH;
 	
-	public static final CalendarType CALENDARTYPE = CalendarType.ENGLISH;
+	public static Language lANGUAGE = Language.MYANMAR;	
 	
-	public static final Language lANGUAGE = Language.MYANMAR;	
-	
-	//Gregorian start in English calendar (1752/Sep/14)
+	/**
+	 * Gregorian start in English calendar (1752/Sep/14)
+	 */
 	public static final double SG = 2361222; 
 	
+    /**
+     * Don't let anyone instantiate this class.
+     */
+	private Config() {
+	}
 }

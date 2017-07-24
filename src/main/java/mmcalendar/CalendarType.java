@@ -7,6 +7,7 @@ package mmcalendar;
  *
  */
 public enum CalendarType {
+	
 	ENGLISH(0, "English"), GREGORIAN(1, "Gregorian"), JULIAN(2, "Julian");
 
 	private String label;

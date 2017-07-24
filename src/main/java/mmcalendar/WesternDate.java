@@ -9,14 +9,14 @@ package mmcalendar;
  */
 public class WesternDate {
 
-	private double year;
-	private double month;
-	private double day;
-	private double hour;
-	private double minute;
-	private double second;
+	private int year;
+	private int month;
+	private int day;
+	private int hour;
+	private int minute;
+	private int second;
 
-	WesternDate(double year, double month, double day, double hour, double minute, double second) {
+	WesternDate(int year, int month, int day, int hour, int minute, int second) {
 		this.year = year;
 		this.month = month;
 		this.day = day;
@@ -26,27 +26,27 @@ public class WesternDate {
 	}
 
 	public int getYear() {
-		return (int) year;
+		return year;
 	}
 
 	public int getMonth() {
-		return (int) month;
+		return month;
 	}
 
 	public int getDay() {
-		return (int) day;
+		return day;
 	}
 
 	public int getHour() {
-		return (int) hour;
+		return hour;
 	}
 
 	public int getMinute() {
-		return (int) minute;
+		return minute;
 	}
 
 	public int getSecond() {
-		return (int) second;
+		return second;
 	}
 
 	@Override	

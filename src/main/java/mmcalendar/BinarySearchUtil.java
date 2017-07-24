@@ -2,16 +2,26 @@ package mmcalendar;
 
 /**
  * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
  * @author Chan Mrate Ko Ko
  * @version 1.0
  *
  */
-public class BinarySearchUtil {
+public final class BinarySearchUtil {
+
+	/**
+	 * Don't let anyone instantiate this class.
+	 */
+	private BinarySearchUtil() {
+	}
 
 	/**
 	 * Search first dimension in a 2D array
-	 * @param k key
-	 * @param A array
+	 * 
+	 * @param k
+	 *            Key
+	 * @param A
+	 *            Array
 	 * @return index
 	 */
 	public static int search(double k, int[][] A) {
@@ -33,8 +43,11 @@ public class BinarySearchUtil {
 
 	/**
 	 * Search first dimension in a 1D array
-	 * @param k key
-	 * @param A array
+	 * 
+	 * @param k
+	 *            Key
+	 * @param A
+	 *            Array
 	 * @return index
 	 */
 	public static int search(double k, int[] A) {
