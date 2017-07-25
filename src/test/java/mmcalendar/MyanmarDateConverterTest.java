@@ -1,33 +1,20 @@
 package mmcalendar;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import mmcalendar.Astro;
-import mmcalendar.AstroConverter;
-import mmcalendar.MyanmarDate;
-import mmcalendar.MyanmarDateConverter;
-import mmcalendar.MyanmarMonths;
-
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import static org.hamcrest.MatcherAssert.*;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 public class MyanmarDateConverterTest {
 	
 	@Test
-	public void calculateWithAstro(){
-		MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 7, 24);
-		Astro astro = AstroConverter.convert(myanmarDate);
-		System.out.println(myanmarDate.toString());
-		System.out.println(astro.toString());
-	}
-
-	@Test
 	public void convert() {
-
+		MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 7, 24);
+		System.out.println(myanmarDate.toString());
 	}
 	
 	@Test

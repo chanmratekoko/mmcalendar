@@ -3,9 +3,10 @@ package mmcalendar;
 
 /**
  * Calculation Algorithms for Myanmar Astro
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * @author Chan Mrate Ko Ko
- * @version 1.0.2
+ * 
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
+ * @version 1.0
  *
  */
 public final class AstroKernel {	
@@ -95,7 +96,7 @@ public final class AstroKernel {
 		amyeittasote = 0;
 		wda = new int[] { 5, 8, 3, 7, 2, 4, 1 };
 
-		if (d == wda[weekDay]) {
+		if ((int)d == wda[weekDay]) {
 			amyeittasote = 1;
 		}
 

@@ -23,7 +23,7 @@ compile 'com.github.chanmratekoko:myanmar-calendar:1.0.2.RC1'
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
 
-## Usage
+## Sample
 
 ### Java
 
@@ -34,7 +34,7 @@ MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 6, 6);
 
 String sasanaYear = myanmarDate.getBuddhistEra(languageCatalog);
 String myanmarYear = myanmarDate.getYear(languageCatalog);
-String myanmarMonth = myanmarDate.getMyanmarMonth(languageCatalog);
+String myanmarMonthName = myanmarDate.getMonthName(languageCatalog);
 String fortnightDay = myanmarDate.getFortnightDay(languageCatalog);
 String weekDay = myanmarDate.getWeekDay(languageCatalog);
 
@@ -50,7 +50,7 @@ var myanmarDate : MyanmarDate = MyanmarDateConverter.convert(2017, 6, 8)
 
 var sasanaYear = myanmarDate.getBuddhistEra(languageCatalog)
 var myanmarYear = myanmarDate.getYear(languageCatalog)
-var myanmarMonth = myanmarDate.getMyanmarMonth(languageCatalog)
+var myanmarMonthName = myanmarDate.getMonthName(languageCatalog)
 var fortnightDay = myanmarDate.getFortnightDay(languageCatalog)
 var weekDay = myanmarDate.getWeekDay(languageCatalog)
 

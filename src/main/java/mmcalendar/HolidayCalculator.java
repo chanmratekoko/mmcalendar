@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * Holiday Calculator 
  * 
- * @author Chan Mrate Ko Ko
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
  * @version 1.0
  *
  */
@@ -332,7 +333,8 @@ public final class HolidayCalculator {
 
 		return holiday;
 	}
-
+	
+	
 	/**
 	 * 
 	 * @param myanmarDate
@@ -340,8 +342,21 @@ public final class HolidayCalculator {
 	 * @return List of holiday String
 	 */
 	public static List<String> getHoliday(MyanmarDate myanmarDate) {
+		return getHoliday(myanmarDate, Config.getCalendarType());
+	}
 
-		WesternDate westernDate = WesternDateConverter.convert(myanmarDate.jd, Config.CALENDARTYPE);
+
+	/**
+	 * 
+	 * @param myanmarDate
+	 *            MyanmarDate
+	 * @param calendarType
+	 *            CalendarType
+	 * @return List of holiday String
+	 */
+	public static List<String> getHoliday(MyanmarDate myanmarDate, CalendarType calendarType) {
+
+		WesternDate westernDate = WesternDateConverter.convert(myanmarDate.jd, calendarType);
 		// Office Off
 		List<String> hde = englishHoliday(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay());
 		List<String> hdm = myanmarHoliday(myanmarDate.myear, myanmarDate.mmonth, myanmarDate.monthDay,
@@ -378,7 +393,7 @@ public final class HolidayCalculator {
 	public static boolean isHoliday(List<String> holidayList) {
 		return holidayList.size() > 0 ? true : false;
 	}
-
+	
 	/**
 	 * 
 	 * @param myanmarDate
@@ -386,8 +401,19 @@ public final class HolidayCalculator {
 	 * @return List of holiday String
 	 */
 	public static List<String> getAnniversary(MyanmarDate myanmarDate) {
-		List<String> ecd = ecd(myanmarDate.jd, Config.CALENDARTYPE); // anniversary
-																		// day
+		return getAnniversary(myanmarDate, Config.getCalendarType());
+	}
+
+	/**
+	 * 
+	 * @param myanmarDate
+	 *            MyanmarDate
+	 * @param calendarType
+	 *            CalendarType
+	 * @return List of holiday String
+	 */
+	public static List<String> getAnniversary(MyanmarDate myanmarDate, CalendarType calendarType) {
+		List<String> ecd = ecd(myanmarDate.jd, calendarType); // anniversary day
 		List<String> mcd = mcd(myanmarDate.myear, myanmarDate.mmonth, myanmarDate.monthDay, myanmarDate.moonPhase);
 
 		List<String> holiday = new ArrayList<String>();

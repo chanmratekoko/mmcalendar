@@ -3,14 +3,11 @@ package mmcalendar;
 import org.junit.Assert;
 import org.junit.Test;
 
-import mmcalendar.LanguageCatalog;
-import mmcalendar.NumberToStringUtil;
-
-public class NumberToStringUtilTest {
+public class NumberToStringUtilTest {	
 
 	@Test
 	public void convert(){
-		String string = NumberToStringUtil.convert(999, LanguageCatalog.getInstance());
+		String string = NumberToStringUtil.convert(999, new LanguageCatalog(Language.MYANMAR));
 		Assert.assertEquals("\u1049\u1049\u1049", string);
 	}
 }

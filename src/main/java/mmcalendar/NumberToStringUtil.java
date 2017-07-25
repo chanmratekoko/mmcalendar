@@ -1,10 +1,10 @@
 package mmcalendar;
 
-
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * Number To Specific Language String
  * 
- * @author Chan Mrate Ko Ko
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
  * @version 1.0
  *
  */

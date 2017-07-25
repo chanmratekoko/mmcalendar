@@ -2,8 +2,10 @@ package mmcalendar;
 
 
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * @author Chan Mrate Ko Ko
+ * Configuration For Calendar
+ * 
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
  * @version 1.0
  *
  */
@@ -27,18 +29,31 @@ public final class Config {
 	public static final int MLT = 1062;
 	public static final int MUT = 1379;
 
-	public static CalendarType CALENDARTYPE = CalendarType.ENGLISH;
+	private static CalendarType CALENDARTYPE = CalendarType.ENGLISH;
 	
-	public static Language lANGUAGE = Language.MYANMAR;	
+	private static Language lANGUAGE = Language.MYANMAR;	
 	
 	/**
 	 * Gregorian start in English calendar (1752/Sep/14)
 	 */
 	public static final double SG = 2361222; 
 	
-    /**
-     * Don't let anyone instantiate this class.
-     */
-	private Config() {
+	public static void init(CalendarType calendarType, Language language){
+		
+		if(calendarType == null || language == null){
+			throw new IllegalArgumentException("CalendarType or Language cannot be null");
+		}
+		
+		CALENDARTYPE = calendarType;
+		lANGUAGE = language;
 	}
+
+	public static CalendarType getCalendarType() {
+		return CALENDARTYPE;
+	}
+
+	public static Language getLanguage() {
+		return lANGUAGE;
+	}	
+	
 }

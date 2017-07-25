@@ -1,9 +1,10 @@
 package mmcalendar;
 
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * Binary Search Utility
  * 
- * @author Chan Mrate Ko Ko
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
  * @version 1.0
  *
  */

@@ -134,6 +134,7 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.10.4</version>
 				<configuration>
+					<encoding>UTF-8</encoding>
 					<quiet>true</quiet>
 					<show>protected</show>
 					<linksource>true</linksource>
@@ -156,6 +157,33 @@
 							<show>public</show>
 						</configuration>
 					</execution>
+					
+					 <!-- Exports JavaDocs to regular HTML files -->
+                <execution>
+                    <id>javadoc-html</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>javadoc</goal>
+                    </goals>
+                </execution>
+
+                <!-- Generates the JavaDoc coverage report -->
+                <execution>
+                    <id>javadoc-coverage</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>javadoc</goal>
+                    </goals>
+                    <configuration>
+                        <doclet>com.manoelcampos.javadoc.coverage.CoverageDoclet</doclet>
+                        <docletArtifact>
+                            <groupId>com.manoelcampos</groupId>
+                            <artifactId>javadoc-coverage</artifactId>
+                            <version>1.0.0</version>
+                        </docletArtifact>
+                    </configuration>
+                </execution>
+					
 				</executions>
 			</plugin>
 			<plugin>

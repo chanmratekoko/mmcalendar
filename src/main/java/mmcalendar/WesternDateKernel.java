@@ -2,9 +2,10 @@ package mmcalendar;
 
 
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * Core Calculation and Algorithm for Western Date
  * 
- * @author Chan Mrate Ko Ko
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
  * @version 1.0.2
  *
  */
@@ -219,7 +220,7 @@ public final class WesternDateKernel {
 	 * @return julian day number of start of month
 	 */
 	public static int getJulianDayNumbeOstartOfMonth(int year, int month) {
-		return (int) w2j(year, month, 1, Config.CALENDARTYPE.getNumber(), 0);
+		return (int) w2j(year, month, 1, Config.getCalendarType().getNumber(), 0);
 	}
 
 	/**
@@ -264,7 +265,7 @@ public final class WesternDateKernel {
 	 */
 	public static int getJulianDayNumberOfEndOfMonth(int year, int month) {
 		int js = getJulianDayNumbeOstartOfMonth(year, month);
-		int eml = getLengthOfMonth(year, month, Config.CALENDARTYPE.getNumber());
+		int eml = getLengthOfMonth(year, month, Config.getCalendarType().getNumber());
 		return js + eml - 1;
 	}
 	

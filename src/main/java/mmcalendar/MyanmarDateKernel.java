@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Calculation Algorithms for Myanmar Date
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * @author Chan Mrate Ko Ko
+ * Core Calculation and Algorithms for Myanmar Date
+ * 
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
  * @version 1.0.2
- *
+ * 
  */
 public final class MyanmarDateKernel {
 	

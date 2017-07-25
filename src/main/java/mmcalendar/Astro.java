@@ -3,11 +3,12 @@ package mmcalendar;
 import java.io.Serializable;
 
 /**
- * Astrological info
- *
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * @author Chan Mrate Ko Ko
- * @version 1.0
+ * Astrological information
+ * 
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
+ * @version 1.0.2
+ * @since 1.0
  *
  */
 public class Astro implements Serializable, Cloneable {

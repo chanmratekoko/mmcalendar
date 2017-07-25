@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * Myanmar Months List for Specific Myanmar Year
  * 
- * @author Chan Mrate Ko Ko
- * @version 1.0
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
+ * @version 1.0.2 
+ * @since 1.0.1
  *
  */
 public class MyanmarMonths {

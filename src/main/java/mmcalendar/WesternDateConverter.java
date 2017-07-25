@@ -1,10 +1,13 @@
 package mmcalendar;
 
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * Western Date Converter
  * 
- * @author Chan Mrate Ko Ko
- * @version 1.0
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
+ * @version 1.0.2
+ * 
+ * @since 1.0
  *
  */
 public class WesternDateConverter {

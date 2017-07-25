@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * @author Chan Mrate Ko Ko
- * @version 1.0
- *
+ * Language Catalog
+ * 
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
+ * @version 1.0.2 
+ * @since 1.0
+ * 
  */
 public class LanguageCatalog {
 
@@ -566,7 +569,7 @@ public class LanguageCatalog {
 	private Language language;
 
 	public LanguageCatalog() {
-		this.language = Config.lANGUAGE;
+		this.language = Config.getLanguage();
 	}
 
 	public LanguageCatalog(Language language) {		

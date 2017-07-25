@@ -1,9 +1,13 @@
 package mmcalendar;
 
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * @author Chan Mrate Ko Ko
- * @version 1.0
+ * Myanmar Date Converter
+ * 
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
+ * @version 1.0.2
+ * 
+ * @since 1.0
  *
  */
 public class MyanmarDateConverter {
@@ -58,7 +62,7 @@ public class MyanmarDateConverter {
 	 * @return {@link MyanmarDate} Object
 	 */
 	public static MyanmarDate convert(int year, int month, int day, int hour, int minute, int second) {		
-		return convert(year, month, day, hour, minute, second, Config.CALENDARTYPE, 0);
+		return convert(year, month, day, hour, minute, second, Config.getCalendarType(), 0);
 	}	
 
 	/**

@@ -3,10 +3,13 @@ package mmcalendar;
 import java.io.Serializable;
 
 /**
- * <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * Thingyan ( Atat Time, Akya Time, Atat Day,  Akya Day)
  * 
- * @author Chan Mrate Ko Ko
- * @version 1.0
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * 
+ * @version 1.0.2
+ * 
+ * @since 1.0
  *
  */
 public class Thingyan implements Serializable, Cloneable {
