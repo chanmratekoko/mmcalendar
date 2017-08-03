@@ -32,7 +32,7 @@ public class WesternDateConverter {
 	 *         {@link WesternDate} object
 	 */
 	public static WesternDate convert(double juliandate) {
-		return WesternDateKernel.j2w(juliandate, CalendarType.ENGLISH);
+		return WesternDateKernel.j2w(juliandate, Config.get().getCalendarType());
 	}
 	
 	/**

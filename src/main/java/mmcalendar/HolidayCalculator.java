@@ -342,7 +342,7 @@ public final class HolidayCalculator {
 	 * @return List of holiday String
 	 */
 	public static List<String> getHoliday(MyanmarDate myanmarDate) {
-		return getHoliday(myanmarDate, Config.getCalendarType());
+		return getHoliday(myanmarDate, Config.get().getCalendarType());
 	}
 
 
@@ -401,7 +401,7 @@ public final class HolidayCalculator {
 	 * @return List of holiday String
 	 */
 	public static List<String> getAnniversary(MyanmarDate myanmarDate) {
-		return getAnniversary(myanmarDate, Config.getCalendarType());
+		return getAnniversary(myanmarDate, Config.get().getCalendarType());
 	}
 
 	/**

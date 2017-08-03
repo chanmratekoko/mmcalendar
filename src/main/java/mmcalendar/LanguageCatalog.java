@@ -569,7 +569,7 @@ public class LanguageCatalog {
 	private Language language;
 
 	public LanguageCatalog() {
-		this.language = Config.getLanguage();
+		this.language = Config.get().getLanguage();
 	}
 
 	public LanguageCatalog(Language language) {		

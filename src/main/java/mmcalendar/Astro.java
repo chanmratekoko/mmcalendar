@@ -98,7 +98,7 @@ public class Astro implements Serializable, Cloneable {
 	/**
 	 * 
 	 * @param languageCatalog LanguageCatalog
-	 * @return String ["" , "" or none "" ]
+	 * @return String ["Sabbath" , "Sabbath Eve" or none "" ]
 	 * 		Output String Depend On LanguageCatalog
 	 * 		{Calculation depend on sabbath or sabbatheve}
 	 */

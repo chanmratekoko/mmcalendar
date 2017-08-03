@@ -220,7 +220,7 @@ public final class WesternDateKernel {
 	 * @return julian day number of start of month
 	 */
 	public static int getJulianDayNumbeOstartOfMonth(int year, int month) {
-		return (int) w2j(year, month, 1, Config.getCalendarType().getNumber(), 0);
+		return (int) w2j(year, month, 1, Config.get().getCalendarType().getNumber(), 0);
 	}
 
 	/**
@@ -265,7 +265,7 @@ public final class WesternDateKernel {
 	 */
 	public static int getJulianDayNumberOfEndOfMonth(int year, int month) {
 		int js = getJulianDayNumbeOstartOfMonth(year, month);
-		int eml = getLengthOfMonth(year, month, Config.getCalendarType().getNumber());
+		int eml = getLengthOfMonth(year, month, Config.get().getCalendarType().getNumber());
 		return js + eml - 1;
 	}
 	
