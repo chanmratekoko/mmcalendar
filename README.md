@@ -1,5 +1,4 @@
-[![GitHublicense](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/chanmratekoko/mmcalendar/blob/master/LICENSE) [![Maven Central](https://img.shields.io/badge/Maven%20Central-v1.0.2RC1-blue.svg)](https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST)
-
+[![GitHublicense](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/chanmratekoko/mmcalendar/blob/master/LICENSE) [![Maven Central](https://img.shields.io/badge/Maven--Central-1.0.2.RELEASE-blue.svg)](https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST)
 
 # Myanmar Calendar
 **Myanmar Calendar** library for Android and Java applications.
@@ -15,7 +14,7 @@ Usage
 <dependency>
   <groupId>com.github.chanmratekoko</groupId>
   <artifactId>myanmar-calendar</artifactId>
-  <version>1.0.2.RC1</version>
+  <version>1.0.2.RELEASE</version>
 </dependency>
 ```
 
@@ -23,7 +22,7 @@ Usage
   -  Add this to your app `build.gradle`:
 
 ```gradle
-compile 'com.github.chanmratekoko:myanmar-calendar:1.0.2.RC1'
+compile 'com.github.chanmratekoko:myanmar-calendar:1.0.2.RELEASE'
 ```
 
 **3. jar file only**
