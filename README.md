@@ -1,11 +1,15 @@
+[![GitHublicense](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/chanmratekoko/mmcalendar/blob/master/LICENSE) [![Maven Central](https://img.shields.io/badge/Maven%20Central-v1.0.2RC1-blue.svg)](https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST)
+
+
 # Myanmar Calendar
-**Myanmar Calendar** for Android and Java applications.
+**Myanmar Calendar** library for Android and Java applications.
 For more information see [the website][1] and [the wiki][2].
 
+Usage
+-----
 
-## Download
-
-Download [the latest JAR][3] or grab via Maven:
+**1. Maven**
+- Add the following to the `<repositories>` section of your `pom.xml`:
 
 ```xml
 <dependency>
@@ -15,57 +19,148 @@ Download [the latest JAR][3] or grab via Maven:
 </dependency>
 ```
 
-or Gradle:
-```groovy
+**2. Gradle dependency**
+  -  Add this to your app `build.gradle`:
+
+```gradle
 compile 'com.github.chanmratekoko:myanmar-calendar:1.0.2.RC1'
 ```
+
+**3. jar file only**
+- Download the [**latest .jar file**][3] from the
+releases section
+- Copy the **myanmar-calendar-version.jar** file into the `libs` folder of your application project
+- Start using the library
+
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
 
-## Sample
+# Sample
 
-### Java
+### Configure
+It is Optional.
 
 ```java
-//Default Language Myanmar Unicode
+// Default Language MYANMAR Unicode Standard
+// Default Calendar Type ENGLISH
+// Configure Language and Calendar Type
+Config.initDefault(
+    new Config.Builder()
+      .setCalendarType(CalendarType.ENGLISH)
+      .setLanguage(Language.ENGLISH)
+      .build());
+```
+
+### Myanmar Date Converter
+
+```java
+MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 6, 6);
+// or
+MyanmarDate myanmarDate = MyanmarDateConverter.convert(new GregorianCalendar());
+
+myanmarDate.getBuddhistEra();
+myanmarDate.getYear();
+myanmarDate.getMonthName();
+myanmarDate.getMoonPhase();
+myanmarDate.getFortnightDay();
+myanmarDate.getWeekDay();
+
+// or
+
 LanguageCatalog languageCatalog = new LanguageCatalog(Language.ENGLISH);
-MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 6, 6);		
 
-String sasanaYear = myanmarDate.getBuddhistEra(languageCatalog);
-String myanmarYear = myanmarDate.getYear(languageCatalog);
-String myanmarMonthName = myanmarDate.getMonthName(languageCatalog);
-String fortnightDay = myanmarDate.getFortnightDay(languageCatalog);
-String weekDay = myanmarDate.getWeekDay(languageCatalog);
-
-Astro astro = AstroConverter.mmDate2Astro(myanmarDate);
+myanmarDate.getBuddhistEra(languageCatalog);
+myanmarDate.getYear(languageCatalog);
+myanmarDate.getMonthName(languageCatalog);
+myanmarDate.getMoonPhase(languageCatalog);
+myanmarDate.getFortnightDay(languageCatalog);
+myanmarDate.getWeekDay(languageCatalog);
 
 ```
 
-### Kotlin
+### Astrological information Converter
 
-```kotlin
-var languageCatalog : LanguageCatalog = LanguageCatalog(Language.ENGLISH)
-var myanmarDate : MyanmarDate = MyanmarDateConverter.convert(2017, 6, 8)
+```java
+Astro astro = AstroConverter.convert(myanmarDate);
 
-var sasanaYear = myanmarDate.getBuddhistEra(languageCatalog)
-var myanmarYear = myanmarDate.getYear(languageCatalog)
-var myanmarMonthName = myanmarDate.getMonthName(languageCatalog)
-var fortnightDay = myanmarDate.getFortnightDay(languageCatalog)
-var weekDay = myanmarDate.getWeekDay(languageCatalog)
+if (astro.isSabbath()) {
+	astro.getSabbath();
+}
 
-var astro : Astro = AstroConverter.mmDate2Astro(myanmarDate)
+if (astro.isThamanyo()) {
+	astro.getThamanyo();
+}
+
+if (astro.isThamaphyu()) {
+	astro.getThamaphyu();
+}
+
+if (astro.isAmyeittasote()) {
+	astro.getAmyeittasote();
+}
+
+if (astro.isWarameittugyi()) {
+	astro.getWarameittugyi();
+}
+
+if (astro.isWarameittunge()) {
+	astro.getWarameittunge();
+}
+
+if (astro.isYatpote()) {
+	astro.getYatpote();
+}
+
+if (astro.isNagapor()) {
+	astro.getNagapor();
+}
+
+if (astro.isYatyotema()) {
+	astro.getYatyotema();
+}
+
+if (astro.isMahayatkyan()) {
+	astro.getMahayatkyan();
+}
+
+if (astro.isShanyat()) {
+	astro.getShanyat();
+}
+
+astro.getNagahle();
+astro.getMahabote();
+astro.getNakhat();
+astro.getYearName();		
+astro.getAstroligicalDay();
 ```
+
+## Features
+* Java Calendar, Julian date, (Custom Day, Month, Year) to Myanmar Date. Calendar Type (English, Gregorian and Julian) also Support.
+* Astrological information Converter
+* Myanmar Date, Julian date to Western Date
+Calendar Type (English, Gregorian and Julian) also Support.
+* Multi language support (English, Myanmar (Unicode), Myanmar (Zawgyi), Myanmar (Mon)).
+
+***Note:*** Ready For Advanced Users and Developers. Check Kernel!
 
 ### Demo
 - [Web](http://mc1500.com/)
-
 
 ### Concept reference resources:
 1. [Myanmar Calendar Javascript Project by Ko Yan Naing Aye](https://github.com/yan9a/mcal)
 2. [Algorithm, Program and Calculation of Myanmar Calendar](http://cool-emerald.blogspot.sg/2013/06/algorithm-program-and-calculation-of.html)
 
-# License
+### Contributing
+
+Would you like to contribute? Fork us and send a pull request! Be sure to checkout our issues first.
+
+### Simple issues and bug reports
+
+If you are reporting a bug which can be observed visually, please add to your issue either:
+* A working sample project that we can compile, run, and immediately observe the issue
+
+## License
 ```
 MIT License
 
@@ -89,12 +184,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-
-### Contributing to Myanmar Calendar
-
-Just make pull request. You are in!
-
-
 
 [1]: https://chanmratekoko.github.io/mmcalendar/
 [2]: https://github.com/chanmratekoko/mmcalendar/wiki
