@@ -22,7 +22,7 @@ public final class HolidayCalculator {
 	/**
 	 * Eid
 	 */
-	private static final int[] ghEid2 = new int[] { 2456936, 2457290, 2457644 };
+	private static final int[] ghEid2 = new int[] { 2456936, 2457290, 2457644, 2457998, 2458353 };
 
 	/**
 	 * Chinese New Year ref
@@ -50,7 +50,9 @@ public final class HolidayCalculator {
 
 		List<String> holiday = new ArrayList<String>();
 
-		if ((gy >= 1948) && (gm == 1) && (gd == 4)) {
+		if ((gy >= 2018) && (gm == 1) && (gd == 1)) {
+			holiday.add("New Year Day");
+		} else if ((gy >= 1948) && (gm == 1) && (gd == 4)) {
 			holiday.add("Independence Day");
 		} else if ((gy >= 1947) && (gm == 2) && (gd == 12)) {
 			holiday.add("Union Day");
@@ -64,9 +66,9 @@ public final class HolidayCalculator {
 			holiday.add("Martyrs Day");
 		} else if ((gm == 12) && (gd == 25)) {
 			holiday.add("Christmas Day");
-		} else if ((gy >= 2017) && (gm == 12) && (gd == 30 || gd == 31)) {
+		} else if ((gy == 2017) && (gm == 12) && (gd == 30)) {
 			holiday.add("Holiday");
-		} else if ((gy > 2017) && (gm == 1) && (gd == 1)) {
+		} else if ((gy >= 2017) && (gm == 12) && (gd == 31)) {
 			holiday.add("Holiday");
 		}
 
@@ -216,7 +218,9 @@ public final class HolidayCalculator {
 		WesternDate wd = WesternDateConverter.convert(jd, calendarType);
 		double doe = DoE(wd.getYear());
 
-		if ((wd.getYear() >= 1915) && (wd.getMonth() == 2) && (wd.getDay() == 13)) {
+		if ((wd.getYear() <= 2017) && (wd.getMonth() == 1) && (wd.getDay() == 1)) {
+			holiday.add( "New Year Day");
+		} else if ((wd.getYear() >= 1915) && (wd.getMonth() == 2) && (wd.getDay() == 13)) {
 			holiday.add("G. Aung San BD");
 		} else if ((wd.getYear() >= 1969) && (wd.getMonth() == 2) && (wd.getDay() == 14)) {
 			holiday.add("Valentines Day");
