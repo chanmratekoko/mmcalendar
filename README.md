@@ -141,7 +141,7 @@ astro.getAstroligicalDay();
 Calendar Type (English, Gregorian and Julian) also Support.
 * Multi language support (English, Myanmar (Unicode), Myanmar (Zawgyi), Myanmar (Mon)).
 
-***Note:*** Ready For Advanced Users and Developers. Check Kernel!
+> ***Note:*** Ready For Advanced Users and Developers. Check Kernel!
 
 ### Demo
 - [Web](http://mc1500.com/)
