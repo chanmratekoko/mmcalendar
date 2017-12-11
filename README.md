@@ -188,4 +188,4 @@ SOFTWARE.
 [2]: https://github.com/chanmratekoko/mmcalendar/wiki
 [3]: https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST
 
-[snap]: https://oss.sonatype.org/content/repositories/snapshots/
+[snap]: http://maven.aliyun.com/nexus/#nexus-search;quick~myanmar-calendar
