@@ -203,7 +203,7 @@ public class LanguageCatalog {
 		english.put("full moon", "full moon");
 		english.put("new moon", "new moon");
 		english.put("Myanmar Year", "Myanmar Year");
-		english.put("Ku", " ");
+		english.put("Ku", "");
 		english.put("Late", "Late ");
 		english.put("Second", "Second ");
 		english.put("Sunday", "Sunday");
@@ -213,8 +213,8 @@ public class LanguageCatalog {
 		english.put("Thursday", "Thursday");
 		english.put("Friday", "Friday");
 		english.put("Saturday", "Saturday");
-		english.put("Nay", " ");
-		english.put("Yat", " ");
+		english.put("Nay", "");
+		english.put("Yat", "");
 		english.put("Sabbath Eve", "Sb Eve");
 		english.put("Sabbath", "Sabbath");
 		english.put("Yatyaza", "Yatyaza");

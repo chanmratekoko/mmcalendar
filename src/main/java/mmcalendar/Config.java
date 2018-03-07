@@ -55,6 +55,8 @@ public final class Config {
 	 */
 	public static final double SG = 2361222;
 	
+	public static final String SIMPLE_MYANMAR_DATE_FORMAT_PATTERN = "S s k, B y k, M p f r En";
+	
 	private CalendarType CALENDARTYPE = CalendarType.ENGLISH;
 
 	private Language lANGUAGE = Language.MYANMAR;

@@ -294,6 +294,73 @@ public class MyanmarDate implements Serializable, Cloneable, Comparable<MyanmarD
 	public boolean isWeekend() {
 		return ((weekDay == 0) || (weekDay == 1)) ? true : false;
 	}
+	
+	/**
+     * @param pattern the pattern describing the date and time format
+	 * @exception NullPointerException if the given pattern is null
+	 */
+	public String format(String pattern) {
+		return format(pattern, LanguageCatalog.getInstance());
+	}
+
+	/**
+	 * 
+     * @param pattern the pattern describing the date and time format
+	 * @param languageCatalog
+	 * @exception NullPointerException if the given pattern is null
+	 */
+	public String format(String pattern, LanguageCatalog languageCatalog){
+				
+		if (pattern == null || languageCatalog == null) {
+			throw new NullPointerException();
+		}
+		
+		char[] charArray = pattern.toCharArray();
+
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		for (int index = 0; index < charArray.length; index++) {
+			switch (charArray[index]) {
+			case MyanmarDateFormat.SASANA_YEAR:
+				stringBuilder.append(languageCatalog.translate("Sasana Year"));
+				break;
+			case MyanmarDateFormat.BUDDHIST_ERA:
+				stringBuilder.append(getBuddhistEra(languageCatalog));
+				break;
+			case MyanmarDateFormat.BURMESE_YEAR:
+				stringBuilder.append(languageCatalog.translate("Myanmar Year"));
+				break;
+			case MyanmarDateFormat.MYANMAR_YEAR:
+				stringBuilder.append(getYear(languageCatalog));
+				break;
+			case MyanmarDateFormat.KU:
+				stringBuilder.append(languageCatalog.translate("Ku"));
+				break;
+			case MyanmarDateFormat.MONTH_IN_YEAR:
+				stringBuilder.append(getMonthName(languageCatalog));
+				break;	
+			case MyanmarDateFormat.MOON_PHASE:
+				stringBuilder.append(getMoonPhase(languageCatalog));
+				break;
+			case MyanmarDateFormat.FORTNIGHT_DAY:
+				stringBuilder.append(getFortnightDay(languageCatalog));
+				break;
+			case MyanmarDateFormat.DAY_NAME_IN_WEEK:
+				stringBuilder.append(getWeekDay(languageCatalog));
+				break;
+			case MyanmarDateFormat.NAY:
+				stringBuilder.append(languageCatalog.translate("Nay"));
+				break;
+			case MyanmarDateFormat.YAT:
+				stringBuilder.append(languageCatalog.translate("Yat"));
+				break;
+			default:
+				stringBuilder.append(charArray[index]);
+				break;
+			}
+		}
+		return stringBuilder.toString();
+	}
 
 	@Override
 	public String toString() {
@@ -302,30 +369,7 @@ public class MyanmarDate implements Serializable, Cloneable, Comparable<MyanmarD
 	}
 
 	public String toString(LanguageCatalog languageCatalog) {
-		StringBuilder stringBuilder = new StringBuilder();
-
-		stringBuilder.append(languageCatalog.translate("Sasana Year"));
-		stringBuilder.append(" ");
-		stringBuilder.append(getBuddhistEra(languageCatalog));
-		stringBuilder.append(" " + languageCatalog.getLanguage().getComma() + " ");
-		stringBuilder.append(languageCatalog.translate("Myanmar Year"));
-		stringBuilder.append(" ");
-		stringBuilder.append(getYear(languageCatalog));
-		stringBuilder.append(" " + languageCatalog.getLanguage().getComma() + " ");
-
-		stringBuilder.append(" ");
-		stringBuilder.append(getMonthName(languageCatalog));
-		stringBuilder.append(" ");
-		stringBuilder.append(getMoonPhase(languageCatalog));
-
-		stringBuilder.append(" ");
-		stringBuilder.append(getFortnightDay(languageCatalog));
-
-		stringBuilder.append(" ");
-		stringBuilder.append(getWeekDay(languageCatalog));
-		stringBuilder.append(languageCatalog.translate("Nay"));
-
-		return stringBuilder.toString();
+		return format(Config.SIMPLE_MYANMAR_DATE_FORMAT_PATTERN, languageCatalog);
 	}
 
 	@Override

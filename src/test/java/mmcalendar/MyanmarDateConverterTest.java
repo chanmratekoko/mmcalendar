@@ -13,8 +13,16 @@ public class MyanmarDateConverterTest {
 	
 	@Test
 	public void convert() {
+		
+		Config.initDefault(
+				new Config.Builder()
+					.setCalendarType(CalendarType.ENGLISH)
+					.setLanguage(Language.ENGLISH)
+					.build());
 		MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 7, 24);
-		System.out.println(myanmarDate.toString());
+		System.out.println(myanmarDate.toString());		
+		LanguageCatalog languageCatalog = new LanguageCatalog(Language.MYANMAR);
+		System.out.println(myanmarDate.format("S s k, B y k, M p f r En", languageCatalog));
 	}
 	
 	@Test

@@ -1,4 +1,4 @@
-[![GitHublicense](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/chanmratekoko/mmcalendar/blob/master/LICENSE) [![Maven Central](https://img.shields.io/badge/Maven--Central-1.0.2.RELEASE-blue.svg)](https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST)
+[![GitHublicense](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/chanmratekoko/mmcalendar/blob/master/LICENSE) [![Maven Central](https://img.shields.io/badge/Maven%20Central-1.0.4.RELEASE-blue.svg)](https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST)
 
 # Myanmar Calendar
 **Myanmar Calendar** library for Android and Java applications.
@@ -14,7 +14,7 @@ Usage
 <dependency>
   <groupId>com.github.chanmratekoko</groupId>
   <artifactId>myanmar-calendar</artifactId>
-  <version>1.0.3.RELEASE</version>
+  <version>1.0.4.RELEASE</version>
 </dependency>
 ```
 
@@ -22,7 +22,7 @@ Usage
   -  Add this to your app `build.gradle`:
 
 ```gradle
-compile 'com.github.chanmratekoko:myanmar-calendar:1.0.3.RELEASE'
+compile 'com.github.chanmratekoko:myanmar-calendar:1.0.4.RELEASE'
 ```
 
 **3. jar file only**
@@ -65,7 +65,7 @@ myanmarDate.getMoonPhase();
 myanmarDate.getFortnightDay();
 myanmarDate.getWeekDay();
 
-// or
+// (or)
 
 LanguageCatalog languageCatalog = new LanguageCatalog(Language.ENGLISH);
 
@@ -77,6 +77,37 @@ myanmarDate.getFortnightDay(languageCatalog);
 myanmarDate.getWeekDay(languageCatalog);
 
 ```
+
+### Myanmar Date format
+
+```java
+myanmarDate.format("S s k, B y k, M p f r En");
+//returnh သာသနာနှစ် ၂၅၆၁ ခု, မြန်မာနှစ် ၁၃၇၉ ခု, ဝါခေါင် လဆန်း ၁ ရက် တနင်္လာနေ
+// (or)
+
+LanguageCatalog languageCatalog = new LanguageCatalog(Language.ENGLISH);
+myanmarDate.format("S s k, B y k, M p f r En", languageCatalog);
+//return Sasana Year 2561 , Myanmar Year 1379 , Wagaung waxing 1  Monday
+```
+
+#### Myanmar Date Patterns
+
+Myanmar Date formats are specified by date pattern strings.
+The following pattern letters are defined ('S', 's', 'B', 'y', 'k', 'M', 'p', 'f', 'E', 'n', 'r', are reserved):
+
+| Letter        | Date Component  | Examples Myanmar  | Examples English |
+| ------------- |-------------|-------------|-------------|
+| S | Sasana year | သာသနာနှစ် | Sasana Year |
+| s | Buddhist era | ၂၅၆၁ | 2561 |
+| B | Burmese year | မြန်မာနှစ် | Myanmar Year |
+| y | Myanmar year | ၁၃၇၉ | 1379 |
+| k | Ku | ခု |  |
+| M | Month in year | ဝါခေါင် | Wagaung |
+| p | Moon phase | လဆန်း | waxing |
+| f | Fortnight Day | ၁ | 1 |
+| r | Yat | ရက် |  |
+| E | Day name in week | တနင်္လာ | Monday |
+| n | Nay | နေ့ | ||
 
 ### Astrological information Converter
 
