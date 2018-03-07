@@ -107,7 +107,7 @@ The following pattern letters are defined ('S', 's', 'B', 'y', 'k', 'M', 'p', 'f
 | f | Fortnight Day | ၁ | 1 |
 | r | Yat | ရက် |  |
 | E | Day name in week | တနင်္လာ | Monday |
-| n | Nay | နေ့ | ||
+| n | Nay | နေ့ | |
 
 ### Astrological information Converter
 
