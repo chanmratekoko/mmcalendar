@@ -178,8 +178,7 @@ Calendar Type (English, Gregorian and Julian) also Support.
 - [Web](http://mc1500.com/)
 
 ### Concept reference resources:
-1. [Myanmar Calendar Javascript Project by Ko Yan Naing Aye](https://github.com/yan9a/mcal)
-2. [Algorithm, Program and Calculation of Myanmar Calendar](http://cool-emerald.blogspot.sg/2013/06/algorithm-program-and-calculation-of.html)
+1. [Algorithm, Program and Calculation of Myanmar Calendar](http://cool-emerald.blogspot.sg/2013/06/algorithm-program-and-calculation-of.html)
 
 ### Contributing
 
