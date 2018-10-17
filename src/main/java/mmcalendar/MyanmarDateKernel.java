@@ -299,6 +299,25 @@ public final class MyanmarDateKernel {
 
 		return dd + yo.get("tg1") - 1;
 	}
+	
+	/**
+     * Myanmar date to Julian date dependency: chk_my(my)
+     * 
+     * @param myear
+     *            Myanmar Year
+     * @param mmonth
+     *            Myanmar month [Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd)
+     *            Waso=4, Wagaung=5, Tawthalin=6, Thadingyut=7, Tazaungmon=8,
+     *            Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12 , Late Tagu = 13, Late Kason = 14]
+     * @param mmday
+     *            Myanmar day [1 to 29 or 30]
+     * @return julian day number
+     */
+    public static double m2j(double myear, double mmonth, double mmday) {       
+        double monthType = Math.floor(mmonth/13);
+        double month = mmonth % 12;
+        return m2j(myear, month, monthType, 0, mmday);
+    }
 
 	/**
 	 * Time to Fraction of day starting from 12 noon (t2d)
