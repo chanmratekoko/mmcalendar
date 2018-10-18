@@ -303,12 +303,14 @@ public class MyanmarDate implements Serializable, Cloneable, Comparable<MyanmarD
 		return format(pattern, LanguageCatalog.getInstance());
 	}
 
-	/**
-	 * 
-     * @param pattern the pattern describing the date and time format
-	 * @param languageCatalog
-	 * @exception NullPointerException if the given pattern is null
-	 */
+    /**
+     * 
+     * @param pattern
+     *      the pattern describing the date and time format
+     * @param languageCatalog
+     * @exception NullPointerException if the given pattern is null return String
+     * @return
+     */
 	public String format(String pattern, LanguageCatalog languageCatalog){
 				
 		if (pattern == null || languageCatalog == null) {

@@ -14,7 +14,7 @@ Usage
 <dependency>
   <groupId>com.github.chanmratekoko</groupId>
   <artifactId>myanmar-calendar</artifactId>
-  <version>1.0.4.RELEASE</version>
+  <version>1.0.5.RELEASE</version>
 </dependency>
 ```
 
@@ -22,7 +22,7 @@ Usage
   -  Add this to your app `build.gradle`:
 
 ```gradle
-compile 'com.github.chanmratekoko:myanmar-calendar:1.0.4.RELEASE'
+compile 'com.github.chanmratekoko:myanmar-calendar:1.0.5.RELEASE'
 ```
 
 **3. jar file only**
