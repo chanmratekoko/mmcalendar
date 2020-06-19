@@ -163,16 +163,15 @@ public final class MyanmarDateKernel {
 	 */
 	private static Map<String, Double> chk_watat(double myear) {
 
-		// for(var i=g_eras.length-1;i>0;i--)
-		// if(my>=g_eras[i].begin) break; //get data for respective era
-
 		int i = Era.G_ERAS.size() - 1;
-
-		for (; i > 0; i--) {
-			if (myear > Era.G_ERAS.get(i).begin) {
-				break;
-			}
-		}
+		
+        do {
+            // get data for respective era
+            if (myear >= Era.G_ERAS.get(i).begin) {
+                break;
+            }
+            i--;
+        } while (i > 0);
 
 		Era era = Era.G_ERAS.get(i);
 		int NM = era.NM;
