@@ -11,6 +11,7 @@ import java.util.List;
  * @version 1.0
  *
  */
+@Deprecated
 public final class HolidayCalculator {
 
 	/**

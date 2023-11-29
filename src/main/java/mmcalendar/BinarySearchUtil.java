@@ -19,21 +19,17 @@ public final class BinarySearchUtil {
 	/**
 	 * Search first dimension in a 2D array
 	 * 
-	 * @param k
-	 *            Key
-	 * @param A
-	 *            Array
 	 * @return index
 	 */
-	public static int search(double k, int[][] A) {
+	public static int search(double key, int[][] array) {
 		int i = 0;
 		int l = 0;
-		int u = A.length - 1;
+		int u = array.length - 1;
 		while (u >= l) {
 			i = (int) Math.floor((l + u) / 2.0);
-			if (A[i][0] > k) {
+			if (array[i][0] > key) {
 				u = i - 1;
-			} else if (A[i][0] < k) {
+			} else if (array[i][0] < key) {
 				l = i + 1;
 			} else {
 				return i;
@@ -44,23 +40,18 @@ public final class BinarySearchUtil {
 
 	/**
 	 * Search first dimension in a 1D array
-	 * 
-	 * @param k
-	 *            Key
-	 * @param A
-	 *            Array
 	 * @return index
 	 */
-	public static int search(double k, int[] A) {
+	public static int search(double key, int[] array) {
 		int i = 0;
 		int l = 0;
-		int u = A.length - 1;
+		int u = array.length - 1;
 
 		while (u >= l) {
 			i = (int) Math.floor((l + u) / 2.0);
-			if (A[i] > k) {
+			if (array[i] > key) {
 				u = i - 1;
-			} else if (A[i] < k) {
+			} else if (array[i] < key) {
 				l = i + 1;
 			} else {
 				return i;

@@ -110,7 +110,6 @@ public class MyanmarDateConverter {
 
 	/**
 	 * Julian date to Myanmar Date
-	 * @param julianDayNumber
 	 * @return {@link MyanmarDate} Object
 	 */
 	public static MyanmarDate convert(double julianDayNumber) {

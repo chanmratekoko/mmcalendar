@@ -2,52 +2,46 @@ package mmcalendar;
 
 /**
  * Western Date Converter
- * 
- * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * 
- * @version 1.0.2
- * 
- * @since 1.0
  *
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * @version 1.0.2
+ * @since 1.0
  */
 public class WesternDateConverter {
 
-	/**
-	 * Myanmar Date to Western Date
-	 * 
-	 * @param myanmarDate
-	 *            {@link MyanmarDate} object
-	 * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
-	 *         {@link WesternDate} object
-	 */
-	public static WesternDate convert(MyanmarDate myanmarDate) {
-		return convert(myanmarDate.getJulianDayNumber());
-	}
+    /**
+     * Myanmar Date to Western Date
+     *
+     * @param myanmarDate {@link MyanmarDate} object
+     * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
+     * {@link WesternDate} object
+     */
+    public static WesternDate convert(MyanmarDate myanmarDate) {
+        return convert(myanmarDate.getJulianDayNumber());
+    }
 
-	/**
-	 * Julian date to Western date
-	 * @param juliandate
-	 *            Julian date
-	 * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
-	 *         {@link WesternDate} object
-	 */
-	public static WesternDate convert(double juliandate) {
-		return WesternDateKernel.j2w(juliandate, Config.get().getCalendarType());
-	}
-	
-	/**
-	 * Julian date to Western date Credit4 Gregorian date:
-	 * http://pmyers.pcug.org.au/General/JulianDates.htm Credit4 Julian
-	 * Calendar: http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html
-	 * 
-	 * @param juliandate
-	 *            julian date
-	 * @param calendarType
-	 *            CalendarType Enum
-	 * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
-	 *         {@link WesternDate} object
-	 */
-	public static WesternDate convert(double juliandate, CalendarType calendarType) {
-		return WesternDateKernel.j2w(juliandate, calendarType.getNumber(), 0);
-	}
+    /**
+     * Julian date to Western date
+     *
+     * @param juliandate Julian date
+     * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
+     * {@link WesternDate} object
+     */
+    public static WesternDate convert(double juliandate) {
+        return WesternDateKernel.j2w(juliandate, Config.get().getCalendarType());
+    }
+
+    /**
+     * Julian date to Western date Credit4 Gregorian date:
+     * http://pmyers.pcug.org.au/General/JulianDates.htm Credit4 Julian
+     * Calendar: http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html
+     *
+     * @param juliandate   julian date
+     * @param calendarType CalendarType Enum
+     * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
+     * {@link WesternDate} object
+     */
+    public static WesternDate convert(double juliandate, CalendarType calendarType) {
+        return WesternDateKernel.j2w(juliandate, calendarType.getNumber(), 0);
+    }
 }
