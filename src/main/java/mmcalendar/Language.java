@@ -1,32 +1,36 @@
 package mmcalendar;
 
-/**
- * Language that support for Output
- *
- * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * @version 1.0
- */
 public enum Language {
 
-    MYANMAR("\u104a\u200b", "\u104b\u200b"),
-    ENGLISH(",\u0020", "."),
-    MON("\u104a\u200b", "\u104b\u200b"),
-    ZAWGYI("\u104a\u200b", "\u104b\u200b");
+    ENGLISH(0, ", ", "."),
+    MYANMAR(1, "၊ ", "။ "),
+    ZAWGYI(2, "၊ ", "။ "),
+    MON(3, "၊ ", "။ "),
+    TAI(4, "၊ ", "။ "),
+    KAREN(5, "၊ ", "။ ");
 
-    private String comma;
+    private final int languageIndex;
 
-    private String period;
+    private final String punctuationMark;
 
-    Language(String comma, String period) {
-        this.comma = comma;
-        this.period = period;
+    private final String punctuation;
+
+    Language(int languageIndex, String punctuationMark, String punctuation) {
+        this.languageIndex = languageIndex;
+        this.punctuationMark = punctuationMark;
+        this.punctuation = punctuation;
     }
 
-    public String getComma() {
-        return this.comma;
+    public int getLanguageIndex() {
+        return languageIndex;
     }
 
-    public String getPeriod() {
-        return this.period;
+    public String getPunctuationMark() {
+        return this.punctuationMark;
     }
+
+    public String getPunctuation() {
+        return this.punctuation;
+    }
+
 }

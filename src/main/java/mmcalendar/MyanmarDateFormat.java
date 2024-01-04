@@ -23,5 +23,14 @@ public class MyanmarDateFormat {
     public static final char NAY = 'n';
 
 	public static final char YAT = 'r';
-	
+
+    public static final String SIMPLE_MYANMAR_DATE_FORMAT_PATTERN = "S s k, B y k, M p f r E n";
+
+
+    /**
+     * Don't let anyone instantiate this class.
+     */
+    private MyanmarDateFormat() {
+
+    }
 }

@@ -1,51 +1,103 @@
 package mmcalendar;
 
 import java.io.Serializable;
+import java.time.DateTimeException;
 
 /**
- * Thingyan ( Atat Time, Akya Time, Atat Day,  Akya Day)
+ * Thingyan (Atat Time, Akya Time, Atat Day, Akya Day)
  *
  * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
  * @version 1.0.2
  * @since 1.0
  */
-public class Thingyan implements Serializable, Cloneable {
+public class Thingyan implements Serializable {
 
     private static final long serialVersionUID = 7874420766164176538L;
 
     /**
      * Atat Time
+     * သင်္ကြန်တက်ချိန်
      */
-    private double ja;
+    private final double ja;
     /**
      * Akya Time
+     * သင်္ကြန်ကျချိန်
      */
-    private double jk;
+    private final double jk;
     /**
      * Atat Day
+     * သင်္ကြန်အတက်နေ့
      */
-    private double da;
+    private final double da;
 
     /**
      * Akya Day
+     * အကျနေ့
      */
-    private double dk;
+    private final double dk;
 
     /**
-     * @param ja Atat Time Julian date time
-     * @param jk Akya Time Julian date time
-     * @param da Atat Day
-     * @param dk Akya Day
+     * @param ja Atat Time Julian date time (သင်္ကြန်တက်ချိန်)
+     * @param jk Akya Time Julian date time (သင်္ကြန်ကျချိန်)
+     * @param da Atat Day (သင်္ကြန်အတက်နေ့)
+     * @param dk Akya Day (အကျနေ့)
      */
-    Thingyan(double ja, double jk, double da, double dk) {
+    private Thingyan(double ja, double jk, double da, double dk) {
         this.ja = ja;
         this.jk = jk;
         this.da = da;
         this.dk = dk;
     }
 
+    //-----------------------------------------------------------------------
+
     /**
-     * Atat Time
+     * Calculate the Thingyan (Myanmar new year)
+     *
+     * @param myear - Myanmar year
+     * @return {@link Thingyan} Object
+     */
+    public static Thingyan of(int myear) {
+        // start of Thingyan (BGNTG)
+        int bgntg = 1100;
+        if (myear < bgntg) {
+            throw new DateTimeException("Thingyan starting from " + bgntg + "of myanmar year.");
+        }
+        return Thingyan.algorithm(myear);
+    }
+
+    //-----------------------------------------------------------------------
+
+    /**
+     * Calculate the Thingyan (Myanmar new year)
+     *
+     * @param myear - Myanmar year
+     * @return {@link Thingyan} Object
+     */
+    private static Thingyan algorithm(int myear) {
+        // Atat Time
+        double ja = Constants.SY * myear + Constants.MO;
+        // Akya Time
+        double jk;
+
+        if (myear >= Constants.SE3) {
+            jk = ja - 2.169918982;
+        } else {
+            jk = ja - 2.1675;
+        }
+
+        // Atat Day
+        double da = Math.round(ja);
+        // Akya Day
+        double dk = Math.round(jk);
+
+        return new Thingyan(ja, jk, da, dk);
+    }
+
+    //-----------------------------------------------------------------------
+
+    /**
+     * Atat Time (သင်္ကြန်တက်ချိန်)
      *
      * @return Julian date time
      */
@@ -54,7 +106,7 @@ public class Thingyan implements Serializable, Cloneable {
     }
 
     /**
-     * Akya time
+     * Akya time (သင်္ကြန်ကျချိန်)
      *
      * @return Julian date time
      */
@@ -63,7 +115,7 @@ public class Thingyan implements Serializable, Cloneable {
     }
 
     /**
-     * Atat day
+     * Atat day (သင်္ကြန်အတက်နေ့)
      *
      * @return Julian date
      */
@@ -72,7 +124,7 @@ public class Thingyan implements Serializable, Cloneable {
     }
 
     /**
-     * Akya day
+     * Akya day (အကျနေ့)
      *
      * @return Julian date
      */
@@ -81,7 +133,7 @@ public class Thingyan implements Serializable, Cloneable {
     }
 
     /**
-     * Thingyan Akyo day
+     * Thingyan Akyo day (သင်္ကြန်အကြိုနေ့)
      *
      * @return Julian date
      */
@@ -90,9 +142,9 @@ public class Thingyan implements Serializable, Cloneable {
     }
 
     /**
-     * Thingyan Akyat day
+     * Thingyan Akyat day (အကြတ်နေ့)
      *
-     * @return Julian dates Double Arrays
+     * @return Julian dates
      */
     public double[] getAkyatDay() {
         if ((da - dk) > 2) {
@@ -102,7 +154,7 @@ public class Thingyan implements Serializable, Cloneable {
     }
 
     /**
-     * Myanmar new year's day
+     * Myanmar New Year's Day (နှစ်ဆန်းတစ်ရက်နေ့)
      *
      * @return Julian date
      */
@@ -146,9 +198,7 @@ public class Thingyan implements Serializable, Cloneable {
             return false;
         if (Double.doubleToLongBits(ja) != Double.doubleToLongBits(other.ja))
             return false;
-        if (Double.doubleToLongBits(jk) != Double.doubleToLongBits(other.jk))
-            return false;
-        return true;
+        return Double.doubleToLongBits(jk) == Double.doubleToLongBits(other.jk);
     }
 
 }

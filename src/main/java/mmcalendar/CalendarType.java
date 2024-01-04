@@ -8,13 +8,15 @@ package mmcalendar;
  */
 public enum CalendarType {
 
-    ENGLISH(0, "English"), GREGORIAN(1, "Gregorian"), JULIAN(2, "Julian");
+    ENGLISH(0, "English"),
+    GREGORIAN(1, "Gregorian"),
+    JULIAN(2, "Julian");
 
-    private String label;
+    private final String label;
 
-    private int number;
+    private final int number;
 
-    private CalendarType(int number, String label) {
+    CalendarType(int number, String label) {
         this.label = label;
         this.number = number;
     }

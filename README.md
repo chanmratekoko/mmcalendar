@@ -1,3 +1,4 @@
+
 [![GitHublicense](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/chanmratekoko/mmcalendar/blob/master/LICENSE) [![Maven Central](https://img.shields.io/badge/Maven%20Central-1.0.6.RELEASE-blue.svg)](https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST)
 
 # Myanmar Calendar
@@ -14,7 +15,7 @@ Usage
 <dependency>
   <groupId>com.github.chanmratekoko</groupId>
   <artifactId>myanmar-calendar</artifactId>
-  <version>1.0.6.RELEASE</version>
+  <version>1.0.7.RELEASE</version>
 </dependency>
 ```
 
@@ -22,7 +23,7 @@ Usage
   -  Add this to your app `build.gradle`:
 
 ```gradle
-compile 'com.github.chanmratekoko:myanmar-calendar:1.0.6.RELEASE'
+compile 'com.github.chanmratekoko:myanmar-calendar:1.0.7.RELEASE'
 ```
 
 **3. jar file**
@@ -31,17 +32,14 @@ releases section
 - Copy the **myanmar-calendar-version.jar** file into the `libs` folder of your application project
 - Start using the library
 
-
-Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
-
-
-# Sample
+## Sample
 
 ### Configure
-It is Optional.
+
+Configure default calendar type and language. It is `optional`.
 
 ```java
-// Default Language MYANMAR Unicode Standard
+// Default Language MYANMAR Unicode Standard (Burmese)
 // Default Calendar Type ENGLISH
 // Configure Language and Calendar Type
 Config.initDefault(
@@ -53,41 +51,65 @@ Config.initDefault(
 
 ### Myanmar Date Converter
 
+#### Sample Usage:
+
 ```java
-MyanmarDate myanmarDate = MyanmarDateConverter.convert(2017, 6, 6);
-// or
-MyanmarDate myanmarDate = MyanmarDateConverter.convert(new GregorianCalendar());
+// Get Myanmar Date by year, month and day
+MyanmarDate myanmarDate = MyanmarDate.of(2024, 1, 1);
 
+// Output: ၂၅၆၇
 myanmarDate.getBuddhistEra();
+
+// Output: ၁၃၈၅
 myanmarDate.getYear();
+
+// Output: နတ်တော်
 myanmarDate.getMonthName();
+
+// Output: လဆုတ်
 myanmarDate.getMoonPhase();
+
+// Output: ၅
 myanmarDate.getFortnightDay();
+
+// Output : တနင်္လာ
 myanmarDate.getWeekDay();
+```
 
-// (or)
+#### Translate the output into another language.
+```java
+// Get Myanmar Date by year, month and day
+MyanmarDate myanmarDate = MyanmarDate.of(2024, 1, 1);
+Language language = Language.ENGLISH;
 
-LanguageCatalog languageCatalog = new LanguageCatalog(Language.ENGLISH);
+// Output: 2567
+myanmarDate.getBuddhistEra(language);
 
-myanmarDate.getBuddhistEra(languageCatalog);
-myanmarDate.getYear(languageCatalog);
-myanmarDate.getMonthName(languageCatalog);
-myanmarDate.getMoonPhase(languageCatalog);
-myanmarDate.getFortnightDay(languageCatalog);
-myanmarDate.getWeekDay(languageCatalog);
+// Output: 1385
+myanmarDate.getYear(language);
 
+// Output: Nadaw
+myanmarDate.getMonthName(language);
+
+// Output: Waning
+myanmarDate.getMoonPhase(language);
+
+// Output: 5
+myanmarDate.getFortnightDay(language);
+
+// Output: Monday
+myanmarDate.getWeekDay(language);
 ```
 
 ### Myanmar Date format
 
 ```java
+MyanmarDate myanmarDate = MyanmarDate.of(2024, 1, 1);
+//Output: သာသနာနှစ် ၂၅၆၇ ခု၊ မြန်မာနှစ် ၁၃၈၅ ခု၊ နတ်တော် လဆုတ် ၅ ရက် တနင်္လာနေ့
 myanmarDate.format("S s k, B y k, M p f r En");
-//returnh သာသနာနှစ် ၂၅၆၁ ခု, မြန်မာနှစ် ၁၃၇၉ ခု, ဝါခေါင် လဆန်း ၁ ရက် တနင်္လာနေ
-// (or)
 
-LanguageCatalog languageCatalog = new LanguageCatalog(Language.ENGLISH);
-myanmarDate.format("S s k, B y k, M p f r En", languageCatalog);
-//return Sasana Year 2561 , Myanmar Year 1379 , Wagaung waxing 1  Monday
+//Output: Sasana Year 2567 Ku, Myanmar Year 1385 Ku, Nadaw Waning 5 Yat Monday Nay
+myanmarDate.format("S s k, B y k, M p f r E n", Language.ENGLISH);
 ```
 
 #### Myanmar Date Patterns
@@ -96,86 +118,139 @@ Myanmar Date formats are specified by date pattern strings.
 The following pattern letters are defined ('S', 's', 'B', 'y', 'k', 'M', 'p', 'f', 'E', 'n', 'r', are reserved):
 
 | Letter        | Date Component  | Examples Myanmar  | Examples English |
-| ------------- |-------------|-------------|-------------|
-| S | Sasana year | သာသနာနှစ် | Sasana Year |
-| s | Buddhist era | ၂၅၆၁ | 2561 |
-| B | Burmese year | မြန်မာနှစ် | Myanmar Year |
-| y | Myanmar year | ၁၃၇၉ | 1379 |
-| k | Ku | ခု |  |
-| M | Month in year | ဝါခေါင် | Wagaung |
-| p | Moon phase | လဆန်း | waxing |
-| f | Fortnight Day | ၁ | 1 |
-| r | Yat | ရက် |  |
-| E | Day name in week | တနင်္လာ | Monday |
-| n | Nay | နေ့ | |
+| ------------- |-------------|-------------|------------------|
+| S | Sasana year | သာသနာနှစ် | Sasana Year      |
+| s | Buddhist era | ၂၅၆၁ | 2561             |
+| B | Burmese year | မြန်မာနှစ် | Myanmar Year     |
+| y | Myanmar year | ၁၃၇၉ | 1379             |
+| k | Ku | ခု | Ku |
+| M | Month in year | ဝါခေါင် | Wagaung          |
+| p | Moon phase | လဆန်း | waxing           |
+| f | Fortnight Day | ၁ | 1                |
+| r | Yat | ရက် |         Yat         |
+| E | Day name in week | တနင်္လာ | Monday           |
+| n | Nay | နေ့ |         Nay         |
+
+
+### Thingyan (Myanmar New Year)
+
+```java
+MyanmarThingyanDateTime myanmarThingyanDateTime = MyanmarThingyanDateTime.of(1386);
+// Thingyan Akyo day (သင်္ကြန်အကြိုနေ့)
+MyanmarDate akyoDay = myanmarThingyanDateTime.getAkyoDay();
+// Akya time (သင်္ကြန်ကျချိန်)
+LocalTime akyaTime = myanmarThingyanDateTime.getAkyaTime().toMyanmarLocalTime();
+// Akya day (အကျနေ့)
+MyanmarDate akyaDay = myanmarThingyanDateTime.getAkyaDay();
+// Atat Time (သင်္ကြန်တက်ချိန်)
+LocalTime atatTime = myanmarThingyanDateTime.getAtatTime().toMyanmarLocalTime();
+// Atat day (သင်္ကြန်အတက်နေ့)
+MyanmarDate atatDay = myanmarThingyanDateTime.getAtatDay();
+// Thingyan Akyat day (အကြတ်နေ့)
+MyanmarDate[] akyatDays = myanmarThingyanDateTime.getAkyatDays();
+//  Myanmar New Year's Day (နှစ်ဆန်းတစ်ရက်နေ့)
+MyanmarDate myanmarNewYearDate = myanmarThingyanDateTime.getMyanmarNewYearDay();
+```
+
+### Holiday Calculation
+
+```java
+// Checks if the current date is a holiday
+boolean isHoliday = HolidayCalculator.isHoliday(MyanmarDate.now());
+
+// Retrieves a list of holiday names for the current date
+List<String> holidayNameList = HolidayCalculator.getHoliday(MyanmarDate.now());
+```
+
 
 ### Astrological information Converter
 
 ```java
-Astro astro = AstroConverter.convert(myanmarDate);
+import mmcalendar.MyanmarDate;
+import mmcalendar.Astro;
 
-if (astro.isSabbath()) {
-	astro.getSabbath();
-}
+MyanmarDate myanmarDate = MyanmarDate.now();
+Astro astro = Astro.of(myanmarDate);
 
-if (astro.isThamanyo()) {
-	astro.getThamanyo();
-}
+// Output: Sabbath or Sabbath Eve or Empty
+astro.getSabbath();
 
-if (astro.isThamaphyu()) {
-	astro.getThamaphyu();
-}
+// Output: Thamanyo or Empty
+astro.getThamanyo();
 
-if (astro.isAmyeittasote()) {
-	astro.getAmyeittasote();
-}
+// Output: Thamaphyu or Empty
+astro.getThamaphyu();
 
-if (astro.isWarameittugyi()) {
-	astro.getWarameittugyi();
-}
+// Output: Amyeittasote or Empty
+astro.getAmyeittasote();
 
-if (astro.isWarameittunge()) {
-	astro.getWarameittunge();
-}
+// Output: Warameittugyi or Empty
+astro.getWarameittugyi();
 
-if (astro.isYatpote()) {
-	astro.getYatpote();
-}
+// Output: Warameittunge or Empty
+astro.getWarameittunge();
 
-if (astro.isNagapor()) {
-	astro.getNagapor();
-}
+// Output: Yatpote or Empty
+astro.getYatpote();
 
-if (astro.isYatyotema()) {
-	astro.getYatyotema();
-}
+// Output: Nagapor or Empty
+astro.getNagapor();
 
-if (astro.isMahayatkyan()) {
-	astro.getMahayatkyan();
-}
+// Output: Yatyotema or Empty
+astro.getYatyotema();
 
-if (astro.isShanyat()) {
-	astro.getShanyat();
-}
+// Output: Mahayatkyan or Empty
+astro.getMahayatkyan();
 
+// Output: Shanyat or empty
+astro.getShanyat();
+
+// Output: west or north or east or south
 astro.getNagahle();
+
+// Output: Binga or Atun or Yaza or Adipati or Marana or Thike or Puti
 astro.getMahabote();
+
+// Output: Orc or Elf or Human
 astro.getNakhat();
-astro.getYearName();		
-astro.getAstroligicalDay();
+
+// Output: Hpusha or Magha or Phalguni or Chitra or Visakha or Jyeshtha or Ashadha or Sravana or Bhadrapaha or Asvini or Krittika or Mrigasiras
+astro.getYearName();
+
+// Output: "Yatyaza" or "Pyathada" or "Afternoon Pyathada" or Empty ""
+astro.getAstrologicalDay();
 ```
+> You can verify these days by invoking the properties prefixed with `is`.
+
 
 ## Features
-* Java Calendar, Julian date, (Custom Day, Month, Year) to Myanmar Date. Calendar Type (English, Gregorian and Julian) also Support.
+* The conversion of Myanmar Date can be executed with support for various time zones, integrating features from the Java Date and Time API, Julian Day, and Unix Time.
 * Astrological information Converter
 * Myanmar Date, Julian date to Western Date
 Calendar Type (English, Gregorian and Julian) also Support.
-* Multi language support (English, Myanmar (Unicode), Myanmar (Zawgyi), Myanmar (Mon)).
+* The algorithm for Myanmar Thingyan Date and Time.
+
+> All the calculations are based on Myanmar Standard Time (UTC+06:30) which is calculated on the basis of 97° 30' longitude.
 
 > ***Note:*** Ready For Advanced Users and Developers. Check Kernel!
 
+### Language Localization Support
+* English
+* Myanmar (Burmese Unicode) _(default)_
+* Myanmar (Burmese Zawgyi)
+* Myanmar (Mon)
+* Myanmar (Tai)
+* Myanmar (Karen)
+
+### Test Coverage
+
+Unit test coverage initiation spans from 1923 through 2023.
+
+The algorithm is capable of calculating from the commencement of the Myanmar Calendar Year 2.
+
+
 ### Demo
-- [Web](http://mc1500.com/)
+- [Web](https://yan9a.github.io/mmcal/index.htm)
 
 ### Concept reference resources:
 1. [Algorithm, Program and Calculation of Myanmar Calendar](http://cool-emerald.blogspot.sg/2013/06/algorithm-program-and-calculation-of.html) [(Dr Yan Naing Aye)](https://github.com/yan9a/)

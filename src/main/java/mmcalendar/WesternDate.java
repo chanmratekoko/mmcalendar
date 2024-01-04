@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @version 1.0.2
  * @since 1.0
  */
-public class WesternDate implements Serializable, Cloneable {
+public class WesternDate implements Serializable {
 
     private static final long serialVersionUID = -198088735719287260L;
 
@@ -41,6 +41,10 @@ public class WesternDate implements Serializable, Cloneable {
         return day;
     }
 
+    /**
+     *
+     * @return  hour [0-23]
+     */
     public int getHour() {
         return hour;
     }
@@ -91,9 +95,7 @@ public class WesternDate implements Serializable, Cloneable {
             return false;
         if (second != other.second)
             return false;
-        if (year != other.year)
-            return false;
-        return true;
+        return year == other.year;
     }
 
 }

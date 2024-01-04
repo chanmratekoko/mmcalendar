@@ -16,13 +16,15 @@ public final class BinarySearchUtil {
 	private BinarySearchUtil() {
 	}
 
+
 	/**
 	 * Search first dimension in a 2D array
-	 * 
+	 * @param key search key
+	 * @param array search in array
 	 * @return index
 	 */
 	public static int search(double key, int[][] array) {
-		int i = 0;
+		int i;
 		int l = 0;
 		int u = array.length - 1;
 		while (u >= l) {
@@ -40,10 +42,12 @@ public final class BinarySearchUtil {
 
 	/**
 	 * Search first dimension in a 1D array
+	 * @param key search key
+	 * @param array search in array
 	 * @return index
 	 */
 	public static int search(double key, int[] array) {
-		int i = 0;
+		int i;
 		int l = 0;
 		int u = array.length - 1;
 

@@ -1,5 +1,7 @@
 package mmcalendar;
 
+import java.time.ZoneId;
+
 /**
  * Constants Value for Algorithm Calculation
  *
@@ -28,6 +30,97 @@ public final class Constants {
      * beginning of 3rd Era
      */
     public static final int SE3 = 1312;
+
+    /**
+     * Beginning of English Calendar
+     */
+    public static final int BY = 640;
+
+    /**
+     * End of English Calendar
+     */
+    public static final int EY = 2140;
+
+    /**
+     * Beginning of Myanmar Calendar
+     */
+    public static final int MBY = 2;
+
+    /**
+     * End of Myanmar Calendar
+     */
+    public static final int MEY = 1500;
+
+    /**
+     * Minimum accurate English Year
+     */
+    public static final int LT = 1700;
+
+    /**
+     * Maximum accurate English Year
+     */
+    public static final int UT = 2018;
+
+    /**
+     * Minimum accurate Myanmar Year
+     */
+    public static final int MLT = 1062;
+
+    /**
+     * Maximum accurate Myanmar Year
+     */
+    public static final int MUT = 1379;
+
+    /**
+     * Gregorian start in English calendar (1752/Sep/14)
+     */
+    public static final double SG = 2361222;
+
+    /**
+     * Myanmar Month Names
+     */
+    static final String[] EMA = {
+            "First Waso",
+            "Tagu",
+            "Kason",
+            "Nayon",
+            "Waso",
+            "Wagaung",
+            "Tawthalin",
+            "Thadingyut",
+            "Tazaungmon",
+            "Nadaw",
+            "Pyatho",
+            "Tabodwe",
+            "Tabaung",
+            "Late Tagu",
+            "Late Kason"
+    };
+
+    /**
+     * New Moon mean Dark moon
+     */
+    static final String[] MSA = {
+            "Waxing",
+            "Full Moon",
+            "Waning",
+            "New Moon"
+    };
+
+    /**
+     * Week Days
+     */
+    static final String[] WDA = {
+            "Saturday",
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+    };
+
+    public static final ZoneId MYANMAR_ZONE_ID = ZoneId.of("Asia/Rangoon");
 
     /**
      * Don't let anyone instantiate this class.

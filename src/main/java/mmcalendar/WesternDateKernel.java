@@ -10,47 +10,55 @@ package mmcalendar;
 public final class WesternDateKernel {
 
     /**
-     * Julian date to Western date Credit4 Gregorian date:
-     * http://pmyers.pcug.org.au/General/JulianDates.htm Credit4 Julian
-     * Calendar: http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html
+     * Julian date to Western date Credit4 Gregorian date: (j2w)
+     * <a href="http://pmyers.pcug.org.au/General/JulianDates.htm">Credit4 Julian</a>
+     * <a href="http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html">Calendar: </a>
      *
-     * @param juliandate   julian date
-     * @param calendarType CalendarType Enum
+     * @param julianDate   julian date
+     * @param calendarType {@link CalendarType} Enum
      * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
      * {@link WesternDate} object
      */
-    public static WesternDate j2w(double juliandate, CalendarType calendarType) {
-        return j2w(juliandate, calendarType.getNumber(), 0);
+    public static WesternDate julianToWestern(double julianDate, CalendarType calendarType) {
+        return julianToWestern(julianDate, calendarType.getNumber(), 0);
     }
 
     /**
-     * Julian date to Western date Credit4 Gregorian date:
-     * http://pmyers.pcug.org.au/General/JulianDates.htm Credit4 Julian
-     * Calendar: http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html
+     * Julian date to Western date Credit4 Gregorian date: (j2w)
+     * <a href="http://pmyers.pcug.org.au/General/JulianDates.htm">Credit4 Julian</a>
+     * <a href="http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html">Calendar: </a>
      *
-     * @param jd      julian date
-     * @param calType calendar type [Optional argument: 0=english (default),
-     *                1=Gregorian, 2=Julian]
-     * @param SG      Beginning of Gregorian calendar in JDN [Optional argument:
-     *                (default=2361222)])
+     * @param julianDate julian date
+     * @param calType    calendar type [Optional argument: 0=english (default),
+     *                   1=Gregorian, 2=Julian]
+     * @param sg         Beginning of Gregorian calendar in JDN [Optional argument:
+     *                   (default=2361222) ]
      * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
      * {@link WesternDate} object
      */
-    public static WesternDate j2w(double jd, int calType, double SG) {
+    public static WesternDate julianToWestern(double julianDate, int calType, double sg) {
 
-        // ct=ct||0;
-        calType = calType < 0 ? 0 : calType;
+        calType = Math.max(0, calType);
 
-        // SG= SG || 2361222;
         // Gregorian start in English calendar (1752/Sep/14)
-        SG = SG <= 0 ? 2361222 : SG;
+        sg = sg <= 0 ? 2361222 : sg;
 
-        double j, jf, y, m, d, h, n, s;
+        double j;
+        double jf;
+        double y;
+        double m;
+        double d;
+        double h;
+        double n;
+        double s;
 
-        if (calType == 2 || (calType == 0 && (jd < SG))) {
-            double b, c, f, e;
-            j = Math.floor(jd + 0.5);
-            jf = jd + 0.5 - j;
+        if (calType == 2 || (calType == 0 && (julianDate < sg))) {
+            double b;
+            double c;
+            double f;
+            double e;
+            j = Math.floor(julianDate + 0.5);
+            jf = julianDate + 0.5 - j;
             b = j + 1524;
             c = Math.floor((b - 122.1) / 365.25);
             f = Math.floor(365.25 * c);
@@ -59,8 +67,8 @@ public final class WesternDateKernel {
             d = b - f - Math.floor(30.6001 * e);
             y = m < 3 ? (c - 4715) : (c - 4716);
         } else {
-            j = Math.floor(jd + 0.5);
-            jf = jd + 0.5 - j;
+            j = Math.floor(julianDate + 0.5);
+            jf = julianDate + 0.5 - j;
             j -= 1721119;
             y = Math.floor((4 * j - 1) / 146097.0);
             j = 4 * j - 1 - 146097 * y;
@@ -90,9 +98,7 @@ public final class WesternDateKernel {
     }
 
     /**
-     * Western date to Julian day number. Credit4 Gregorian 2 JD:
-     * http://www.cs.utsa.edu/~cs1063/projects/Spring2011/Project1/jdn-
-     * explanation.html
+     * Western date to Julian day number. Credit4 Gregorian 2 JD: (w2j)
      *
      * @param year    western year
      * @param month   month [Jan=1, ... , Dec=12]
@@ -100,36 +106,34 @@ public final class WesternDateKernel {
      * @param calType [0-English, 1-Gregorian, 2-Julian]
      *                calendar type [Optional argument: 0=english (default),
      *                1=Gregorian, 2=Julian]
-     * @param SG      SG: Beginning of Gregorian calendar in JDN [Optional argument:
-     *                (default=2361222)])
+     * @param sg      SG: Beginning of Gregorian calendar in JDN [Optional argument:
+     *                (default=2361222)]
      * @return Julian day number
      */
-    public static double w2j(int year, int month, int day, int calType, double SG) {
+    public static double westernToJulian(int year, int month, int day, int calType, double sg) {
 
-        // ct=ct||0;
-        calType = calType < 0 ? 0 : calType;
+        calType = Math.max(0, calType);
 
-        // SG= SG || 2361222;
         // Gregorian start in English calendar (1752/Sep/14)
-        SG = SG <= 0 ? 2361222 : SG;
-
+        sg = sg <= 0 ? 2361222 : sg;
 
         int a = (int) Math.floor((14 - month) / 12.0);
         year = year + 4800 - a;
         month = month + (12 * a) - 3;
 
-        double jd = day + Math.floor((153 * month + 2) / 5.0) + (365 * year) + Math.floor(year / 4.0);
+        double jd = day + Math.floor((153 * month + 2) / 5.0) + (365 * year) +  Math.floor(year / 4.0);
 
         if (calType == 1) {
-            jd = jd - Math.floor(year / 100) + Math.floor(year / 400) - 32045;
+            jd = jd - (int) Math.floor(year / 100.0) + (int) Math.floor(year / 400.0) - 32045;
         } else if (calType == 2) {
             jd = jd - 32083;
         } else {
-            jd = jd - Math.floor(year / 100) + Math.floor(year / 400) - 32045;
-            if (jd < SG) {
-                jd = day + Math.floor((153 * month + 2) / 5) + (365 * year) + Math.floor(year / 4) - 32083;
-                if (jd > SG)
-                    jd = SG;
+            jd = jd - Math.floor(year / 100.0) + Math.floor(year / 400.0) - 32045;
+            if (jd < sg) {
+                jd = day + Math.floor((153.0 * month + 2) / 5) + (365 * year) + Math.floor(year / 4.0) - 32083;
+                if (jd > sg) {
+                    jd = sg;
+                }
             }
         }
 
@@ -137,21 +141,25 @@ public final class WesternDateKernel {
     }
 
     /**
+     * Get Julian day number (w2j)
+     *
      * @param year         Year
      * @param month        Month
      * @param day          Day
      * @param calendarType CalendarType Enum [0-English, 1-Gregorian, 2-Julian]
      *                     calendar type [Optional argument: 0=english (default),
      *                     1=Gregorian, 2=Julian]
-     * @param SG           SG: Beginning of Gregorian calendar in JDN [Optional argument:
-     *                     (default=2361222)])
+     * @param sg           SG: Beginning of Gregorian calendar in JDN [Optional argument:
+     *                     (default = 2361222)]
      * @return Julian day number
      */
-    public static double w2j(int year, int month, int day, CalendarType calendarType, double SG) {
-        return w2j(year, month, day, calendarType.getNumber(), SG);
+    public static double westernToJulian(int year, int month, int day, CalendarType calendarType, double sg) {
+        return westernToJulian(year, month, day, calendarType.getNumber(), sg);
     }
 
     /**
+     * Get Julian day number (w2j)
+     *
      * @param year         Year
      * @param month        Month
      * @param day          Day
@@ -162,37 +170,37 @@ public final class WesternDateKernel {
      *                     [0-English, 1-Gregorian, 2-Julian]
      *                     calendar type [Optional argument: 0=english (default),
      *                     1=Gregorian, 2=Julian]
-     * @param SG           SG: Beginning of Gregorian calendar in JDN [Optional argument:
-     *                     (default=2361222)])
+     * @param sg           SG: Beginning of Gregorian calendar in JDN [Optional argument:
+     *                     (default = 2361222)]
      * @return Julian day number
      */
-    public static double w2j(int year, int month, int day, int hour, int minute, int second, CalendarType calendarType, double SG) {
-        double fractionOfDay = t2d(hour, minute, second);
-        return w2j(year, month, day, calendarType.getNumber(), SG) + fractionOfDay;
+    public static double westernToJulian(int year, int month, int day, int hour, int minute, int second, CalendarType calendarType, double sg) {
+        double fractionOfDay = timeToDayFractionStartFrom12Noon(hour, minute, second);
+        return westernToJulian(year, month, day, calendarType.getNumber(), sg) + fractionOfDay;
     }
 
     /**
-     * Time to Fraction of day starting from 12 noon
+     * Time to Fraction of day starting from 12 noon (t2d)
      *
-     * @param h hour
-     * @param n minute
-     * @param s second
-     * @return (d : fraction of day)
+     * @param hour hour
+     * @param minute minute
+     * @param second second
+     * @return fraction of day
      */
-    public static double t2d(double h, double n, double s) {
-        return ((h - 12) / 24 + n / 1440 + s / 86400);
+    public static double timeToDayFractionStartFrom12Noon(double hour, double minute, double second) {
+        return ((hour - 12) / 24 + minute / 1440 + second / 86400);
     }
 
     /**
      * @param westernDate  WesternDate object
      * @param calendarType CalendarType Enum
-     * @param SG           SG: Beginning of Gregorian calendar in JDN [Optional argument:
-     *                     (default=2361222)])
+     * @param sg           SG: Beginning of Gregorian calendar in JDN [Optional argument:
+     *                     (default=2361222)]
      * @return Julian number
      */
-    public static double w2j(WesternDate westernDate, CalendarType calendarType, double SG) {
-        return w2j(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay(), westernDate.getHour(),
-                westernDate.getMinute(), westernDate.getSecond(), calendarType, SG);
+    public static double westernToJulian(WesternDate westernDate, CalendarType calendarType, double sg) {
+        return westernToJulian(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay(), westernDate.getHour(),
+                westernDate.getMinute(), westernDate.getSecond(), calendarType, sg);
     }
 
     /**
@@ -203,12 +211,25 @@ public final class WesternDateKernel {
      *              [Jan=1, ... , Dec=12]
      * @return julian day number of start of month
      */
-    public static int getJulianDayNumbeOstartOfMonth(int year, int month) {
-        return (int) w2j(year, month, 1, Config.get().getCalendarType().getNumber(), 0);
+    public static int getJulianDayNumberOfStartOfMonth(int year, int month) {
+        return (int) westernToJulian(year, month, 1, Config.getInstance().getCalendarType().getNumber(), 0);
     }
 
     /**
-     * find the length of a month (emLen)
+     * Julian day number of end of the month
+     *
+     * @param year  Year
+     * @param month Month
+     * @return Julian day number of end of the month
+     */
+    public static int getJulianDayNumberOfEndOfMonth(int year, int month) {
+        int js = getJulianDayNumberOfStartOfMonth(year, month);
+        int eml = getLengthOfMonth(year, month, Config.getInstance().getCalendarType().getNumber());
+        return js + eml - 1;
+    }
+
+    /**
+     * find the length of a month (emLen, wml)
      *
      * @param year         Year
      * @param month        Month
@@ -240,16 +261,9 @@ public final class WesternDateKernel {
     }
 
     /**
-     * Julian day number of end of the month
-     *
-     * @param year  Year
-     * @param month Month
-     * @return Julian day number of end of the month
+     * Don't let anyone instantiate this class.
      */
-    public static int getJulianDayNumberOfEndOfMonth(int year, int month) {
-        int js = getJulianDayNumbeOstartOfMonth(year, month);
-        int eml = getLengthOfMonth(year, month, Config.get().getCalendarType().getNumber());
-        return js + eml - 1;
+    private WesternDateKernel() {
     }
 
 }

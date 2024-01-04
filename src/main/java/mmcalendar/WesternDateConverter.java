@@ -10,6 +10,13 @@ package mmcalendar;
 public class WesternDateConverter {
 
     /**
+     * Don't let anyone instantiate this class.
+     */
+    private WesternDateConverter() {
+    }
+
+
+    /**
      * Myanmar Date to Western Date
      *
      * @param myanmarDate {@link MyanmarDate} object
@@ -23,25 +30,25 @@ public class WesternDateConverter {
     /**
      * Julian date to Western date
      *
-     * @param juliandate Julian date
+     * @param julianDate Julian date
      * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
      * {@link WesternDate} object
      */
-    public static WesternDate convert(double juliandate) {
-        return WesternDateKernel.j2w(juliandate, Config.get().getCalendarType());
+    public static WesternDate convert(double julianDate) {
+        return WesternDateKernel.julianToWestern(julianDate, Config.getInstance().getCalendarType());
     }
 
     /**
      * Julian date to Western date Credit4 Gregorian date:
-     * http://pmyers.pcug.org.au/General/JulianDates.htm Credit4 Julian
-     * Calendar: http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html
+     * <a href="http://pmyers.pcug.org.au/General/JulianDates.htm">Credit4 Julian</a>
+     * <a href="http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html">Calendar:</a>
      *
-     * @param juliandate   julian date
+     * @param julianDate   julian date
      * @param calendarType CalendarType Enum
      * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
      * {@link WesternDate} object
      */
-    public static WesternDate convert(double juliandate, CalendarType calendarType) {
-        return WesternDateKernel.j2w(juliandate, calendarType.getNumber(), 0);
+    public static WesternDate convert(double julianDate, CalendarType calendarType) {
+        return WesternDateKernel.julianToWestern(julianDate, calendarType.getNumber(), 0);
     }
 }

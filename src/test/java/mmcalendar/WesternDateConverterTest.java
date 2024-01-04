@@ -8,10 +8,10 @@ import org.junit.Test;
 public class WesternDateConverterTest {
 
 	@Test
-	public void j2w() {
+	public void julianToWestern() {
 
 		double jd = 2457857.7058912036;		
-		WesternDate westernDate = WesternDateKernel.j2w(jd, Config.get().getCalendarType());
+		WesternDate westernDate = WesternDateKernel.julianToWestern(jd, Config.getInstance().getCalendarType());
 
 		assertThat(2017, is(westernDate.getYear()));
 		assertThat(4, is(westernDate.getMonth()));
@@ -20,7 +20,7 @@ public class WesternDateConverterTest {
 		assertThat(56, is(westernDate.getMinute()));
 		assertThat(29, is(westernDate.getSecond()));
 
-		double result = WesternDateKernel.w2j(westernDate, Config.get().getCalendarType(), 0);
+		double result = WesternDateKernel.westernToJulian(westernDate, Config.getInstance().getCalendarType(), 0);
 
 		assertThat(jd, is(result));
 

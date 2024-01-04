@@ -1,5 +1,9 @@
 package mmcalendar;
 
+import mmcalendar.util.ObjectBuilder;
+
+import java.util.function.Function;
+
 /**
  * Configuration For Calendar
  *
@@ -8,56 +12,9 @@ package mmcalendar;
  */
 public final class Config {
 
-    /**
-     * Beginning of English Calendar
-     */
-    public static final int BY = 640;
+    private final CalendarType calendarType;
 
-    /**
-     * End of English Calendar
-     */
-    public static final int EY = 2140;
-
-    /**
-     * Beginning of Myanmar Calendar
-     */
-    public static final int MBY = 2;
-
-    /**
-     * End of Myanmar Calendar
-     */
-    public static final int MEY = 1500;
-
-    /**
-     * Minimum accurate English Year
-     */
-    public static final int LT = 1700;
-
-    /**
-     * Maximum accurate English Year
-     */
-    public static final int UT = 2018;
-
-    /**
-     * Minimum accurate Myanmar Year
-     */
-    public static final int MLT = 1062;
-
-    /**
-     * Maximum accurate Myanmar Year
-     */
-    public static final int MUT = 1379;
-
-    /**
-     * Gregorian start in English calendar (1752/Sep/14)
-     */
-    public static final double SG = 2361222;
-
-    public static final String SIMPLE_MYANMAR_DATE_FORMAT_PATTERN = "S s k, B y k, M p f r En";
-
-    private CalendarType CALENDARTYPE = CalendarType.ENGLISH;
-
-    private Language lANGUAGE = Language.MYANMAR;
+    private final Language language;
 
     private static Config instance;
 
@@ -72,10 +29,19 @@ public final class Config {
     }
 
     /**
+     * Set the default Calendar Config using a builder lambda.
+     * @param fn configure with lambda
+     */
+    public static void initDefault(Function<Config.Builder, ObjectBuilder<Config>> fn) {
+        instance = fn.apply(new Config.Builder()).build();
+    }
+
+    /**
      * The current Calendar Config.
      * If not set it will create a default config.
+     * @return the current Calendar Config
      */
-    public static Config get() {
+    public static Config getInstance() {
         if (instance == null) {
             instance = new Config(new Builder());
         }
@@ -83,25 +49,29 @@ public final class Config {
     }
 
     private Config(Builder builder) {
-        CALENDARTYPE = builder.getCalendarType();
-        lANGUAGE = builder.getLanguage();
+        calendarType = builder.getCalendarType();
+        language = builder.getLanguage();
     }
 
     public CalendarType getCalendarType() {
-        return CALENDARTYPE;
+        return calendarType;
     }
 
     public Language getLanguage() {
-        return lANGUAGE;
+        return language;
     }
 
-    public static class Builder {
+    public static class Builder implements ObjectBuilder<Config> {
 
         private CalendarType calendarType = CalendarType.ENGLISH;
 
         private Language language = Language.MYANMAR;
 
+        /**
+         * For Config
+         */
         public Builder() {
+            // Builder for Config
         }
 
         public CalendarType getCalendarType() {
@@ -122,6 +92,7 @@ public final class Config {
             return this;
         }
 
+        @Override
         public Config build() {
             if (calendarType == null || language == null) {
                 throw new IllegalArgumentException("CalendarType or Language cannot be null");

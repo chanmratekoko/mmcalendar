@@ -1,53 +1,48 @@
 package mmcalendar;
 
-import java.util.List;
-
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class HolidayCalculatorTest {
-	
-	@Test
-	public void ehol(){
-		
-	}
-	
-	@Test
-	public void mhol(){
-		List<String> holiday = HolidayCalculator.englishHoliday(2017, 1, 4);
-	}
-	
-	@Test
-	public void thingyan(){
 
-	}
-	
-	@Test
-	public void ohol(){
-		
-	}
-	
-	@Test
-	public void ecd(){
-		
-	}
-	
-	@Test
-	public void mcd(){
+    @Test
+    public void englishHoliday() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2017, 1, 4);
+        List<String> actualList = Collections.singletonList("Independence Day");
+        Assert.assertEquals(actualList, holiday);
+    }
 
-	}
-	
-	@Test
-	public void getHoliday(){
-		
-	}
+    @Test
+    public void myanmarHoliday() {
+        List<String> holiday = HolidayCalculator.myanmarHoliday(1385, 4, 15, 1);
+        List<String> actualList = Collections.singletonList("Start of Buddhist Lent");
+        Assert.assertEquals(actualList, holiday);
+    }
 
-	@Test
-	public void isHoliday() {
+    @Test
+    public void thingyan() {
+        List<String> thingyan = HolidayCalculator.thingyan(2460052, 1385, 0);
+        List<String> actualList = Collections.singletonList("Myanmar New Year Day");
+        Assert.assertEquals(actualList, thingyan);
+    }
 
-	}
-	
-	@Test
-	public void getAnniversary() {
+    @Test
+    public void getHoliday() {
+        MyanmarDate myanmarDate = MyanmarDate.of(2460052);
+        List<String> thingyan = HolidayCalculator.getHoliday(myanmarDate);
+        List<String> actualList = Collections.singletonList("Myanmar New Year Day");
+        Assert.assertEquals(actualList, thingyan);
+    }
 
-	}
+    @Test
+    public void isHoliday() {
+        MyanmarDate myanmarDate = MyanmarDate.of(2460052);
+        boolean isHoliday = HolidayCalculator.isHoliday(myanmarDate);
+        Assert.assertTrue("holiday", isHoliday);
+    }
+
 }

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.chanmratekoko</groupId>
     <artifactId>myanmar-calendar</artifactId>
-    <version>1.0.6.RELEASE</version>
+    <version>1.0.7.RELEASE</version>
     <name>Myanmar Calendar</name>
     <description>Myanmar Calendar</description>
 
@@ -13,7 +13,7 @@
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <url>https://www.opensource.org/licenses/mit-license.php</url>
         </license>
     </licenses>
 
@@ -49,11 +49,17 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jdk.version>1.7</jdk.version>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <jdk.version>8</jdk.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
         <!-- Test Dependencies -->
         <junit.version>4.13.1</junit.version>
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <sonar.java.codeCoveragePlugin>jacoco</sonar.java.codeCoveragePlugin>
+        <sonar.test>${project.basedir}/src/test/</sonar.test>
+        <sonar.java.binaries>target/classes</sonar.java.binaries>
+        <sonar.exclusions>src/main/resources/**/*</sonar.exclusions>
     </properties>
 
     <repositories>
@@ -119,7 +125,7 @@
 
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
@@ -128,7 +134,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -177,25 +183,40 @@
                         </goals>
                     </execution>
                     <!-- Generates the JavaDoc coverage report -->
-<!--                    <execution>-->
-<!--                        <id>javadoc-coverage</id>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>javadoc</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <doclet>com.manoelcampos.javadoc.coverage.CoverageDoclet</doclet>-->
-<!--                            <docletArtifact>-->
-<!--                                <groupId>com.manoelcampos</groupId>-->
-<!--                                <artifactId>javadoc-coverage</artifactId>-->
-<!--                                <version>1.0.0</version>-->
-<!--                            </docletArtifact>-->
-<!--                            &lt;!&ndash; Excludes packages from the coverage report. &ndash;&gt;-->
-<!--                            <excludePackageNames>com.manoelcampos.sample2</excludePackageNames>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
+                    <!--                    <execution>-->
+                    <!--                        <id>javadoc-coverage</id>-->
+                    <!--                        <phase>package</phase>-->
+                    <!--                        <goals>-->
+                    <!--                            <goal>javadoc</goal>-->
+                    <!--                        </goals>-->
+                    <!--                        <configuration>-->
+                    <!--                            <doclet>com.manoelcampos.javadoc.coverage.CoverageDoclet</doclet>-->
+                    <!--                            <docletArtifact>-->
+                    <!--                                <groupId>com.manoelcampos</groupId>-->
+                    <!--                                <artifactId>javadoc-coverage</artifactId>-->
+                    <!--                                <version>1.0.0</version>-->
+                    <!--                            </docletArtifact>-->
+                    <!--                            &lt;!&ndash; Excludes packages from the coverage report. &ndash;&gt;-->
+                    <!--                            <excludePackageNames>com.manoelcampos.sample2</excludePackageNames>-->
+                    <!--                        </configuration>-->
+                    <!--                    </execution>-->
 
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0</version> <!-- Use the latest version -->
+                <configuration>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                    <argLine>--add-opens=java.base/java.util=ALL-UNNAMED</argLine>
+                    <parallel>methods</parallel>
+                    <threadCount>5</threadCount>
+                    <includes>
+                        <include>**/Test*.java</include>
+                    </includes>
+                    <useFile>false</useFile>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
@@ -209,6 +230,31 @@
                 </configuration>
             </plugin>
 
+            <!-- SonarQube Maven Plugin -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.7.0.1746</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
