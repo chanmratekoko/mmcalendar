@@ -88,7 +88,7 @@ public class MyanmarCalendarKernelTest {
     }
 
     @Test
-    public void getCalendarMonthHead() {
+    public void getCalendarHeader() {
         String head = MyanmarCalendarKernel.getCalendarHeader(1380, 2, 14);
         String actual = "သာသနာနှစ် ၂၅၆၂ ခု မြန်မာနှစ် ၁၃၈၀ ခု ကဆုန် - နယုန်";
         Assert.assertEquals(actual, head);

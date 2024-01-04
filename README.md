@@ -131,6 +131,20 @@ The following pattern letters are defined ('S', 's', 'B', 'y', 'k', 'M', 'p', 'f
 | E | Day name in week | တနင်္လာ | Monday           |
 | n | Nay | နေ့ |         Nay         |
 
+### Calculation of Relevant Myanmar Months For The Year
+
+```java
+// Output: Month Names (Relevant Myanmar month names for a given Myanmar year.)
+MyanmarMonths myanmarMonth = MyanmarCalendarKernel.calculateRelatedMyanmarMonths(1381, 0);
+```
+
+### Create the header for the Myanmar Calendar.
+
+```java
+// Output : သာသနာနှစ် ၂၅၆၂ ခု မြန်မာနှစ် ၁၃၈၀ ခု ကဆုန် - နယုန်
+String header = MyanmarCalendarKernel.getCalendarHeader(1380, 2, 14);
+```
+
 
 ### Thingyan (Myanmar New Year)
 
