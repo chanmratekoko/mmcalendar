@@ -134,6 +134,7 @@ The following pattern letters are defined ('S', 's', 'B', 'y', 'k', 'M', 'p', 'f
 ### Calculation of Relevant Myanmar Months For The Year
 
 ```java
+// နှစ်အလိုက် မြန်မာ လအမည်များ တွက်ချက်ခြင်း
 // Output: Month Names (Relevant Myanmar month names for a given Myanmar year.)
 MyanmarMonths myanmarMonth = MyanmarCalendarKernel.calculateRelatedMyanmarMonths(1381, 0);
 ```
@@ -144,7 +145,6 @@ MyanmarMonths myanmarMonth = MyanmarCalendarKernel.calculateRelatedMyanmarMonths
 // Output : သာသနာနှစ် ၂၅၆၂ ခု မြန်မာနှစ် ၁၃၈၀ ခု ကဆုန် - နယုန်
 String header = MyanmarCalendarKernel.getCalendarHeader(1380, 2, 14);
 ```
-
 
 ### Thingyan (Myanmar New Year)
 
@@ -186,51 +186,67 @@ import mmcalendar.Astro;
 MyanmarDate myanmarDate = MyanmarDate.now();
 Astro astro = Astro.of(myanmarDate);
 
+// ဥပုသ် သို့ အဖိတ်
 // Output: Sabbath or Sabbath Eve or Empty
 astro.getSabbath();
 
+// သမားညို
 // Output: Thamanyo or Empty
 astro.getThamanyo();
 
+// သမားဖြူ
 // Output: Thamaphyu or Empty
 astro.getThamaphyu();
 
+// အမြိတ္တစုတ်
 // Output: Amyeittasote or Empty
 astro.getAmyeittasote();
 
+// ဝါရမိတ္တုကြီး
 // Output: Warameittugyi or Empty
 astro.getWarameittugyi();
 
+// ဝါရမိတ္တုငယ်
 // Output: Warameittunge or Empty
 astro.getWarameittunge();
 
+// ရက်ပုပ်
 // Output: Yatpote or Empty
 astro.getYatpote();
 
+// နဂါးပေါ်
 // Output: Nagapor or Empty
 astro.getNagapor();
 
+// ရက်ယုတ်မာ
 // Output: Yatyotema or Empty
 astro.getYatyotema();
 
+// မဟာရက်ကြမ်း
 // Output: Mahayatkyan or Empty
 astro.getMahayatkyan();
 
+// ရှမ်းရက်
 // Output: Shanyat or empty
 astro.getShanyat();
 
+// နဂါး လှည့်
 // Output: west or north or east or south
 astro.getNagahle();
 
+// မဟာဘုတ်
 // Output: Binga or Atun or Yaza or Adipati or Marana or Thike or Puti
 astro.getMahabote();
 
-// Output: Orc or Elf or Human
+// နက္ခတ်
+// Output: Ogre or Elf or Human
 astro.getNakhat();
 
+// ခုနှစ်အမည်
 // Output: Hpusha or Magha or Phalguni or Chitra or Visakha or Jyeshtha or Ashadha or Sravana or Bhadrapaha or Asvini or Krittika or Mrigasiras
 astro.getYearName();
 
+// ရက်ရာဇာ သို့ ပြဿဒါး သို့ မွန်းလွဲ ပြဿဒါး
 // Output: "Yatyaza" or "Pyathada" or "Afternoon Pyathada" or Empty ""
 astro.getAstrologicalDay();
 ```
