@@ -50,6 +50,8 @@ public class WesternDateKernelTest {
     public void getLengthOfMonth() {
         assertThat(28, is(WesternDateKernel.getLengthOfMonth(2023, 2, 0)));
         assertThat(29, is(WesternDateKernel.getLengthOfMonth(2024, 2, 0)));
+        assertThat(19, is(WesternDateKernel.getLengthOfMonth(1752 , 9, 0)));
+        assertThat(29, is(WesternDateKernel.getLengthOfMonth(1600 , 2, 0)));
     }
 
     @Test

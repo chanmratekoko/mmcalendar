@@ -19,7 +19,7 @@ public class JavaDateTimeTest {
         MyanmarDate myanmarDate = MyanmarDate.of(localDateTime);
         Assert.assertEquals(1385, myanmarDate.getYearValue());
 
-        WesternDate westernDate = WesternDateKernel.julianToWestern(myanmarDate.getJulianDayNumber(), CalendarType.ENGLISH);
+        WesternDate westernDate = WesternDate.of(myanmarDate.getJulianDayNumber(), CalendarType.ENGLISH);
         Assert.assertEquals(2024, westernDate.getYear());
     }
 

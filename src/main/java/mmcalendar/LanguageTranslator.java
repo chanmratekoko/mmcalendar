@@ -205,7 +205,7 @@ public class LanguageTranslator {
      */
     private static String translateSentence(String str, int fromLn, int toLn) {
         for (String[] dic : CATALOG) {
-            str = str.replaceAll(dic[fromLn], dic[toLn]);
+            str = str.replace(dic[fromLn], dic[toLn]);
         }
         return str;
     }

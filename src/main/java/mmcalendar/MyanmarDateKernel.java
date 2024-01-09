@@ -224,16 +224,6 @@ public final class MyanmarDateKernel {
     }
 
     /**
-     * Myanmar date to Julian date (12 PM 00 Seconds)
-     *
-     * @param myanmarDate {@link MyanmarDate} Object
-     * @return julian day number
-     */
-    public static double myanmarDateToJulian(MyanmarDate myanmarDate) {
-        return myanmarDateToJulian(myanmarDate.getYearValue(), myanmarDate.getMonth(), myanmarDate.getDayOfMonth());
-    }
-
-    /**
      * Myanmar date to Julian date dependency: chk_my (my)
      *
      * @param myear  Myanmar Year
@@ -280,7 +270,7 @@ public final class MyanmarDateKernel {
      * @return Julian Day Number
      */
     public static double getJulianDayNumber(int myear, String myanmarMonthName, int mmday) {
-        int mmonth = searchMyanmarMonth(myanmarMonthName);
+        int mmonth = searchMyanmarMonthNumber(myanmarMonthName);
         if (mmonth < 0) {
             throw new DateTimeException("Invalid value for myanmarMonthName : " + myanmarMonthName);
         }
@@ -295,38 +285,53 @@ public final class MyanmarDateKernel {
      *                         Tabaung=12, Late Tagu=13, Late Kason=14]
      * @return myanmar month number
      */
-    public static int searchMyanmarMonth(String myanmarMonthName) {
-        switch (myanmarMonthName) {
-            case "First Waso":
+    public static int searchMyanmarMonthNumber(String myanmarMonthName) {
+        switch (myanmarMonthName.toLowerCase()) {
+            case "first waso":
                 return 0;
-            case "Tagu":
+            case "tagu":
                 return 1;
-            case "Kason":
+            case "kason":
                 return 2;
-            case "Nayon":
+            case "nayon":
                 return 3;
-            case "Waso":
+            case "waso":
                 return 4;
-            case "Wagaung":
+            case "wagaung":
                 return 5;
-            case "Tawthalin":
+            case "tawthalin":
                 return 6;
-            case "Thadingyut":
+            case "thadingyut":
                 return 7;
-            case "Tazaungmon":
+            case "tazaungmon":
                 return 8;
-            case "Nadaw":
+            case "nadaw":
                 return 9;
-            case "Pyatho":
+            case "pyatho":
                 return 10;
-            case "Tabodwe":
+            case "tabodwe":
                 return 11;
-            case "Tabaung":
+            case "tabaung":
                 return 12;
-            case "Late Tagu":
+            case "late tagu":
                 return 13;
-            case "Late Kason":
+            case "late kason":
                 return 14;
+            default:
+                return -1;
+        }
+    }
+
+    public static int searchMoonPhase(String moonPhase) {
+        switch (moonPhase.toLowerCase()) {
+            case "waxing":
+                return 0;
+            case "full moon":
+                return 1;
+            case "waning":
+                return 2;
+            case "new moon":
+                return 3;
             default:
                 return -1;
         }

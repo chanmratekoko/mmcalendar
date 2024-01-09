@@ -5,21 +5,18 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
+import java.time.DateTimeException;
 import java.util.Map;
 
-
+import static mmcalendar.Constants.EMA;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-
-import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertEquals;
 
 public class MyanmarDateKernelTest {
 
     @BeforeClass
     public static void beforeClass() {
-        // Config.init(CalendarType.ENGLISH, Language.ENGLISH);
         Config.initDefault(
                 new Config.Builder()
                         .setCalendarType(CalendarType.ENGLISH)
@@ -102,16 +99,33 @@ public class MyanmarDateKernelTest {
 
         double julianDayNumber = MyanmarDateKernel.getJulianDayNumber(year, myanmarMonthName, day);
 
-        assertEquals(2458252.0, julianDayNumber,  0.0001);
+        assertEquals(2458252.0, julianDayNumber, 0.0001);
+    }
 
-        MyanmarDate myanmarDate = MyanmarDate.of(julianDayNumber);
+    @Test(expected = DateTimeException.class)
+    public void getJulianDayNumberException() {
+        MyanmarDateKernel.getJulianDayNumber(2024, "hello", 1);
+    }
 
-        Language language = Language.MYANMAR;
-        String aspects = "သာသနာနှစ် ၂၅၆၂ ခု, မြန်မာနှစ် ၁၃၈၀ ခု, ကဆုန် လဆုတ် ၁၄ ရက် တနင်္ဂနွေ နေ့";
-        assertEquals(aspects, myanmarDate.toString(language));
+    @Test
+    public void searchMyanmarMonth() {
+        for (int i = 0; i < EMA.length; i++) {
+            int monthIndex = MyanmarDateKernel.searchMyanmarMonthNumber(EMA[i]);
+            assertThat(i, is(monthIndex));
+        }
 
-        LocalDateTime aspectDate = LocalDateTime.of(2018, 5, 13, 12, 0);
-        assertEquals(aspectDate, myanmarDate.toMyanmarLocalDateTime());
+        assertThat(-1, is(MyanmarDateKernel.searchMyanmarMonthNumber("hello")));
+    }
 
+    @Test
+    public void searchMoonPhase() {
+
+        String[] moonPhase = {"waxing", "full moon", "waning", "new moon"};
+        for (int i = 0; i < moonPhase.length; i++) {
+            int index = MyanmarDateKernel.searchMoonPhase(moonPhase[i]);
+            assertThat(i, is(index));
+        }
+
+        assertThat(-1, is(MyanmarDateKernel.searchMoonPhase("hello")));
     }
 }

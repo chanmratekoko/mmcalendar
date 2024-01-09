@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MyanmarThingyanDateTimeTest {
 
@@ -34,5 +34,21 @@ public class MyanmarThingyanDateTimeTest {
 
         ZonedDateTime zonedDateTime = myanmarThingyanDateTime.getAkyaTime().toMyanmarZonedDateTime();
         assertEquals("2024-04-14T00:24:45+06:30[Asia/Rangoon]", zonedDateTime.toString());
+    }
+
+    @Test
+    public void calculateDoubleAkyatDay() {
+        MyanmarThingyanDateTime thingyan = MyanmarThingyanDateTime.of(1382);
+
+        MyanmarDate akyatDaate1 = thingyan.getAkyatDays()[0];
+        MyanmarDate akyatDaate2 = thingyan.getAkyatDays()[1];
+
+        String monthName = LanguageTranslator.translate(akyatDaate1.getMonthName(), Language.MYANMAR, Language.ENGLISH);
+
+        MyanmarDate expectedDay1 = MyanmarDate.create(akyatDaate1.getYearValue(), monthName, akyatDaate1.getDayOfMonth());
+        MyanmarDate expectedDay2 = MyanmarDate.create(akyatDaate2.getYearValue(), akyatDaate2.getMonth(), akyatDaate2.getDayOfMonth());
+
+        assertTrue(akyatDaate1.hasSameDay(expectedDay1));
+        assertTrue(akyatDaate2.hasSameDay(expectedDay2));
     }
 }

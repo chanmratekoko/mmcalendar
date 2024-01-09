@@ -16,11 +16,11 @@ public class MyanmarCalendarKernelTest {
     @BeforeClass
     public static void beforeClass() {
 
-//        Config.initDefault(
-//                new Config.Builder()
-//                        .setCalendarType(CalendarType.ENGLISH)
-//                        .setLanguage(Language.ENGLISH)
-//                        .build());
+        Config.initDefault(
+                new Config.Builder()
+                        .setCalendarType(CalendarType.ENGLISH)
+                        .setLanguage(Language.MYANMAR)
+                        .build());
 
         // သာသနာနှစ် ၂၅၆၇ ခု, မြန်မာနှစ် ၁၃၈၅ ခု, တန်ခူး လကွယ်  ရက် အင်္ဂါနေ့
         int jdn = 2460053;
@@ -87,10 +87,54 @@ public class MyanmarCalendarKernelTest {
         Assert.assertEquals("Nayon", myanmarMonth.getCalculationMonthName());
     }
 
+
+    @Test
+    public void getCalendarHeaderForWesternStyle() {
+        String head = MyanmarCalendarKernel.getCalendarHeaderForWesternStyle(2024, 4);
+        String actual = "သာသနာနှစ် ၂၅၆၇ - ၂၅၆၈ ခု မြန်မာနှစ် ၁၃၈၅ - ၁၃၈၆ ခု တပေါင်း - တန်ခူး";
+        Assert.assertEquals(actual, head);
+    }
+
     @Test
     public void getCalendarHeader() {
-        String head = MyanmarCalendarKernel.getCalendarHeader(1380, 2, 14);
-        String actual = "သာသနာနှစ် ၂၅၆၂ ခု မြန်မာနှစ် ၁၃၈၀ ခု ကဆုန် - နယုန်";
+        String head = MyanmarCalendarKernel.getCalendarHeader(1380, 2);
+        String actual = "သာသနာနှစ် ၂၅၆၁ - ၂၅၆၂ ခု မြန်မာနှစ် ၁၃၇၉ - ၁၃၈၀ ခု နှောင်းကဆုန် - ကဆုန်";
+        Assert.assertEquals(actual, head);
+    }
+
+    @Test
+    public void getCalendarHeader2() {
+        String monthName = "Tagu";
+        int monthIndex = MyanmarDateKernel.searchMyanmarMonthNumber(monthName);
+        String head = MyanmarCalendarKernel.getCalendarHeader(1385, monthIndex);
+        String actual = "သာသနာနှစ် ၂၅၆၆ - ၂၅၆၇ ခု မြန်မာနှစ် ၁၃၈၄ - ၁၃၈၅ ခု နှောင်းတန်ခူး - တန်ခူး";
+        Assert.assertEquals(actual, head);
+    }
+
+    @Test
+    public void getHeaderForBuddhistEra() {
+        MyanmarDate startDate = MyanmarDate.of(2024, 1, 1);
+        MyanmarDate endDate = MyanmarDate.of(2024, 4, 30);
+        String head = MyanmarCalendarKernel.getHeaderForBuddhistEra(startDate, endDate, Language.MYANMAR);
+        String actual = "သာသနာနှစ် ၂၅၆၇ - ၂၅၆၈ ခု";
+        Assert.assertEquals(actual, head);
+    }
+
+    @Test
+    public void getHeaderForMyanmarYear() {
+        MyanmarDate startDate = MyanmarDate.of(2024, 4, 1);
+        MyanmarDate endDate = MyanmarDate.of(2024, 4, 30);
+        String head = MyanmarCalendarKernel.getHeaderForMyanmarYear(startDate, endDate, Language.MYANMAR);
+        String actual = "မြန်မာနှစ် ၁၃၈၅ - ၁၃၈၆ ခု";
+        Assert.assertEquals(actual, head);
+    }
+
+    @Test
+    public void getHeaderForMyanmarMonth() {
+        MyanmarDate startDate = MyanmarDate.of(2024, 4, 1);
+        MyanmarDate endDate = MyanmarDate.of(2024, 4, 30);
+        String head = MyanmarCalendarKernel.getHeaderForMyanmarMonth(startDate, endDate, Language.MYANMAR);
+        String actual = "တပေါင်း - တန်ခူး";
         Assert.assertEquals(actual, head);
     }
 
@@ -99,6 +143,12 @@ public class MyanmarCalendarKernelTest {
         // calculate myanmar year length
         int yearLength = MyanmarCalendarKernel.calculateMyanmarYearLength(myanmarDate.getYearType());
         assertThat(385, is(yearLength));
+    }
+
+    @Test
+    public void calculateYearType() {
+        int yearType = MyanmarCalendarKernel.calculateYearType(myanmarDate.getYearValue());
+        assertThat(2, is(yearType));
     }
 
     @Test
@@ -126,6 +176,13 @@ public class MyanmarCalendarKernelTest {
     public void calculateDayOfMonthByYearType() {
         // day of month
         int monthDay = MyanmarCalendarKernel.calculateDayOfMonthByYearType(myanmarDate.getYearType(), myanmarDate.getMonth(), myanmarDate.getMoonPhaseValue(), myanmarDate.getFortnightDayValue());
+        assertThat(29, is(monthDay));
+    }
+
+    @Test
+    public void calculateDayOfMonth() {
+        // day of month
+        int monthDay = MyanmarCalendarKernel.calculateDayOfMonth(myanmarDate.getYearValue(), myanmarDate.getMonth(), myanmarDate.getMoonPhaseValue(), myanmarDate.getFortnightDayValue());
         assertThat(29, is(monthDay));
     }
 }

@@ -29,6 +29,7 @@ public class MyanmarYearConstants {
         // exception in watat year
         double exceptionInWatatYear = 0;
         int i;
+
         int[][] fme;
         int[] wte;
 
@@ -63,8 +64,9 @@ public class MyanmarYearConstants {
             watatOffset = -1.1;
             numberOfMonths = -1;
             fme = new int[][]{
-                    {813, -1}, {849, -1}, {851, -1}, {854, -1}, {927, -1}, {933, -1}, {936, -1},
-                    {938, -1}, {949, -1}, {952, -1}, {963, -1}, {968, -1}, {1039, -1}
+                    {813, -1}, {849, -1}, {851, -1}, {854, -1}, {927, -1}, {933, -1},
+                    {936, -1}, {938, -1}, {949, -1}, {952, -1}, {963, -1}, {968, -1},
+                    {1039, -1}
             };
             wte = new int[]{};
         }
@@ -74,8 +76,8 @@ public class MyanmarYearConstants {
             watatOffset = -1.1;
             numberOfMonths = -1;
             fme = new int[][]{
-                    {205, 1}, {246, 1}, {471, 1}, {572, -1}, {651, 1}, {653, 2}, {656, 1}, {672, 1},
-                    {729, 1}, {767, -1}
+                    {205, 1}, {246, 1}, {471, 1}, {572, -1}, {651, 1}, {653, 2},
+                    {656, 1}, {672, 1}, {729, 1}, {767, -1}
             };
             wte = new int[]{};
         }

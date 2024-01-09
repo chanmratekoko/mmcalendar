@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        WesternDateConverterTest.class,
+        WesternDateTest.class,
         WesternDateKernelTest.class
 })
 public class WesternDateTestSuite {

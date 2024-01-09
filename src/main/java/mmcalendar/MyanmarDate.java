@@ -1,7 +1,5 @@
 package mmcalendar;
 
-import mmcalendar.util.DateTimeUtils;
-
 import java.io.Serializable;
 import java.time.*;
 import java.util.Calendar;
@@ -95,20 +93,6 @@ public class MyanmarDate implements Serializable {
         this.jd = jd;
     }
 
-    public MyanmarDate(MyanmarDate original) {
-        this.myear = original.myear;
-        this.yearType = original.yearType;
-        this.yearLength = original.yearLength;
-        this.mmonth = original.mmonth;
-        this.monthType = original.monthType;
-        this.monthLength = original.monthLength;
-        this.monthDay = original.monthDay;
-        this.fortnightDay = original.fortnightDay;
-        this.moonPhase = original.moonPhase;
-        this.weekDay = original.weekDay;
-        this.jd = original.jd;
-    }
-
     //-----------------------------------------------------------------------
 
     /**
@@ -167,6 +151,29 @@ public class MyanmarDate implements Serializable {
         return create(myear, mmonth, monthDay);
     }
 
+
+    /**
+     * Create Myanmar Date from myanmar year, length of the month, moon phase and fortnight day
+     *
+     * @param myear            Myanmar Year
+     * @param myanmarMonthName Myanmar month [Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd)
+     *                         Waso=4, Wagaung=5, Tawthalin=6, Thadingyut=7, Tazaungmon=8,
+     *                         Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12 , Late Tagu = 13, Late Kason = 14]
+     * @param moonPhase        moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
+     * @param fortnightDay     fortnight day [1 to 15]
+     * @return Myanmar date
+     */
+    public static MyanmarDate create(
+            int myear,
+            String myanmarMonthName,
+            String moonPhase,
+            int fortnightDay
+    ) {
+        int mmonth = MyanmarDateKernel.searchMyanmarMonthNumber(myanmarMonthName);
+        int moonPhaseValue = MyanmarDateKernel.searchMoonPhase(moonPhase);
+        return create(myear, mmonth, moonPhaseValue, fortnightDay);
+    }
+
     //-----------------------------------------------------------------------
     public static MyanmarDate now() {
         LocalDateTime canberraDateTime = LocalDateTime.now(MYANMAR_ZONE_ID);
@@ -191,24 +198,33 @@ public class MyanmarDate implements Serializable {
         return of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH), Config.getInstance().getCalendarType(), 0);
     }
 
+
+    public static MyanmarDate of(LocalDate myanmarLocalDate) {
+        return of(
+                myanmarLocalDate.getYear(),
+                myanmarLocalDate.getMonthValue(),
+                myanmarLocalDate.getDayOfMonth()
+        );
+    }
+
     /**
      * LocalDateTime to Myanmar Date
      *
-     * @param myanmarDateTime java {@link LocalDateTime}
+     * @param myanmarLocalDateTime java {@link LocalDateTime}
      * @return the Myanmar date, not null
      * @see LocalDateTime
      * <p>
      * Note: All the calculations are based on Myanmar Standard Time (UTC+06:30)
      * which is calculated on the basis of 97° 30' longitude.
      */
-    public static MyanmarDate of(LocalDateTime myanmarDateTime) {
+    public static MyanmarDate of(LocalDateTime myanmarLocalDateTime) {
         return of(
-                myanmarDateTime.getYear(),
-                myanmarDateTime.getMonthValue(),
-                myanmarDateTime.getDayOfMonth(),
-                myanmarDateTime.getHour(),
-                myanmarDateTime.getMinute(),
-                myanmarDateTime.getSecond()
+                myanmarLocalDateTime.getYear(),
+                myanmarLocalDateTime.getMonthValue(),
+                myanmarLocalDateTime.getDayOfMonth(),
+                myanmarLocalDateTime.getHour(),
+                myanmarLocalDateTime.getMinute(),
+                myanmarLocalDateTime.getSecond()
         );
     }
 
@@ -290,41 +306,44 @@ public class MyanmarDate implements Serializable {
     }
 
     /**
-     * @param year         Western Year
-     * @param month        Western Month [1 = Jan, ... , 12 = Dec]
-     *                     Month value is 1-based. e.g., 1 for January.
-     * @param day          Western Day [1-31]
-     * @param hour         Hour
-     * @param minute       Minute
-     * @param second       Second
-     * @param calendarType CalendarType Enum
-     * @param sg           : Beginning of Gregorian calendar in JDN [Optional argument:
-     *                     default=2361222]
-     * @return {@link MyanmarDate} Object
-     */
-    public static MyanmarDate of(int year, int month, int day, int hour, int minute, int second,
-                                 CalendarType calendarType, double sg) {
-        double julianDayNumber = WesternDateKernel.westernToJulian(year, month, day, hour, minute, second, calendarType, sg);
-        return of(julianDayNumber);
-    }
-
-    /**
      * Julian date to Myanmar Date
-     *
+     * @param julianDayNumber Julian day number
      * @return {@link MyanmarDate} Object
      */
     public static MyanmarDate of(double julianDayNumber) {
         return MyanmarDateKernel.julianToMyanmarDate(julianDayNumber);
     }
 
-    //-----------------------------------------------------------------------
 
+    //-----------------------------------------------------------------------
     public String getBuddhistEra(Language language) {
         return LanguageTranslator.translate(myear + 1182.0, language);
     }
 
     public String getBuddhistEra() {
         return getBuddhistEra(Config.getInstance().getLanguage());
+    }
+
+    /**
+     * Creates MyanmarDate object based on the given parameters representing a date and time
+     * in the Western calendar system.
+     *
+     * @param year         The year in the Western calendar.
+     * @param month        The month in the Western calendar (1 = Jan, ... , 12 = Dec)
+     *                     Month value is 1-based. e.g., 1 for January.
+     * @param day          The day of the month in the Western calendar. [1-31]
+     * @param hour         The hour of the day (24-hour format).
+     * @param minute       The minute of the hour.
+     * @param second       The second of the minute.
+     * @param calendarType CalendarType Enum (The type of calendar used for the conversion.)
+     * @param sg           : Beginning of Gregorian calendar in JDN [Optional argument:
+     *                     default=2361222]
+     * @return {@link MyanmarDate} Object representing the equivalent date in the Myanmar calendar.
+     */
+    public static MyanmarDate of(int year, int month, int day, int hour, int minute, int second,
+                                 CalendarType calendarType, double sg) {
+        double julianDayNumber = WesternDateKernel.westernToJulian(year, month, day, hour, minute, second, calendarType, sg);
+        return of(julianDayNumber);
     }
 
     public int getBuddhistEraValue() {
@@ -387,7 +406,16 @@ public class MyanmarDate implements Serializable {
     }
 
     public String getMonthName(Language language) {
-        return LanguageTranslator.translate(EMA[this.mmonth], language);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (this.mmonth == 4 && this.yearType > 0) {
+            stringBuilder.append(LanguageTranslator.translate("Second", language))
+                    .append(" ");
+        }
+
+        stringBuilder.append(LanguageTranslator.translate(EMA[this.mmonth], language));
+
+        return stringBuilder.toString();
     }
 
     /**
@@ -501,7 +529,7 @@ public class MyanmarDate implements Serializable {
     public String format(String pattern, Language language) {
 
         if (pattern == null || language == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException("Pattern or Language must not be null");
         }
 
         char[] charArray = pattern.toCharArray();
@@ -597,15 +625,16 @@ public class MyanmarDate implements Serializable {
     }
 
     public ZonedDateTime toZonedDateTime(ZoneId zoneId) {
-        long epochSecond = DateTimeUtils.julianToUnixTime(this.jd);
-        return LocalDateTime.ofEpochSecond(
-                        epochSecond,
-                        0,
-                        ZoneOffset.ofTotalSeconds(0)
+        WesternDate wd = WesternDate.of(this.jd);
+        return LocalDateTime.of(wd.getYear(),
+                        wd.getMonth(),
+                        wd.getDay(),
+                        wd.getHour(),
+                        wd.getMinute(),
+                        wd.getSecond()
                 ).atZone(MYANMAR_ZONE_ID)
                 .withZoneSameInstant(zoneId);
     }
-
 
     /**
      * Java has a rough support for Julian day number.
@@ -644,7 +673,7 @@ public class MyanmarDate implements Serializable {
      * @return {@link LocalDate} with Myanmar Timezone
      */
     public LocalDate toMyanmarLocalDate() {
-        return toMyanmarLocalDate(MYANMAR_ZONE_ID);
+        return toLocalDate(MYANMAR_ZONE_ID);
     }
 
     /**
@@ -657,7 +686,7 @@ public class MyanmarDate implements Serializable {
      * @param zoneId zone
      * @return {@link LocalDate}
      */
-    public LocalDate toMyanmarLocalDate(ZoneId zoneId) {
+    public LocalDate toLocalDate(ZoneId zoneId) {
         return toZonedDateTime(zoneId)
                 .toLocalDate();
     }
@@ -743,10 +772,6 @@ public class MyanmarDate implements Serializable {
         if (yearLength != other.yearLength)
             return false;
         return yearType == other.yearType;
-    }
-
-    public static MyanmarDate copyOf(MyanmarDate original) {
-        return new MyanmarDate(original);
     }
 
     /**

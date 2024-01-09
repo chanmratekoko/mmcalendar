@@ -52,7 +52,6 @@ public final class MyanmarCalendarKernel {
             mmonth = ei;
         }
 
-        // populateMonthLists
         return populateMonthLists(m1.getYearType(), si, ei, mmonth);
     }
 
@@ -88,14 +87,80 @@ public final class MyanmarCalendarKernel {
         return new MyanmarMonths(monthList, monthNameList, currentIndex);
     }
 
-
-    public static String getCalendarHeader(int myear, int mmonth, int mmday) {
-        return getCalendarHeader(myear, mmonth, mmday, Config.getInstance().getLanguage());
+    /**
+     * Western Calendar Title for month
+     *
+     * @param year  Western Year
+     * @param month Western Month [1 = Jan, ... , 12 = Dec]
+     *              Month value is 1-based. e.g., 1 for January.
+     * @return Calendar Title for month
+     */
+    public static String getCalendarHeaderForWesternStyle(int year, int month) {
+        return getCalendarHeaderForWesternStyle(year, month, Config.getInstance().getLanguage());
     }
 
-    public static String getCalendarHeader(int myear, int mmonth, int mmday, Language language) {
+    /**
+     * Western Calendar Title for month
+     *
+     * @param year     Western Year
+     * @param month    Western Month [1 = Jan, ... , 12 = Dec]
+     *                 Month value is 1-based. e.g., 1 for January.
+     * @param language Language
+     * @return Calendar Title for month
+     */
+    public static String getCalendarHeaderForWesternStyle(int year, int month, Language language) {
+        // time zone is irrelevant
+        int monthLength = WesternDateKernel.getLengthOfMonth(year, month, Config.getInstance().getCalendarType().getNumber());
+        MyanmarDate startDate = MyanmarDate.of(year, month, 1);
+        double je = startDate.getJulianDayNumber() + monthLength - 1;
+        MyanmarDate endDate = MyanmarDate.of(je);
+        return getCalendarHeader(startDate, endDate, language);
+    }
+
+    /**
+     * Calendar Title for month
+     *
+     * @param myear  Myanmar Year
+     * @param mmonth Myanmar month [Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd)
+     *               Waso=4, Wagaung=5, Tawthalin=6, Thadingyut=7, Tazaungmon=8,
+     *               Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12, Late Tagu=13
+     *               Late Kason=14 ]
+     * @return Calendar Title for month
+     */
+    public static String getCalendarHeader(int myear, int mmonth) {
+        return getCalendarHeader(myear, mmonth, Config.getInstance().getLanguage());
+    }
+
+    /**
+     * Calendar Title for month
+     *
+     * @param myear    Myanmar Year
+     * @param mmonth   Myanmar month [Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd)
+     *                 Waso=4, Wagaung=5, Tawthalin=6, Thadingyut=7, Tazaungmon=8,
+     *                 Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12, Late Tagu=13
+     *                 Late Kason=14 ]
+     * @param language Language
+     * @return Calendar Title for month
+     */
+    public static String getCalendarHeader(int myear, int mmonth, Language language) {
+        return getCalendarHeader(myear, mmonth, 1, language);
+    }
+
+    /**
+     * Calendar Title for month
+     *
+     * @param myear    Myanmar Year
+     * @param mmonth   Myanmar month [Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd)
+     *                 Waso=4, Wagaung=5, Tawthalin=6, Thadingyut=7, Tazaungmon=8,
+     *                 Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12, Late Tagu=13
+     *                 Late Kason=14 ]
+     * @param mday    day of month [from 1 to 29 or 30]
+     * @param language Language
+     * @return Calendar Title for month
+     */
+    public static String getCalendarHeader(int myear, int mmonth, int mday, Language language) {
         // Find julian day number of start of the month
-        double julianDate = MyanmarDateKernel.myanmarDateToJulian(myear, mmonth, mmday);
+        double julianDate = MyanmarDateKernel.myanmarDateToJulian(myear, mmonth, mday);
 
         MyanmarDate myanmarDate = MyanmarDate.of(julianDate);
 
@@ -124,7 +189,8 @@ public final class MyanmarCalendarKernel {
 
         if (endDateOfMonth.getYearValue() >= 2) {
             //if Myanmar year after 2 ME
-            str.append(getHeaderForMyanmarYear(startDateOfMonth, endDateOfMonth, language))
+            str.append(" ")
+                    .append(getHeaderForMyanmarYear(startDateOfMonth, endDateOfMonth, language))
                     .append(" ");
 
             str.append(getHeaderForMyanmarMonth(startDateOfMonth, endDateOfMonth, language));
@@ -133,7 +199,7 @@ public final class MyanmarCalendarKernel {
         return str.toString();
     }
 
-    private static String getHeaderForBuddhistEra(MyanmarDate startDate, MyanmarDate endDate, Language language) {
+    public static String getHeaderForBuddhistEra(MyanmarDate startDate, MyanmarDate endDate, Language language) {
 
         StringBuilder buddhistEraStringBuilder = new StringBuilder();
 
@@ -147,13 +213,12 @@ public final class MyanmarCalendarKernel {
         }
 
         buddhistEraStringBuilder.append(" ")
-                .append(LanguageTranslator.translate("Ku", language))
-                .append(" ");
+                .append(LanguageTranslator.translate("Ku", language));
 
         return buddhistEraStringBuilder.toString();
     }
 
-    private static String getHeaderForMyanmarYear(MyanmarDate startDateOfMonth, MyanmarDate endDateOfMonth, Language language) {
+    public static String getHeaderForMyanmarYear(MyanmarDate startDateOfMonth, MyanmarDate endDateOfMonth, Language language) {
 
         StringBuilder myanmarYearStringBuilder = new StringBuilder();
 
@@ -177,7 +242,7 @@ public final class MyanmarCalendarKernel {
         return myanmarYearStringBuilder.toString();
     }
 
-    private static String getHeaderForMyanmarMonth(MyanmarDate startDateOfMonth, MyanmarDate endDateOfMonth, Language language) {
+    public static String getHeaderForMyanmarMonth(MyanmarDate startDateOfMonth, MyanmarDate endDateOfMonth, Language language) {
 
         StringBuilder myanmarMonthStringBuilder = new StringBuilder();
 

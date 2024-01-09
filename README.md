@@ -15,7 +15,7 @@ Usage
 <dependency>
   <groupId>com.github.chanmratekoko</groupId>
   <artifactId>myanmar-calendar</artifactId>
-  <version>1.0.7.RELEASE</version>
+  <version>1.0.8.RELEASE</version>
 </dependency>
 ```
 
@@ -136,14 +136,23 @@ The following pattern letters are defined ('S', 's', 'B', 'y', 'k', 'M', 'p', 'f
 ```java
 // နှစ်အလိုက် မြန်မာ လအမည်များ တွက်ချက်ခြင်း
 // Output: Month Names (Relevant Myanmar month names for a given Myanmar year.)
-MyanmarMonths myanmarMonth = MyanmarCalendarKernel.calculateRelatedMyanmarMonths(1381, 0);
+MyanmarMonths myanmarMonth = MyanmarMonths.of(1381, 0);
 ```
 
 ### Create the header for the Myanmar Calendar.
 
+#### Myanmar Calendar Style Header
 ```java
-// Output : သာသနာနှစ် ၂၅၆၂ ခု မြန်မာနှစ် ၁၃၈၀ ခု ကဆုန် - နယုန်
-String header = MyanmarCalendarKernel.getCalendarHeader(1380, 2, 14);
+// Output: သာသနာနှစ် ၂၅၆၂ ခု မြန်မာနှစ် ၁၃၈၀ ခု ကဆုန် - နယုန်
+// Output: Sasana Year 2561 - 2562 Ku Myanmar Year 1379 - 1380 Ku Late Kason - Kason
+String header = MyanmarCalendarKernel.getCalendarHeader(1380, 2);
+```
+
+#### Western Calendar Style Header
+```java
+// Output: သာသနာနှစ် ၂၅၆၇ - ၂၅၆၈ ခု မြန်မာနှစ် ၁၃၈၅ - ၁၃၈၆ ခု တပေါင်း - တန်ခူး
+// Output: Sasana Year 2567 - 2568 Ku Myanmar Year 1385 - 1386 Ku Tabaung - Tagu
+String header = MyanmarCalendarKernel.getCalendarHeaderForWesternStyle(2024, 4);
 ```
 
 ### Thingyan (Myanmar New Year)
@@ -176,6 +185,10 @@ boolean isHoliday = HolidayCalculator.isHoliday(MyanmarDate.now());
 List<String> holidayNameList = HolidayCalculator.getHoliday(MyanmarDate.now());
 ```
 
+```java
+// Check Anniversary
+List<String> anniversary = HolidayCalculator.getAnniversary(MyanmarDate.of(2017,1 ,1));
+```
 
 ### Astrological information Converter
 
@@ -230,11 +243,11 @@ astro.getMahayatkyan();
 // Output: Shanyat or empty
 astro.getShanyat();
 
-// နဂါး လှည့်
+// နဂါးခေါင်း လှည့်ရာအရပ်
 // Output: west or north or east or south
 astro.getNagahle();
 
-// မဟာဘုတ်
+// မဟာဘုတ်၊ ဇာတာခွင်
 // Output: Binga or Atun or Yaza or Adipati or Marana or Thike or Puti
 astro.getMahabote();
 

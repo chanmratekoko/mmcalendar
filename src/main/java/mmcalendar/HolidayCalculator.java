@@ -204,7 +204,7 @@ public final class HolidayCalculator {
 
         List<String> holiday = new ArrayList<>();
 
-        WesternDate wd = WesternDateConverter.convert(jd, calendarType);
+        WesternDate wd = WesternDate.of(jd, calendarType);
         double doe = dateOfEaster(wd.getYear());
 
         if ((wd.getYear() <= 2017) && (wd.getMonth() == 1) && (wd.getDay() == 1)) {
@@ -332,7 +332,7 @@ public final class HolidayCalculator {
      */
     public static List<String> getHoliday(MyanmarDate myanmarDate, CalendarType calendarType) {
 
-        WesternDate westernDate = WesternDateConverter.convert(myanmarDate.getJulianDayNumber(), calendarType);
+        WesternDate westernDate = WesternDate.of(myanmarDate.getJulianDayNumber(), calendarType);
         // Office Off
         List<String> hde = englishHoliday(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay());
         List<String> hdm = myanmarHoliday(myanmarDate.getYearValue(), myanmarDate.getMonth(), myanmarDate.getDayOfMonth(),
@@ -356,14 +356,6 @@ public final class HolidayCalculator {
      */
     public static boolean isHoliday(MyanmarDate myanmarDate) {
         return !getHoliday(myanmarDate).isEmpty();
-    }
-
-    /**
-     * @param holidayList List Of Holiday
-     * @return boolean
-     */
-    public static boolean isHoliday(List<String> holidayList) {
-        return !holidayList.isEmpty();
     }
 
     /**

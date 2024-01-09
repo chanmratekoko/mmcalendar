@@ -7,8 +7,6 @@ import static org.hamcrest.Matchers.is;
 
 public class AstroKernelTest {
 
-    private static MyanmarDate myanmarDate;
-
     @BeforeClass
     public static void beforeClass() {
         Config.initDefault(
@@ -16,12 +14,10 @@ public class AstroKernelTest {
                         .setCalendarType(CalendarType.ENGLISH)
                         .setLanguage(Language.ENGLISH)
                         .build());
-        myanmarDate = MyanmarDate.of(641, 12, 22);
     }
 
     @AfterClass
     public static void afterClass() {
-        myanmarDate = null;
         Config.initDefault(
                 new Config.Builder()
                         .setCalendarType(CalendarType.ENGLISH)
@@ -84,8 +80,8 @@ public class AstroKernelTest {
 
     @Test
     public void calculatePyathada() {
-        int yatyaza = AstroKernel.calculatePyathada(8, 3);
-        assertThat(1, is(yatyaza));
+        int pyathada = AstroKernel.calculatePyathada(8, 3);
+        assertThat(1, is(pyathada));
     }
 
     @Test

@@ -23,6 +23,20 @@ public class MyanmarMonths implements Serializable {
         this.calculationMonth = calculationMonth;
     }
 
+    /**
+     * Calculate related Myanmar month names by year
+     *
+     * @param myear  Myanmar Year
+     * @param mmonth Myanmar month [Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd)
+     *               Waso=4, Wagaung=5, Tawthalin=6, Thadingyut=7, Tazaungmon=8,
+     *               Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12, Late Tagu=13
+     *               Late Kason=14 ]
+     * @return {@link MyanmarMonths} Object
+     */
+    public static MyanmarMonths of(int myear, int mmonth) {
+        return MyanmarCalendarKernel.calculateRelatedMyanmarMonths(myear, mmonth);
+    }
+
     public List<Integer> getMonthList() {
         return monthList;
     }

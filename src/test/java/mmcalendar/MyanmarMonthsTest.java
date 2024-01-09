@@ -24,9 +24,8 @@ public class MyanmarMonthsTest {
     public void getAllMonthNames() {
         int year = 1381;
         List<String> myanmarNameList = calculateRelatedMyanmarMonthNames(year);
-        myanmarNameList.forEach(System.out::println);
 
-        String[] aspects = {
+        final String[] aspects = {
                 "Tagu",
                 "Kason",
                 "Nayon",
@@ -43,6 +42,40 @@ public class MyanmarMonthsTest {
         };
 
         assertArrayEquals(aspects, myanmarNameList.toArray());
+    }
+
+    @Test
+    public void getAllMonthNamesTai() {
+        int myear = 1381;
+        MyanmarMonths myanmarMonths = MyanmarCalendarKernel.calculateRelatedMyanmarMonths(myear, 0);
+        List<String> myanmarNameList = myanmarMonths.getMonthNameList(Language.TAI);
+
+        final String[] taiMonthNames = {"ႁႃႈ", "ႁူၵ်း", "ၸဵတ်း", "ပႅတ်ႇ", "ၵဝ်ႈ",
+                "သိပ်း", "သိပ်းဢဵတ်း", "သိပ်းသွင်", "ၸဵင်", "ၵမ်", "သၢမ်", "သီႇ", "ဝၢႆးႁႃႈ",
+        };
+
+        assertArrayEquals(taiMonthNames, myanmarNameList.toArray());
+
+        final String[] monthNames = {
+                "Tagu", "Kason", "Nayon", "Waso", "Wagaung", "Tawthalin", "Thadingyut",
+                "Tazaungmon", "Nadaw", "Pyatho", "Tabodwe", "Tabaung", "Late Tagu",
+        };
+
+        assertArrayEquals(monthNames, myanmarMonths.getMonthNameList(Language.ENGLISH).toArray());
+    }
+
+    @Test
+    public void getAllMonthNamesLate() {
+        int myear = 1385;
+        MyanmarMonths myanmarMonths = MyanmarCalendarKernel.calculateRelatedMyanmarMonths(myear, 13);
+
+        final String[] monthNames = {
+                "Tagu", "Kason", "Nayon", "First Waso", "Second Waso", "Wagaung",
+                "Tawthalin", "Thadingyut",
+                "Tazaungmon", "Nadaw", "Pyatho", "Tabodwe", "Tabaung", "Late Tagu",
+        };
+
+        assertArrayEquals(monthNames, myanmarMonths.getMonthNameList(Language.ENGLISH).toArray());
     }
 
     public static List<String> calculateRelatedMyanmarMonthNames(int myear) {

@@ -29,6 +29,57 @@ public class WesternDate implements Serializable {
         this.second = second;
     }
 
+    public static WesternDate of(MyanmarDate date) {
+        return of(date.getJulianDayNumber());
+    }
+
+    public static WesternDate of(MyanmarDate date, CalendarType calendarType) {
+        return of(date.getJulianDayNumber(), calendarType);
+    }
+
+    /**
+     * Julian date to Western date
+     *
+     * @param julianDate Julian date
+     * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
+     * {@link WesternDate} object
+     */
+    public static WesternDate of(double julianDate) {
+        return of(julianDate, Config.getInstance().getCalendarType());
+    }
+
+    /**
+     * Julian date to Western date Credit4 Gregorian date: (j2w)
+     * <a href="http://pmyers.pcug.org.au/General/JulianDates.htm">Credit4 Julian</a>
+     * <a href="http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html">Calendar: </a>
+     *
+     * @param julianDate   julian date
+     * @param calendarType {@link CalendarType} Enum
+     * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
+     * {@link WesternDate} object
+     */
+    public static WesternDate of(double julianDate, CalendarType calendarType) {
+        return of(julianDate, calendarType, 0);
+    }
+
+
+    /**
+     * Julian date to Western date Credit4 Gregorian date: (j2w)
+     * <a href="http://pmyers.pcug.org.au/General/JulianDates.htm">Credit4 Julian</a>
+     * <a href="http://quasar.as.utexas.edu/BillInfo/JulianDatesG.html">Calendar: </a>
+     *
+     * @param julianDate   julian date
+     * @param calendarType calendar type [Optional argument: 0=english (default),
+     *                     1=Gregorian, 2=Julian]
+     * @param sg           Beginning of Gregorian calendar in JDN [Optional argument:
+     *                     (default=2361222) ]
+     * @return Western date (y=year, m=month, d=day, h=hour, n=minute, s=second)
+     * {@link WesternDate} object
+     */
+    public static WesternDate of(double julianDate, CalendarType calendarType, double sg) {
+        return WesternDateKernel.julianToWestern(julianDate, calendarType.getNumber(), sg);
+    }
+
     public int getYear() {
         return year;
     }
@@ -42,8 +93,7 @@ public class WesternDate implements Serializable {
     }
 
     /**
-     *
-     * @return  hour [0-23]
+     * @return hour [0-23]
      */
     public int getHour() {
         return hour;
@@ -55,6 +105,45 @@ public class WesternDate implements Serializable {
 
     public int getSecond() {
         return second;
+    }
+
+
+    /**
+     * @return Julian day number
+     */
+    public double toJulian() {
+        return toJulian(Config.getInstance().getCalendarType());
+    }
+
+    /**
+     * @param calendarType CalendarType enum
+     *                     [0-English, 1-Gregorian, 2-Julian]
+     *                     calendar type [Optional argument: 0=english (default),
+     *                     1=Gregorian, 2=Julian]
+     * @return Julian day number
+     */
+    public double toJulian(CalendarType calendarType) {
+        return toJulian(calendarType, 0);
+    }
+
+    /**
+     * @param calendarType CalendarType enum
+     *                     [0-English, 1-Gregorian, 2-Julian]
+     *                     calendar type [Optional argument: 0=english (default),
+     *                     1=Gregorian, 2=Julian]
+     * @param sg           SG: Beginning of Gregorian calendar in JDN [Optional argument:
+     *                     (default = 2361222)]
+     * @return Julian day number
+     */
+    public double toJulian(CalendarType calendarType, double sg) {
+        return WesternDateKernel.westernToJulian(
+                this.getYear(),
+                this.getMonth(),
+                this.getDay(),
+                this.getHour(),
+                this.getMinute(),
+                this.getSecond(),
+                calendarType, sg);
     }
 
     @Override

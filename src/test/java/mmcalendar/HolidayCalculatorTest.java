@@ -3,9 +3,10 @@ package mmcalendar;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class HolidayCalculatorTest {
 
@@ -13,21 +14,21 @@ public class HolidayCalculatorTest {
     public void englishHoliday() {
         List<String> holiday = HolidayCalculator.englishHoliday(2017, 1, 4);
         List<String> actualList = Collections.singletonList("Independence Day");
-        Assert.assertEquals(actualList, holiday);
+        assertEquals(actualList, holiday);
     }
 
     @Test
     public void myanmarHoliday() {
         List<String> holiday = HolidayCalculator.myanmarHoliday(1385, 4, 15, 1);
         List<String> actualList = Collections.singletonList("Start of Buddhist Lent");
-        Assert.assertEquals(actualList, holiday);
+        assertEquals(actualList, holiday);
     }
 
     @Test
     public void thingyan() {
         List<String> thingyan = HolidayCalculator.thingyan(2460052, 1385, 0);
         List<String> actualList = Collections.singletonList("Myanmar New Year Day");
-        Assert.assertEquals(actualList, thingyan);
+        assertEquals(actualList, thingyan);
     }
 
     @Test
@@ -35,7 +36,7 @@ public class HolidayCalculatorTest {
         MyanmarDate myanmarDate = MyanmarDate.of(2460052);
         List<String> thingyan = HolidayCalculator.getHoliday(myanmarDate);
         List<String> actualList = Collections.singletonList("Myanmar New Year Day");
-        Assert.assertEquals(actualList, thingyan);
+        assertEquals(actualList, thingyan);
     }
 
     @Test
@@ -45,4 +46,14 @@ public class HolidayCalculatorTest {
         Assert.assertTrue("holiday", isHoliday);
     }
 
+    @Test
+    public void getAnniversary() {
+        MyanmarDate newYearDate = MyanmarDate.of(2017, 1, 1);
+        String newYear = HolidayCalculator.getAnniversary(newYearDate).get(0);
+        assertEquals("New Year Day", newYear);
+
+        MyanmarDate aungSanBDDate = MyanmarDate.of(2024, 2, 13);
+        String aungSanBD = HolidayCalculator.getAnniversary(aungSanBDDate).get(0);
+        assertEquals("G. Aung San BD", aungSanBD);
+    }
 }

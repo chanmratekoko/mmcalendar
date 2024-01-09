@@ -192,18 +192,6 @@ public final class WesternDateKernel {
     }
 
     /**
-     * @param westernDate  WesternDate object
-     * @param calendarType CalendarType Enum
-     * @param sg           SG: Beginning of Gregorian calendar in JDN [Optional argument:
-     *                     (default=2361222)]
-     * @return Julian number
-     */
-    public static double westernToJulian(WesternDate westernDate, CalendarType calendarType, double sg) {
-        return westernToJulian(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay(), westernDate.getHour(),
-                westernDate.getMinute(), westernDate.getSecond(), calendarType, sg);
-    }
-
-    /**
      * The month according to calendar type
      *
      * @param year  Western Year
