@@ -23,7 +23,7 @@ Usage
   -  Add this to your app `build.gradle`:
 
 ```gradle
-compile 'com.github.chanmratekoko:myanmar-calendar:1.0.7.RELEASE'
+compile 'com.github.chanmratekoko:myanmar-calendar:1.0.8.RELEASE'
 ```
 
 **3. jar file**
