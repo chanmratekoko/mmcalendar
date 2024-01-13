@@ -184,7 +184,7 @@ public class MyanmarDateTest {
     @Test
     public void startMyanmarDate() {
         MyanmarDate myanmarDate = MyanmarDate.of(1954900.0);
-        String expected = "သာသနာနှစ် ၁၁၈၄ ခု, မြန်မာနှစ် ၂ ခု, တန်ခူး လဆုတ် ၁၁ ရက် ကြာသပတေး နေ့";
+        String expected = "သာသနာနှစ် ၁၁၈၃ ခု, မြန်မာနှစ် ၂ ခု, တန်ခူး လဆုတ် ၁၁ ရက် ကြာသပတေး နေ့";
         assertEquals(expected, myanmarDate.toString());
         assertEquals("0640-03-23", myanmarDate.toMyanmarLocalDate().toString());
 

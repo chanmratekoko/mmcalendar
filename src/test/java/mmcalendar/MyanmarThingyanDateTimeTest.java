@@ -29,7 +29,7 @@ public class MyanmarThingyanDateTimeTest {
         //  Myanmar New Year's Day (နှစ်ဆန်းတစ်ရက်နေ့)
         MyanmarDate myanmarNewYearDate = myanmarThingyanDateTime.getMyanmarNewYearDay();
 
-        String acturl = "သာသနာနှစ် ၂၅၆၈ ခု, မြန်မာနှစ် ၁၃၈၆ ခု, တန်ခူး လဆန်း ၉ ရက် ဗုဒ္ဓဟူး နေ့";
+        String acturl = "သာသနာနှစ် ၂၅၆၇ ခု, မြန်မာနှစ် ၁၃၈၆ ခု, တန်ခူး လဆန်း ၉ ရက် ဗုဒ္ဓဟူး နေ့";
         assertEquals(acturl, myanmarNewYearDate.toString());
 
         ZonedDateTime zonedDateTime = myanmarThingyanDateTime.getAkyaTime().toMyanmarZonedDateTime();

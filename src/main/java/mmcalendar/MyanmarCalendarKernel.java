@@ -154,7 +154,7 @@ public final class MyanmarCalendarKernel {
      *                 Waso=4, Wagaung=5, Tawthalin=6, Thadingyut=7, Tazaungmon=8,
      *                 Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12, Late Tagu=13
      *                 Late Kason=14 ]
-     * @param mday    day of month [from 1 to 29 or 30]
+     * @param mday     day of month [from 1 to 29 or 30]
      * @param language Language
      * @return Calendar Title for month
      */
@@ -189,9 +189,9 @@ public final class MyanmarCalendarKernel {
 
         if (endDateOfMonth.getYearValue() >= 2) {
             //if Myanmar year after 2 ME
-            str.append(" ")
+            str.append(language.getPunctuationMark())
                     .append(getHeaderForMyanmarYear(startDateOfMonth, endDateOfMonth, language))
-                    .append(" ");
+                    .append(language.getPunctuationMark());
 
             str.append(getHeaderForMyanmarMonth(startDateOfMonth, endDateOfMonth, language));
         }
@@ -207,7 +207,7 @@ public final class MyanmarCalendarKernel {
                 .append(" ")
                 .append(startDate.getBuddhistEra(language));
 
-        if (startDate.getYearValue() != endDate.getYearValue()) {
+        if (startDate.getBuddhistEraValue() != endDate.getBuddhistEraValue()) {
             buddhistEraStringBuilder.append(" - ")
                     .append(endDate.getBuddhistEra(language));
         }

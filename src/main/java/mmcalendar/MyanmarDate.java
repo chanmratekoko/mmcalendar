@@ -317,7 +317,7 @@ public class MyanmarDate implements Serializable {
 
     //-----------------------------------------------------------------------
     public String getBuddhistEra(Language language) {
-        return LanguageTranslator.translate(myear + 1182.0, language);
+        return LanguageTranslator.translate(getBuddhistEraValue(), language);
     }
 
     public String getBuddhistEra() {
@@ -347,7 +347,8 @@ public class MyanmarDate implements Serializable {
     }
 
     public int getBuddhistEraValue() {
-        return myear + 1182;
+        int buddhistEraOffset = (mmonth == 1 || (mmonth == 2 && monthDay < 16)) ? 1181 : 1182;
+        return myear + buddhistEraOffset;
     }
 
     public String getYear(Language language) {
@@ -456,6 +457,7 @@ public class MyanmarDate implements Serializable {
     }
 
     /**
+     * Day of the month represented
      * @return month day [1 to 30]
      */
     public int getDayOfMonth() {
@@ -463,6 +465,7 @@ public class MyanmarDate implements Serializable {
     }
 
     /**
+     * Month Type
      * @return month type [1 = hnaung, 0 = Oo]
      */
     public int getMonthType() {
@@ -470,6 +473,7 @@ public class MyanmarDate implements Serializable {
     }
 
     /**
+     * Fortnight Day Value
      * @return fortnight day [1 to 15],
      */
     public int getFortnightDayValue() {
@@ -485,6 +489,7 @@ public class MyanmarDate implements Serializable {
     }
 
     /**
+     * Week day value
      * @return week day [0=sat, 1=sun, ..., 6=fri]
      */
     public int getWeekDayValue() {
