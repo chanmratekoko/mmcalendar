@@ -51,7 +51,7 @@ public class MyanmarMonths implements Serializable {
         }
         List<String> temp = new ArrayList<>();
         for (String string : monthNameList) {
-            temp.add(LanguageTranslator.translate(string, language));
+            temp.add(LanguageTranslator.translateSentence(string, Language.ENGLISH, language));
         }
         return temp;
     }

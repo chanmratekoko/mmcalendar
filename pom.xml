@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.chanmratekoko</groupId>
     <artifactId>myanmar-calendar</artifactId>
-    <version>1.0.8.RELEASE</version>
+    <version>1.0.9.RELEASE</version>
     <name>Myanmar Calendar</name>
     <description>
         The Myanmar Calendar Library provides precise calculations for the traditional Burmese calendar system,

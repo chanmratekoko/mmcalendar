@@ -20,7 +20,7 @@ public class LanguageTranslatorTest {
         String zawgyi = LanguageTranslator.translate("Year", Language.ZAWGYI);
         String mon = LanguageTranslator.translate("Year", Language.MON);
         String tai = LanguageTranslator.translate("Year", Language.TAI);
-        String karen = LanguageTranslator.translate("Year", Language.KAREN);
+        String karen = LanguageTranslator.translate("Year", Language.SGAW_KAREN);
 
         assertEquals("နှစ်", myanmar);
         assertEquals("ႏွစ္", zawgyi);

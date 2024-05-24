@@ -1,5 +1,8 @@
 package mmcalendar;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Language Translator
  *
@@ -59,7 +62,7 @@ public class LanguageTranslator {
             {"Mahayatkyan", "မဟာရက်ကြမ်း", "မဟာရက္ၾကမ္း", "ကိုန်ဟွံခိုဟ်", "မဟာရက်ကြမ်း", "မဟာရက်ကြမ်း"},
             {"Nagapor", "နဂါးပေါ်", "နဂါးေပၚ", "နာ်မံက်", "နဂါးပေါ်", "နဂါးပေါ်"},
             {"Shanyat", "ရှမ်းရက်", "ရွမ္းရက္", "တ္ၚဲဒတန်", "ရှမ်းရက်", "ရှမ်းရက်"},
-            {"Mooon", "မွန်", "မြန္", "ပၠန်", "မွၼ်း", "မွန်"},
+            {"'Mon'", "မွန်", "မြန္", "ပၠန်", "မွၼ်း", "မွန်"},
             {"G. Aung San BD", "ဗိုလ်ချုပ်မွေးနေ့", "ဗိုလ္ခ်ဳပ္ေမြးေန႔", "တ္ၚဲသၟိၚ်ဗၟာ အံၚ်သာန်ဒှ်မၞိဟ်", "ဝၼ်းၵိူတ်ၸွမ်သိုၵ်", "ဗိုလ်ချုပ်မွေးနေ့"},
             {"Valentines", "ချစ်သူများ", "ခ်စ္သူမ်ား", "ဝုတ်ဗၠာဲ", "ၵေႃႈႁၵ်ႉ", "ချစ်သူများ"},
             {"Earth", "ကမ္ဘာမြေ", "ကမၻာေျမ", "ဂၠးကဝ်", "လိၼ်မိူင်း", "ကမ္ဘာမြေ"},
@@ -205,7 +208,7 @@ public class LanguageTranslator {
      */
     private static String translateSentence(String str, int fromLn, int toLn) {
         for (String[] dic : CATALOG) {
-            str = str.replace(dic[fromLn], dic[toLn]);
+            str = str.replaceAll(dic[fromLn], dic[toLn]);
         }
         return str;
     }
@@ -235,6 +238,21 @@ public class LanguageTranslator {
             }
         }
         return str;
+    }
+
+    /**
+     * Translate sentence to the specific language
+     *
+     * @param list Sentence List
+     * @param from Translate Language from
+     * @param to   Translate Language to
+     * @return translated result
+     */
+    public static List<String> translateSentenceList(List<String> list, Language from, Language to) {
+        return list.stream()
+                .map(it ->
+                        LanguageTranslator.translateSentence(it, from, to)
+                ).collect(Collectors.toList());
     }
 
     /**

@@ -43,7 +43,7 @@ public class MyanmarThingyanDateTimeTest {
         MyanmarDate akyatDaate1 = thingyan.getAkyatDays()[0];
         MyanmarDate akyatDaate2 = thingyan.getAkyatDays()[1];
 
-        String monthName = LanguageTranslator.translate(akyatDaate1.getMonthName(), Language.MYANMAR, Language.ENGLISH);
+        String monthName = LanguageTranslator.translateSentence(akyatDaate1.getMonthName(), Language.MYANMAR, Language.ENGLISH);
 
         MyanmarDate expectedDay1 = MyanmarDate.create(akyatDaate1.getYearValue(), monthName, akyatDaate1.getDayOfMonth());
         MyanmarDate expectedDay2 = MyanmarDate.create(akyatDaate2.getYearValue(), akyatDaate2.getMonth(), akyatDaate2.getDayOfMonth());

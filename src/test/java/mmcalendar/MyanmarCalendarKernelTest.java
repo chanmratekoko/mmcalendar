@@ -98,7 +98,7 @@ public class MyanmarCalendarKernelTest {
     @Test
     public void getCalendarHeader() {
         String head = MyanmarCalendarKernel.getCalendarHeader(1380, 2);
-        String actual = "သာသနာနှစ် ၂၅၆၁ - ၂၅၆၂ ခု၊ မြန်မာနှစ် ၁၃၇၉ - ၁၃၈၀ ခု၊ နှောင်းကဆုန် - ကဆုန်";
+        String actual = "သာသနာနှစ် ၂၅၆၁ - ၂၅၆၂ ခု၊ မြန်မာနှစ် ၁၃၇၉ - ၁၃၈၀ ခု၊ နှောင်း ကဆုန် - ကဆုန်";
         Assert.assertEquals(actual, head);
     }
 
@@ -107,7 +107,7 @@ public class MyanmarCalendarKernelTest {
         String monthName = "Tagu";
         int monthIndex = MyanmarDateKernel.searchMyanmarMonthNumber(monthName);
         String head = MyanmarCalendarKernel.getCalendarHeader(1385, monthIndex);
-        String actual = "သာသနာနှစ် ၂၅၆၆ ခု၊ မြန်မာနှစ် ၁၃၈၄ - ၁၃၈၅ ခု၊ နှောင်းတန်ခူး - တန်ခူး";
+        String actual = "သာသနာနှစ် ၂၅၆၆ ခု၊ မြန်မာနှစ် ၁၃၈၄ - ၁၃၈၅ ခု၊ နှောင်း တန်ခူး - တန်ခူး";
         Assert.assertEquals(actual, head);
     }
 

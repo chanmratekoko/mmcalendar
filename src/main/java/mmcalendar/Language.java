@@ -11,7 +11,7 @@ public enum Language {
     ZAWGYI(2, "၊ ", "။ "),
     MON(3, "၊ ", "။ "),
     TAI(4, "၊ ", "။ "),
-    KAREN(5, "၊ ", "။ ");
+    SGAW_KAREN(5, "၊ ", "။ ");
 
     private final int languageIndex;
 

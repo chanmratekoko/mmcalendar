@@ -414,7 +414,7 @@ public class MyanmarDate implements Serializable {
                     .append(" ");
         }
 
-        stringBuilder.append(LanguageTranslator.translate(EMA[this.mmonth], language));
+        stringBuilder.append(LanguageTranslator.translateSentence(EMA[this.mmonth], Language.ENGLISH, language));
 
         return stringBuilder.toString();
     }

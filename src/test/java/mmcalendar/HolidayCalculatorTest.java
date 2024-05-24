@@ -25,9 +25,16 @@ public class HolidayCalculatorTest {
     }
 
     @Test
+    public void unionDay() {
+        MyanmarDate unionDayDate = MyanmarDate.of(2024, 2, 12);
+        String unionDay = HolidayCalculator.getHoliday(unionDayDate, Language.MYANMAR).get(0);
+        assertEquals("ပြည်ထောင်စု နေ့", unionDay);
+    }
+
+    @Test
     public void thingyan() {
         List<String> thingyan = HolidayCalculator.thingyan(2460052, 1385, 0);
-        List<String> actualList = Collections.singletonList("Myanmar New Year Day");
+        List<String> actualList = Collections.singletonList("Myanmar New Year's Day");
         assertEquals(actualList, thingyan);
     }
 
@@ -35,7 +42,7 @@ public class HolidayCalculatorTest {
     public void getHoliday() {
         MyanmarDate myanmarDate = MyanmarDate.of(2460052);
         List<String> thingyan = HolidayCalculator.getHoliday(myanmarDate);
-        List<String> actualList = Collections.singletonList("Myanmar New Year Day");
+        List<String> actualList = Collections.singletonList("Myanmar နှစ်ဆန်း နေ့");
         assertEquals(actualList, thingyan);
     }
 
@@ -49,11 +56,11 @@ public class HolidayCalculatorTest {
     @Test
     public void getAnniversary() {
         MyanmarDate newYearDate = MyanmarDate.of(2017, 1, 1);
-        String newYear = HolidayCalculator.getAnniversary(newYearDate).get(0);
+        String newYear = HolidayCalculator.getAnniversary(newYearDate, Language.ENGLISH).get(0);
         assertEquals("New Year Day", newYear);
 
         MyanmarDate aungSanBDDate = MyanmarDate.of(2024, 2, 13);
-        String aungSanBD = HolidayCalculator.getAnniversary(aungSanBDDate).get(0);
+        String aungSanBD = HolidayCalculator.getAnniversary(aungSanBDDate, Language.ENGLISH).get(0);
         assertEquals("G. Aung San BD", aungSanBD);
     }
 }
