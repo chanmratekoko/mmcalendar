@@ -14,7 +14,7 @@ import static mmcalendar.AstroKernel.*;
  * </p>
  *
  * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * @version 2.0.0
+ * @version 1.0.10
  * @since 1.0
  */
 public class Astro implements Serializable {
@@ -161,6 +161,12 @@ public class Astro implements Serializable {
         return pyathada > 0;
     }
 
+    /**
+     * @return 0 = none ,  1 = Pyathada , 2 = Afternoon Pyathada
+     */
+    public int getPyathadaValue() {
+        return pyathada;
+    }
 
     /**
      * @return Pyathada or Afternoon Pyathada or none
@@ -213,28 +219,62 @@ public class Astro implements Serializable {
         return stringBuilder.toString();
     }
 
+    public int getSabbathValue() {
+        return sabbath;
+    }
+
     public boolean isSabbath() {
-        return sabbath > 0;
+        return sabbath == 1;
+    }
+
+    public boolean isSabbathEve() {
+        return sabbath == 2;
     }
 
     public String getSabbath() {
         return getSabbath(Config.getInstance().getLanguage());
     }
 
+    public String getSabbathEve() {
+        return getSabbathEve(Config.getInstance().getLanguage());
+    }
+
     /**
      * @param language {@link Language}
-     * @return ["Sabbath" , "Sabbath Eve" or none "" ]
+     * @return ["Sabbath" , "Sabbath Eve" or empty string "" ]
      * Output String Depend On Language
      * {Calculation depend on sabbath or sabbatheve}
      */
     public String getSabbath(Language language) {
-        StringBuilder stringBuilder = new StringBuilder();
+        return sabbath == 1 ? LanguageTranslator.translate("Sabbath", language) : "";
+    }
+
+    /**
+     * @param language {@link Language}
+     * @return ["Sabbath Eve" or empty string "" ]
+     * Output String Depend On Language
+     */
+    public String getSabbathEve(Language language) {
+        return sabbath == 2 ? LanguageTranslator.translate("Sabbath Eve", language) : "";
+    }
+
+    public String getSabbathOrEve(){
+        return getSabbathOrEve(Config.getInstance().getLanguage());
+    }
+
+    /**
+     * @param language {@link Language}
+     * @return ["Sabbath" , "Sabbath Eve" or empty string "" ]
+     * Output String Depend On Language
+     * {Calculation depend on sabbath or sabbatheve}
+     */
+    public String getSabbathOrEve(Language language) {
         if (sabbath == 1) {
-            stringBuilder.append(LanguageTranslator.translate("Sabbath", language));
+            return LanguageTranslator.translate("Sabbath", language);
         } else if (sabbath == 2) {
-            stringBuilder.append(LanguageTranslator.translate("Sabbath Eve", language));
+            return LanguageTranslator.translate("Sabbath Eve", language);
         }
-        return stringBuilder.toString();
+        return "";
     }
 
     public boolean isThamanyo() {
@@ -508,7 +548,7 @@ public class Astro implements Serializable {
 
         stringBuilder.append(getAstrologicalDay());
 
-        if (isSabbath()) {
+        if (isSabbath() || isSabbathEve()) {
             stringBuilder
                     .append(language.getPunctuationMark())
                     .append(getSabbath(language));

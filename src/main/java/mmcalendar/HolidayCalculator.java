@@ -56,7 +56,7 @@ public final class HolidayCalculator {
 
         List<String> holiday = new ArrayList<>();
 
-        if ((gy >= 2018 && gy <= 2021) && gm == 1 && gd == 1) {
+        if ((gy >= 2018 && gy <= 2021) || (gy >= 2025) && gm == 1 && gd == 1) {
             holiday.add("New Year's Day");
         } else if (gy >= 1948 && gm == 1 && gd == 4) {
             holiday.add("Independence Day");
@@ -106,7 +106,7 @@ public final class HolidayCalculator {
             holiday.add("Holiday");
         } else if ((mmonth == 8) && (moonPhase == 1)) {
             holiday.add("Tazaungdaing");
-        } else if ((myear >= 1379) && (mmonth == 8) && (monthDay == 14)) {
+        } else if ((myear >= 1379 && myear <= 1385) && (mmonth == 8) && (monthDay == 14)) {
             holiday.add("Holiday");
         } else if ((myear >= 1282) && (mmonth == 8) && (monthDay == 25)) {
             holiday.add("National Day");
@@ -192,6 +192,10 @@ public final class HolidayCalculator {
         }
         if (BinarySearchUtil.search(jd, GH_EID) >= 0) {
             holiday.add("Eid");
+        }
+
+        if (jd > 2460677 && BinarySearchUtil.search(jd, GH_CHINESE_NEW_YEAR) >= 0) {
+            holiday.add("Chinese New Year's");
         }
 
         return holiday;
