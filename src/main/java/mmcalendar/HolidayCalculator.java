@@ -30,7 +30,8 @@ public final class HolidayCalculator {
      */
     private static final int[] GH_CHINESE_NEW_YEAR = {2456689, 2456690, 2457073, 2457074, 2457427, 2457428, 2457782,
             2457783, 2458166, 2458520, 2458874, 2459257, 2459612, 2459967, 2460351,
-            2460705, 2461089, 2461443, 2461797, 2462181, 2462536};
+            2460705, 2461089, 2461443, 2461797, 2462181, 2462536,
+    };
 
     /**
      * Diwali (ghDiwali)
@@ -56,7 +57,8 @@ public final class HolidayCalculator {
 
         List<String> holiday = new ArrayList<>();
 
-        if ((gy >= 2018 && gy <= 2021) || (gy >= 2025) && gm == 1 && gd == 1) {
+        if (((gy >= 2018 && gy <= 2021) || (gy >= 2025) && gm == 1 && gd == 1)
+            || ((gy == 2026) && gm == 1 && gd == 2)) {
             holiday.add("New Year's Day");
         } else if (gy >= 1948 && gm == 1 && gd == 4) {
             holiday.add("Independence Day");
@@ -75,6 +77,23 @@ public final class HolidayCalculator {
         } else if (gy == 2017 && gm == 12 && gd == 30) {
             holiday.add("Holiday");
         } else if ((gy >= 2017 && gy <= 2021) && gm == 12 && gd == 31) {
+            holiday.add("Holiday");
+        }
+
+        return holiday;
+    }
+
+    static List<String> continuousHoliday(int gy, int gm, int gd) {
+
+        List<String> holiday = new ArrayList<>();
+
+        // Update For 2024 and 2025 Calendar Year
+        if ((gy == 2024 && gm == 12 && gd == 31)
+                || (gy == 2025 && gm == 3 && (gd == 12 || gd == 14))
+                || (gy == 2025 && gm == 11 && gd == 3)
+                || (gy == 2025 && gm == 12 && gd == 26)
+                || (gy == 2026 && gm == 2 && gd == 13)
+        ) {
             holiday.add("Holiday");
         }
 
@@ -106,7 +125,7 @@ public final class HolidayCalculator {
             holiday.add("Holiday");
         } else if ((mmonth == 8) && (moonPhase == 1)) {
             holiday.add("Tazaungdaing");
-        } else if ((myear >= 1379 && myear <= 1385) && (mmonth == 8) && (monthDay == 14)) {
+        } else if (((myear >= 1379 && myear <= 1385) || (myear == 1388)) && (mmonth == 8) && (monthDay == 14)) {
             holiday.add("Holiday");
         } else if ((myear >= 1282) && (mmonth == 8) && (monthDay == 25)) {
             holiday.add("National Day");
@@ -168,8 +187,11 @@ public final class HolidayCalculator {
             } else if ((((myear + monthType) >= 1384) && (myear + monthType) <= 1385)
                     && ((jdn == (akn - 5)) || (jdn == (akn - 4)) || (jdn == (akn - 3)) || (jdn == (akn - 2)))) {
                 holiday.add("Holiday");
-            } else if ((myear + monthType) >= 1386
+            } else if ((myear + monthType) == 1386
                     && (((jdn >= (atn + 2)) && (jdn <= (akn + 7))))) {
+                holiday.add("Holiday");
+            } else if ((myear + monthType) >= 1387
+                    && (((jdn >= (akn - 3)) && (jdn <= (akn + 5))))) {
                 holiday.add("Holiday");
             }
         }
@@ -183,7 +205,7 @@ public final class HolidayCalculator {
      * @param jd Julian day number
      * @return List of holiday String
      */
-    public static List<String> getOtherHolidays(double jd) {
+    public static List<String> otherHoliday(double jd) {
 
         List<String> holiday = new ArrayList<>();
 
@@ -195,6 +217,10 @@ public final class HolidayCalculator {
         }
 
         if (jd > 2460677 && BinarySearchUtil.search(jd, GH_CHINESE_NEW_YEAR) >= 0) {
+            holiday.add("Chinese New Year's");
+        }
+        // Chinese New Year Holiday Start from 2026
+        if (jd == 2461088) {
             holiday.add("Chinese New Year's");
         }
 
@@ -377,12 +403,12 @@ public final class HolidayCalculator {
     public static List<String> getHoliday(MyanmarDate myanmarDate, CalendarType calendarType, Language language) {
 
         WesternDate westernDate = WesternDate.of(myanmarDate.getJulianDayNumber(), calendarType);
-        // Office Off
+
         List<String> hde = englishHoliday(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay());
         List<String> hdm = myanmarHoliday(myanmarDate.getYearValue(), myanmarDate.getMonth(), myanmarDate.getDayOfMonth(),
                 myanmarDate.getMoonPhaseValue());
         List<String> hdt = thingyan(myanmarDate.getJulianDayNumber(), myanmarDate.getYearValue(), myanmarDate.getMonthType());
-        List<String> hdo = getOtherHolidays(myanmarDate.getJulianDayNumber()); // Diwali Eid
+        List<String> hdo = otherHoliday(myanmarDate.getJulianDayNumber()); // Diwali Eid
 
         List<String> holiday = new ArrayList<>();
 
@@ -397,6 +423,11 @@ public final class HolidayCalculator {
         if (westernDate.getYear() >= 2019 && westernDate.getYear() <= 2021) {
             List<String> substituteHoliday = getSubstituteHoliday(myanmarDate.getJulianDayNumber());
             holiday.addAll(LanguageTranslator.translateSentenceList(substituteHoliday, Language.ENGLISH, language));
+        }
+
+        if (westernDate.getYear() >= 2024 && westernDate.getYear() <= 2026) {
+            List<String> continuousHoliday = continuousHoliday(westernDate.getYear(), westernDate.getMonth(), westernDate.getDay());
+            holiday.addAll(LanguageTranslator.translateSentenceList(continuousHoliday, Language.ENGLISH, language));
         }
 
         return holiday;
@@ -420,7 +451,7 @@ public final class HolidayCalculator {
 
     /**
      * @param myanmarDate MyanmarDate Object
-     * @param language Language
+     * @param language    Language
      * @return List of holiday String
      */
     public static List<String> getAnniversary(MyanmarDate myanmarDate, Language language) {

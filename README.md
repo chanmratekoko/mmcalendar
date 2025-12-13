@@ -1,5 +1,5 @@
 
-[![GitHublicense](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/chanmratekoko/mmcalendar/blob/master/LICENSE) [![Maven Central](https://img.shields.io/badge/Maven%20Central-1.0.9.RELEASE-blue.svg)](https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST)
+[![GitHublicense](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/chanmratekoko/mmcalendar/blob/master/LICENSE) [![Maven Central](https://img.shields.io/badge/Maven%20Central-1.0.11.RELEASE-blue.svg)](https://search.maven.org/remote_content?g=com.github.chanmratekoko&a=myanmar-calendar&v=LATEST)
 
 # Myanmar Calendar
 **Myanmar Calendar** library for Android and Java applications.
@@ -15,7 +15,7 @@ Usage
 <dependency>
   <groupId>com.github.chanmratekoko</groupId>
   <artifactId>myanmar-calendar</artifactId>
-  <version>1.0.9.RELEASE</version>
+  <version>1.0.11.RELEASE</version>
 </dependency>
 ```
 
@@ -23,7 +23,7 @@ Usage
   -  Add this to your app `build.gradle`:
 
 ```gradle
-compile 'com.github.chanmratekoko:myanmar-calendar:1.0.9.RELEASE'
+compile 'com.github.chanmratekoko:myanmar-calendar:1.0.11.RELEASE'
 ```
 
 **3. jar file**
@@ -171,7 +171,7 @@ LocalTime atatTime = myanmarThingyanDateTime.getAtatTime().toMyanmarLocalTime();
 MyanmarDate atatDay = myanmarThingyanDateTime.getAtatDay();
 // Thingyan Akyat day (အကြတ်နေ့)
 MyanmarDate[] akyatDays = myanmarThingyanDateTime.getAkyatDays();
-//  Myanmar New Year's Day (နှစ်ဆန်းတစ်ရက်နေ့)
+// Myanmar New Year's Day (နှစ်ဆန်းတစ်ရက်နေ့)
 MyanmarDate myanmarNewYearDate = myanmarThingyanDateTime.getMyanmarNewYearDay();
 ```
 

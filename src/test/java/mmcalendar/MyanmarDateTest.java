@@ -53,7 +53,7 @@ public class MyanmarDateTest {
         MyanmarDate myanmarDate = MyanmarDate.of(1989, 4, 15);
         final String format = "S s k, B y k, M p f r En";
         Language language = Language.MYANMAR;
-        String aspectMyanmarResult = "သာသနာနှစ် ၂၅၃၂ ခု, မြန်မာနှစ် ၁၃၅၀ ခု, နှောင်း တန်ခူး လဆန်း ၁၀ ရက် စနေနေ့";
+        String aspectMyanmarResult = "သာသနာနှစ် ၂၅၃၂ ခု, မြန်မာနှစ် ၁၃၅၀ ခု, နှောင်းတန်ခူး လဆန်း ၁၀ ရက် စနေနေ့";
         Assert.assertEquals(aspectMyanmarResult, myanmarDate.format(format, language));
         assertTrue(myanmarDate.isWeekend());
         assertEquals("Late", myanmarDate.getMnt(Language.ENGLISH));
@@ -187,7 +187,6 @@ public class MyanmarDateTest {
         String expected = "သာသနာနှစ် ၁၁၈၃ ခု, မြန်မာနှစ် ၂ ခု, တန်ခူး လဆုတ် ၁၁ ရက် ကြာသပတေး နေ့";
         assertEquals(expected, myanmarDate.toString());
         assertEquals("0640-03-23", myanmarDate.toMyanmarLocalDate().toString());
-
     }
 
     @Test

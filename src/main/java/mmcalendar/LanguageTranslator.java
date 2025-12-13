@@ -1,33 +1,35 @@
 package mmcalendar;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * Language Translator
  *
  * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
- * @version 1.0.0
- * @since 1.0.7 Release
+ * @version 2.0.0
+ * @since 1.0.10 Release
  */
 public class LanguageTranslator {
 
+    private static final int LANG_COUNT = 6;
+
     /**
-     * Initialize the language catalog with 2 dimensional array
-     * Index
+     * Language catalog mapping words/phrases across 6 languages
      * <pre>
+     * Index:
      *  0: English
      *  1: Myanmar (Unicode)
      *  2: Zawgyi
      *  3: Mon
      *  4: Tai
-     *  5: Karen
+     *  5: Karen (Sgaw)
      * </pre>
-     * Credit:
-     * Mon language translation by 'ITVilla': <a href="http://it-villa.blogspot.com/">IT Villa</a>
-     * and Proof reading by Mikau Nyan
-     * Tai language translation by 'Jao Tai Num'
-     * and  <a href="https://www.taidictionary.com/">Tai Dictionary</a>
+     *
+     * Credits:
+     * <ul>
+     *   <li>Mon: ITVilla (<a href="http://it-villa.blogspot.com/">Link</a>), proofread by Mikau Nyan</li>
+     *   <li>Tai: Jao Tai Num, Tai Dictionary (<a href="https://www.taidictionary.com/">Link</a>)</li>
+     * </ul>
      */
     private static final String[][] CATALOG = {
             {"Myanmar Year", "မြန်မာနှစ်", "ျမန္မာႏွစ္", "သက္ကရာဇ်ဍုၚ်", "ပီၵေႃးၸႃႇ", "ကီၢ်ပယီၤ"},
@@ -186,99 +188,175 @@ public class LanguageTranslator {
     };
 
 
-    private LanguageTranslator() {
-    }
+    // ═══════════════════════════════════════════════════════════════
+    // CACHED DATA STRUCTURES
+    // ═══════════════════════════════════════════════════════════════
 
     /**
-     * Translate language
-     * <br/
-     * Language number:
-     * <ol start="0">
-     *  <li>English</li>
-     *  <li>Myanmar (Unicode)</li>
-     *  <li>Zawgyi</li>
-     *  <li>Mon</li>
-     *  <li>Tai</li>
-     *  <li>Karen</li>
-     * </ol>
-     *
-     * @param str    string to translate
-     * @param toLn   to language number
-     * @param fromLn from language number
-     * @return Translated string
+     * Direct word translation maps: [fromLang][toLang] → Map<sourceWord, targetWord>
      */
-    private static String translateSentence(String str, int fromLn, int toLn) {
-        for (String[] dic : CATALOG) {
-            str = str.replaceAll(dic[fromLn], dic[toLn]);
+    @SuppressWarnings("unchecked")
+    private static final Map<String, String>[][] DIRECT_MAP = new Map[LANG_COUNT][LANG_COUNT];
+
+    /**
+     * Trie-based prefix index for sentence translation: [fromLang][toLang][firstChar] → sorted entries
+     * Enables efficient longest-prefix matching without regex overhead
+     */
+    @SuppressWarnings("unchecked")
+    private static final Map<Character, TrieNode>[][] TRIE_ROOT = new Map[LANG_COUNT][LANG_COUNT];
+
+    /**
+     * Pre-cached digit translations for all languages
+     * Avoids repeated catalog lookups during number translation
+     */
+    private static final String[][] DIGITS = new String[10][LANG_COUNT];
+
+    /**
+     * Initialization flag for lazy loading
+     */
+    private static volatile boolean initialized = false;
+
+    /**
+     * Trie node for efficient prefix matching
+     */
+    private static final class TrieNode {
+        final Map<Character, TrieNode> children = new HashMap<>(8);
+        String translation = null;
+
+        boolean isLeaf() {
+            return translation != null;
         }
-        return str;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // STATIC INITIALIZATION
+    // ═══════════════════════════════════════════════════════════════
+
+    static {
+        initialize();
     }
 
     /**
-     * Translate language
-     * <br/
-     * Language number:
-     * <ol start="0">
-     *  <li>English</li>
-     *  <li>Myanmar (Unicode)</li>
-     *  <li>Zawgyi</li>
-     *  <li>Mon</li>
-     *  <li>Tai</li>
-     *  <li>Karen</li>
-     * </ol>
-     *
-     * @param str    string to translate
-     * @param toLn   to language number
-     * @param fromLn from language number
-     * @return Translated string
+     * Initializes all translation data structures
+     * Thread-safe with double-checked locking
      */
-    private static String translate(String str, int fromLn, int toLn) {
-        for (String[] dic : CATALOG) {
-            if (dic[fromLn].equals(str)) {
-                return dic[toLn];
+    private static void initialize() {
+        if (initialized) return;
+
+        synchronized (LanguageTranslator.class) {
+            if (initialized) return;
+
+            // long startTime = System.nanoTime();
+
+            initializeDirectMaps();
+            initializeTrieStructures();
+            initializeDigitCache();
+
+            initialized = true;
+
+            // Optional: Log initialization time for performance monitoring
+            //  long elapsed = System.nanoTime() - startTime;
+            // System.out.printf("LanguageTranslator initialized in %.2f ms%n", elapsed / 1_000_000.0);
+        }
+    }
+
+    /**
+     * Builds HashMap-based direct translation maps for O(1) word lookup
+     * Memory: ~134 entries × 36 language pairs = ~4,824 map entries
+     */
+    private static void initializeDirectMaps() {
+        for (int from = 0; from < LANG_COUNT; from++) {
+            for (int to = 0; to < LANG_COUNT; to++) {
+                Map<String, String> map = new HashMap<>((int) (CATALOG.length / 0.75) + 1);
+
+                for (String[] row : CATALOG) {
+                    String source = row[from];
+                    String target = row[to];
+
+                    if (source != null && !source.isEmpty()) {
+                        map.put(source, target);
+                    }
+                }
+
+                DIRECT_MAP[from][to] = Collections.unmodifiableMap(map);
             }
         }
-        return str;
     }
 
     /**
-     * Translate sentence to the specific language
-     *
-     * @param list Sentence List
-     * @param from Translate Language from
-     * @param to   Translate Language to
-     * @return translated result
+     * Builds Trie structures for longest-prefix matching in sentence translation
+     * Replaces character-indexed lists with proper Trie for better performance
      */
-    public static List<String> translateSentenceList(List<String> list, Language from, Language to) {
-        return list.stream()
-                .map(it ->
-                        LanguageTranslator.translateSentence(it, from, to)
-                ).collect(Collectors.toList());
+    private static void initializeTrieStructures() {
+        for (int from = 0; from < LANG_COUNT; from++) {
+            int finalFrom = from;
+            for (int to = 0; to < LANG_COUNT; to++) {
+                Map<Character, TrieNode> rootMap = new HashMap<>(64);
+
+                // Sort by length descending for proper longest-match semantics
+                List<String[]> sortedCatalog = new ArrayList<>(Arrays.asList(CATALOG));
+
+                sortedCatalog.sort((a, b) -> Integer.compare(b[finalFrom].length(), a[finalFrom].length()));
+
+                for (String[] row : sortedCatalog) {
+                    String source = row[from];
+                    String target = row[to];
+
+                    if (source == null || source.isEmpty()) continue;
+
+                    insertIntoTrie(rootMap, source, target);
+                }
+
+                TRIE_ROOT[from][to] = Collections.unmodifiableMap(rootMap);
+            }
+        }
     }
 
     /**
-     * Translate sentence to the specific language
-     *
-     * @param str  the string to translate
-     * @param from Translate Language from
-     * @param to   Translate Language to
-     * @return translated result
+     * Inserts a word and its translation into the Trie
      */
-    public static String translateSentence(String str, Language from, Language to) {
-        return translateSentence(str, from.getLanguageIndex(), to.getLanguageIndex());
+    private static void insertIntoTrie(Map<Character, TrieNode> rootMap, String word, String translation) {
+        if (word.isEmpty()) return;
+
+        char firstChar = word.charAt(0);
+        TrieNode node = rootMap.computeIfAbsent(firstChar, k -> new TrieNode());
+
+        for (int i = 1; i < word.length(); i++) {
+            char c = word.charAt(i);
+            node = node.children.computeIfAbsent(c, k -> new TrieNode());
+        }
+
+        node.translation = translation;
     }
 
     /**
-     * Translates to the specific language
-     *
-     * @param str  the string to translate
-     * @param from Translate Language from
-     * @param to   Translate Language to
-     * @return translated result
+     * Pre-caches digit translations for fast number conversion
      */
-    public static String translate(String str, Language from, Language to) {
-        return translate(str, from.getLanguageIndex(), to.getLanguageIndex());
+    private static void initializeDigitCache() {
+        for (int digit = 0; digit < 10; digit++) {
+            String digitStr = String.valueOf(digit);
+
+            for (int lang = 0; lang < LANG_COUNT; lang++) {
+                for (String[] row : CATALOG) {
+                    if (digitStr.equals(row[0])) {
+                        DIGITS[digit][lang] = row[lang];
+                        break;
+                    }
+                }
+            }
+        }
     }
+
+    /**
+     * Private constructor to prevent instantiation
+     */
+    private LanguageTranslator() {
+        throw new AssertionError("Utility class - do not instantiate");
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // PUBLIC API - WORD TRANSLATION
+    // ═══════════════════════════════════════════════════════════════
 
     /**
      * Translates to the specific language
@@ -287,33 +365,200 @@ public class LanguageTranslator {
      * @param to  Translate Language to
      * @return translated result
      */
-    public static String translate(String str, Language to) {
-        return translate(str, Language.ENGLISH.getLanguageIndex(), to.getLanguageIndex());
+    protected static String translate(String str, Language to){
+        return translate(str, Language.ENGLISH, to);
     }
 
+    /**
+     * Translates a single word from one language to another
+     *
+     * @param str  The word to translate
+     * @param from Source language
+     * @param to   Target language
+     * @return Translated word, or original if not found in catalog
+     * @throws NullPointerException if any parameter is null
+     */
+    public static String translate(String str, Language from, Language to) {
+        Objects.requireNonNull(str, "Input string cannot be null");
+        Objects.requireNonNull(from, "Source language cannot be null");
+        Objects.requireNonNull(to, "Target language cannot be null");
+
+        Map<String, String> map = DIRECT_MAP[from.getLanguageIndex()][to.getLanguageIndex()];
+        return map.getOrDefault(str, str);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // PUBLIC API - SENTENCE TRANSLATION
+    // ═══════════════════════════════════════════════════════════════
 
     /**
-     * Number to String
+     * Translates a sentence using Trie-based longest-prefix matching
      *
-     * @param number   Number
-     * @param language LanguageCatalog object
-     * @return String
+     * <p>Performance: O(n) where n is text length, with efficient prefix matching
+     * <p>Algorithm: Greedy longest-match from left to right
+     *
+     * @param text Sentence to translate
+     * @param from Source language
+     * @param to   Target language
+     * @return Translated sentence
+     * @throws NullPointerException if any parameter is null
      */
-    public static String translate(double number, Language language) {
-        if (number < 0) {
-            return "-" + translate(Math.abs(number), language);
-        }
+    public static String translateSentence(String text, Language from, Language to) {
+        Objects.requireNonNull(text, "Text cannot be null");
+        Objects.requireNonNull(from, "Source language cannot be null");
+        Objects.requireNonNull(to, "Target language cannot be null");
 
-        StringBuilder result = new StringBuilder();
-        int digit;
-        while (number > 0) {
-            digit = (int) (number % 10);
-            number = Math.floor(number / 10);
-            result.insert(0, translate(Integer.toString(digit), language));
+        if (text.isEmpty()) return text;
+
+        int fromIdx = from.getLanguageIndex();
+        int toIdx = to.getLanguageIndex();
+        Map<Character, TrieNode> trieRoot = TRIE_ROOT[fromIdx][toIdx];
+
+        StringBuilder result = new StringBuilder(text.length() * 2);
+        int i = 0;
+        int len = text.length();
+
+        while (i < len) {
+            char c = text.charAt(i);
+            TrieNode node = trieRoot.get(c);
+
+            if (node == null) {
+                // No match starting with this character
+                result.append(c);
+                i++;
+                continue;
+            }
+
+            // Find longest matching prefix
+            int matchEnd = i;
+            String bestTranslation = null;
+
+            int j = i + 1;
+            if (node.isLeaf()) {
+                matchEnd = j;
+                bestTranslation = node.translation;
+            }
+
+            while (j < len) {
+                char nextChar = text.charAt(j);
+                node = node.children.get(nextChar);
+
+                if (node == null) break;
+
+                j++;
+                if (node.isLeaf()) {
+                    matchEnd = j;
+                    bestTranslation = node.translation;
+                }
+            }
+
+            if (bestTranslation != null) {
+                result.append(bestTranslation);
+                i = matchEnd;
+            } else {
+                result.append(c);
+                i++;
+            }
         }
 
         return result.toString();
     }
 
-}
+    /**
+     * Translates a list of sentences
+     *
+     * <p>Performance: O(m × n) where m is list size, n is average sentence length
+     *
+     * @param sentences List of sentences to translate
+     * @param from      Source language
+     * @param to        Target language
+     * @return List of translated sentences in same order
+     * @throws NullPointerException if any parameter is null
+     */
+    public static List<String> translateSentenceList(List<String> sentences, Language from, Language to) {
+        Objects.requireNonNull(sentences, "Sentence list cannot be null");
+        Objects.requireNonNull(from, "Source language cannot be null");
+        Objects.requireNonNull(to, "Target language cannot be null");
 
+        List<String> result = new ArrayList<>(sentences.size());
+        for (String sentence : sentences) {
+            result.add(translateSentence(sentence, from, to));
+        }
+        return result;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // PUBLIC API - NUMBER TRANSLATION
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * Converts a number to its string representation in the target language
+     *
+     * <p>Performance: O(log n) where n is the number value
+     * <p>Uses pre-cached digit translations for maximum speed
+     *
+     * @param number   Number to translate (truncated to long)
+     * @param language Target language
+     * @return Number as a string in target language
+     * @throws NullPointerException if language is null
+     */
+    public static String translate(double number, Language language) {
+        Objects.requireNonNull(language, "Language cannot be null");
+
+        int langIdx = language.getLanguageIndex();
+
+        // Handle negative numbers
+        if (number < 0) {
+            return "-" + translate(-number, language);
+        }
+
+        // Handle zero
+        if (number == 0) {
+            return DIGITS[0][langIdx];
+        }
+
+        // Convert to long and process digits
+        long num = (long) number;
+        StringBuilder result = new StringBuilder(20);
+
+        while (num > 0) {
+            int digit = (int) (num % 10);
+            result.insert(0, DIGITS[digit][langIdx]);
+            num /= 10;
+        }
+
+        return result.toString();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // UTILITY METHODS
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * Returns the number of translation entries in the catalog
+     *
+     * @return Catalog size (134 entries)
+     */
+    public static int getCatalogSize() {
+        return CATALOG.length;
+    }
+
+    /**
+     * Returns whether the translator has been initialized
+     *
+     * @return true if initialized
+     */
+    public static boolean isInitialized() {
+        return initialized;
+    }
+
+    /**
+     * Forces re-initialization of all data structures
+     * <p>Useful for testing or memory management
+     */
+    public static synchronized void reinitialize() {
+        initialized = false;
+        initialize();
+    }
+
+}

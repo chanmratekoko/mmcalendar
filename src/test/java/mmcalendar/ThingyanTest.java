@@ -39,4 +39,17 @@ public class ThingyanTest {
 
         assertArrayEquals(akyatDays, thingyan.getAkyatDay(), 0);
     }
+
+    @Test
+    public void calculateThingyan2025() {
+        Thingyan thingyan = Thingyan.of(1387);
+        WesternDate akyaDay =  WesternDate.of(thingyan.getAkyaDay());
+        WesternDate atatTime =  WesternDate.of(thingyan.getAtatDay());
+
+        assertEquals(2460780.0, thingyan.getAkyaDay(), 0);
+        assertEquals(2460779.775943833, thingyan.getAkyaTime(), 0);
+
+        assertEquals(2460782.0, thingyan.getAtatDay(), 0);
+        assertEquals(2460781.945862815, thingyan.getAtatTime(), 0);
+    }
 }

@@ -24,26 +24,17 @@ public final class MyanmarDateKernel {
      * dependency: chk_my(my)
      *
      * @param jd : julian day number
-     * @return {@link MyanmarDate} Object
-     * MyanmarDate year, year type [0=common, 1=little watat, 2=big watat],
-     * month =
-     * [Tagu=1, Kason=2, Nayon=3, 1st Waso=0, (2nd)  Waso=4,
-     * Wagaung=5, Tawthalin=6, Thadingyut=7, Tazaungmon=8,
-     * Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12, Late Tagu=13,
-     * Late Kason=14],
-     * month type = [1=hnaung, 0= Oo],
-     * month length = [29 or 30 days],
-     * month day = [1 to 30]
-     * fortnight day = [1 to 15]
-     * moon phase = [0=waxing, 1=full moon, 2=waning, 3=new moon]
-     * week day [0=sat, 1=sun, ..., 6=fri]
+     * @return {@link MyanmarDate} Object representing the converted date
+     * @throws DateTimeException if the Julian day number is invalid
      */
     public static MyanmarDate julianToMyanmarDate(final double jd) {
 
-        long jdn;
+        if (jd < 0) {
+            throw new DateTimeException("Julian day number cannot be negative.");
+        }
+
         long dd;
-        short yearLength;
-        short monthType;
+
         int a;
         int b;
         int c;
@@ -55,25 +46,23 @@ public final class MyanmarDateKernel {
         short moonPhase;
         short fortnightDay;
         short weekDay;
-        int myear;
 
-        final Map<String, Integer> yo;
 
         // convert jd to jdn
-        jdn = Math.round(jd);
+        long jdn = Math.round(jd);
         // Myanmar year
-        myear = (int) Math.floor((jdn - 0.5 - Constants.MO) / Constants.SY);
+        int myear = calculateMyanmarYear(jdn);
         // check year
-        yo = checkMyanmarYear(myear);
+        final Map<String, Integer> yearInfo = checkMyanmarYear(myear);
         // day count
-        dd = jdn - yo.get("tg1") + 1;
-        b = yo.get("myt") / 2;
+        dd = jdn - yearInfo.get("tg1") + 1;
+        b = yearInfo.get("myt") / 2;
         // big wa and common yr
-        c = 1 / (yo.get("myt") + 1);
+        c = 1 / (yearInfo.get("myt") + 1);
         // year length
-        yearLength = (short) (354 + (1 - c) * 30 + b);
+        short yearLength = (short) (354 + (1 - c) * 30 + b);
         // month type: Hnaung =1 or Oo = 0 | late =1 or early = 0
-        monthType = (short) ((dd - 1) / yearLength);
+        short monthType = (short) ((dd - 1) / yearLength);
         dd -= (short) (monthType * yearLength);
         // adjust day count and threshold
         a = (int) ((dd + 423) / 512);
@@ -90,7 +79,7 @@ public final class MyanmarDateKernel {
 
         if (mmonth == 3) {
             // adjust if Nayon in big watat
-            monthLength += yo.get("myt") / 2;
+            monthLength += yearInfo.get("myt") / 2;
         }
 
         // moon phase from day of the month, month, and year type
@@ -105,7 +94,7 @@ public final class MyanmarDateKernel {
 
         return new MyanmarDate(
                 myear,
-                yo.get("myt"),
+                yearInfo.get("myt"),
                 yearLength,
                 mmonth,
                 monthType,
@@ -117,6 +106,11 @@ public final class MyanmarDateKernel {
                 jd
         );
     }
+
+    private static int calculateMyanmarYear(long jdn) {
+        return (int) Math.floor((jdn - 0.5 - Constants.MO) / Constants.SY);
+    }
+
 
     /**
      * Check Myanmar Year (chk_my)
@@ -334,6 +328,45 @@ public final class MyanmarDateKernel {
                 return 3;
             default:
                 return -1;
+        }
+    }
+
+    static class MyanmarYearInfo {
+        private int myanmarYear;
+
+        // year type [0=common, 1=little watat, 2=big watat]
+        private YearType yearType;
+
+        // the 1st day of Tagu as Julian Day Number (Julian Day Number for MMT)
+        private int firstDayOfTagu;
+
+        // full moon day of [2nd] Waso as Julain Day Number
+        private int fullMoonDayOfSecondWaso;
+
+        private boolean waError;
+
+        /**
+         * myt = year type [0=common, 1=little watat, 2=big watat]
+         * tg1 = the 1st day of Tagu as Julian Day Number (Julian Day Number for MMT)
+         * fm = full moon day of [2nd] Waso as Julain Day Number
+         * werr = [0=ok, 1= error]
+         */
+
+
+        enum YearType {
+            COMMON(0),
+            LITTLE_WATAT(1),
+            BIG_WATAT(2);
+
+            private final int value;
+
+            YearType(int value) {
+                this.value = value;
+            }
+
+            public int getValue() {
+               return this.value;
+            }
         }
     }
 }

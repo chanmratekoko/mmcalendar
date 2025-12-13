@@ -51,7 +51,7 @@ public class MyanmarMonthsTest {
         List<String> myanmarNameList = myanmarMonths.getMonthNameList(Language.TAI);
 
         final String[] taiMonthNames = {"ႁႃႈ", "ႁူၵ်း", "ၸဵတ်း", "ပႅတ်ႇ", "ၵဝ်ႈ",
-                "သိပ်း", "သိပ်းဢဵတ်း", "သိပ်းသွင်", "ၸဵင်", "ၵမ်", "သၢမ်", "သီႇ", "ဝၢႆး ႁႃႈ",
+                "သိပ်း", "သိပ်းဢဵတ်း", "သိပ်းသွင်", "ၸဵင်", "ၵမ်", "သၢမ်", "သီႇ", "ဝၢႆးႁႃႈ",
         };
 
         assertArrayEquals(taiMonthNames, myanmarNameList.toArray());
@@ -86,7 +86,7 @@ public class MyanmarMonthsTest {
         final String[] monthNames = {
                 "တန်ခူး", "ကဆုန်", "နယုန်", "ပ ဝါဆို", "ဒု ဝါဆို", "ဝါခေါင်",
                 "တော်သလင်း", "သီတင်းကျွတ်",
-                "တန်ဆောင်မုန်း", "နတ်တော်", "ပြာသို", "တပို့တွဲ", "တပေါင်း", "နှောင်း တန်ခူး",
+                "တန်ဆောင်မုန်း", "နတ်တော်", "ပြာသို", "တပို့တွဲ", "တပေါင်း", "နှောင်းတန်ခူး",
         };
 
         assertArrayEquals(monthNames, myanmarMonths.getMonthNameList(Language.MYANMAR).toArray());
