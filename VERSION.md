@@ -1,3 +1,8 @@
+### 1.1.0.RELEASE
+- Support Myanmar Date Parser
+
+---
+
 ### 1.0.11.RELEASE
 
 * Update Holidays for 2025
