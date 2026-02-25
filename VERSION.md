@@ -1,3 +1,8 @@
+### 1.1.1.RELEASE
+- 1.0.11.RELEASE New Year Holiday Bug Fix 
+
+---
+
 ### 1.1.0.RELEASE
 - Support Myanmar Date Parser
 

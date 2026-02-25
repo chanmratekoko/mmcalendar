@@ -57,7 +57,7 @@ public final class HolidayCalculator {
 
         List<String> holiday = new ArrayList<>();
 
-        if (((gy >= 2018 && gy <= 2021) || (gy >= 2025) && gm == 1 && gd == 1)
+        if ((((gy >= 2018 && gy <= 2021) || (gy >= 2025)) && gm == 1 && gd == 1)
             || ((gy == 2026) && gm == 1 && gd == 2)) {
             holiday.add("New Year's Day");
         } else if (gy >= 1948 && gm == 1 && gd == 4) {
