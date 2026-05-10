@@ -253,10 +253,6 @@ public class LanguageTranslator {
             initializeDigitCache();
 
             initialized = true;
-
-            // Optional: Log initialization time for performance monitoring
-            //  long elapsed = System.nanoTime() - startTime;
-            // System.out.printf("LanguageTranslator initialized in %.2f ms%n", elapsed / 1_000_000.0);
         }
     }
 

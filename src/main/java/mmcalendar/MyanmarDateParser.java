@@ -1,13 +1,15 @@
 package mmcalendar;
 
+import java.time.DateTimeException;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Parser for converting formatted Myanmar date strings back to MyanmarDate objects.
  * <p>
- * This parser leverages the existing {@link LanguageTranslator} and {@link MyanmarDate#create} 
+ * This parser leverages the existing {@link LanguageTranslator} and {@link MyanmarDate#of(double)} 
  * factory methods to ensure consistency with the rest of the library.
  * </p>
  * 
@@ -42,6 +44,8 @@ import java.util.regex.Pattern;
  * @since 1.0.12
  */
 public class MyanmarDateParser {
+
+    private static final Logger logger = Logger.getLogger(MyanmarDateParser.class.getName());
 
     /**
      * Parsed components from the input text
@@ -366,24 +370,21 @@ public class MyanmarDateParser {
             // Calculate day of month from moon phase and fortnight day
             int monthDay = MyanmarCalendarKernel.calculateDayOfMonth(myear, mmonth, moonPhase, fortnightDay);
             
-            // Create date from year, month, and day of month
-            // This ensures the date has the correct moon phase
-            MyanmarDate result = MyanmarDate.create(myear, mmonth, monthDay);
-            
-            // Optional: validate weekday if provided
+            double jd = MyanmarDateKernel.myanmarDateToJulian(myear, mmonth, monthDay);
+            MyanmarDate result = MyanmarDate.of(jd);
+
             if (components.weekDayName != null) {
                 String parsedWeekday = components.weekDayName;
                 String actualWeekday = result.getWeekDay(language);
                 if (!parsedWeekday.equals(actualWeekday)) {
-                    // Log warning but don't fail - weekday is just for validation
-                    System.err.println("Warning: Parsed weekday '" + parsedWeekday + 
-                                     "' doesn't match calculated weekday '" + actualWeekday + "'");
+                    logger.warning("Parsed weekday '" + parsedWeekday +
+                                   "' doesn't match calculated weekday '" + actualWeekday + "'");
                 }
             }
-            
+
             return result;
-            
-        } catch (Exception e) {
+
+        } catch (DateTimeException | IllegalArgumentException e) {
             throw new IllegalArgumentException(
                 "Failed to create MyanmarDate with year=" + myear + 
                 ", month='" + monthNameEn + "', moonPhase='" + moonPhaseEn + 
