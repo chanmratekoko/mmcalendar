@@ -28,8 +28,8 @@ public class HolidayCalculatorTest {
 
     @Test
     public void unionDay() {
-        MyanmarDate unionDayDate = MyanmarDate.of(2024, 2, 12);
-        String unionDay = HolidayCalculator.getHoliday(unionDayDate, Language.MYANMAR).get(0);
+        MyanmarDate unionDayDate = MyanmarDate.of(2024, 2, 12, CalendarType.ENGLISH, 0);
+        String unionDay = HolidayCalculator.getHoliday(unionDayDate, CalendarType.ENGLISH, Language.MYANMAR).get(0);
         assertEquals("ပြည်ထောင်စု နေ့", unionDay);
     }
 
@@ -43,7 +43,7 @@ public class HolidayCalculatorTest {
     @Test
     public void thingyanHoliday() {
         for (int day = 11; day < 20; day++) {
-            MyanmarDate myanmarDate = MyanmarDate.of(2026, 4, day);
+            MyanmarDate myanmarDate = MyanmarDate.of(2026, 4, day, CalendarType.ENGLISH, 0);
             List<String> holiday = HolidayCalculator.thingyan(myanmarDate.getJulianDayNumber(), myanmarDate.getYearValue(), myanmarDate.getMonthType());
             assertFalse(holiday.isEmpty());
         }
@@ -52,7 +52,7 @@ public class HolidayCalculatorTest {
     @Test
     public void getHoliday() {
         MyanmarDate myanmarDate = MyanmarDate.of(2460052);
-        List<String> thingyan = HolidayCalculator.getHoliday(myanmarDate);
+        List<String> thingyan = HolidayCalculator.getHoliday(myanmarDate, CalendarType.ENGLISH, Language.MYANMAR);
         List<String> actualList = Collections.singletonList("မြန်မာ နှစ်ဆန်း နေ့");
         assertEquals(actualList, thingyan);
     }
@@ -66,12 +66,12 @@ public class HolidayCalculatorTest {
 
     @Test
     public void getAnniversary() {
-        MyanmarDate newYearDate = MyanmarDate.of(2017, 1, 1);
-        String newYear = HolidayCalculator.getAnniversary(newYearDate, Language.ENGLISH).get(0);
+        MyanmarDate newYearDate = MyanmarDate.of(2017, 1, 1, CalendarType.ENGLISH, 0);
+        String newYear = HolidayCalculator.getAnniversary(newYearDate, CalendarType.ENGLISH, Language.ENGLISH).get(0);
         assertEquals("New Year Day", newYear);
 
-        MyanmarDate aungSanBDDate = MyanmarDate.of(2026, 2, 13);
-        String aungSanBD = HolidayCalculator.getAnniversary(aungSanBDDate, Language.ENGLISH).get(0);
+        MyanmarDate aungSanBDDate = MyanmarDate.of(2026, 2, 13, CalendarType.ENGLISH, 0);
+        String aungSanBD = HolidayCalculator.getAnniversary(aungSanBDDate, CalendarType.ENGLISH, Language.ENGLISH).get(0);
         assertEquals("G. Aung San BD", aungSanBD);
     }
 
@@ -88,7 +88,7 @@ public class HolidayCalculatorTest {
 
     @Test
     public void isNewYearHoliday() {
-        MyanmarDate myanmarDate = MyanmarDate.of(2026, 1, 2);
+        MyanmarDate myanmarDate = MyanmarDate.of(2026, 1, 2, CalendarType.ENGLISH, 0);
         boolean isHoliday = HolidayCalculator.isHoliday(myanmarDate);
         Assert.assertTrue("holiday", isHoliday);
     }
@@ -96,8 +96,8 @@ public class HolidayCalculatorTest {
 
     @Test
     public void isChineseNewYearHoliday() {
-        Assert.assertTrue("holiday", HolidayCalculator.isHoliday(MyanmarDate.of(2026, 2, 16)));
-        Assert.assertTrue("holiday", HolidayCalculator.isHoliday(MyanmarDate.of(2026, 2, 17)));
+        Assert.assertTrue("holiday", HolidayCalculator.isHoliday(MyanmarDate.of(2026, 2, 16, CalendarType.ENGLISH, 0)));
+        Assert.assertTrue("holiday", HolidayCalculator.isHoliday(MyanmarDate.of(2026, 2, 17, CalendarType.ENGLISH, 0)));
     }
 
     // --- englishHoliday tests ---
@@ -254,7 +254,7 @@ public class HolidayCalculatorTest {
 
         // 1) Every listed holiday MUST be detected as holiday
         for (LocalDate hd : holidayDates) {
-            MyanmarDate md = MyanmarDate.of(hd);
+            MyanmarDate md = MyanmarDate.of(hd.getYear(), hd.getMonthValue(), hd.getDayOfMonth(), CalendarType.ENGLISH, 0);
             boolean isHoliday = HolidayCalculator.isHoliday(md);
             Assert.assertTrue("Expected holiday for date: " + hd, isHoliday);
         }
@@ -262,7 +262,7 @@ public class HolidayCalculatorTest {
         // 2) Every other day in the year that is NOT in the list MUST NOT be a holiday
         for (LocalDate date = yearStart; !date.isAfter(yearEnd); date = date.plusDays(1)) {
             if (!holidayDates.contains(date)) {
-                MyanmarDate md = MyanmarDate.of(date);
+                MyanmarDate md = MyanmarDate.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth(), CalendarType.ENGLISH, 0);
                 boolean isHoliday = HolidayCalculator.isHoliday(md);
                 Assert.assertFalse("Unexpected holiday for date: " + date, isHoliday);
             }

@@ -102,9 +102,7 @@ public class MyanmarDate implements Serializable {
      *                 Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12 , Late Tagu = 13, Late Kason = 14]
      * @param monthDay day of month [from 1 to 29 or 30]
      * @return Myanmar date
-     * @deprecated Use {@link #of(double)} with Julian day number instead.
      */
-    @Deprecated
     public static MyanmarDate create(
             int myear,
             int mmonth,
@@ -121,9 +119,7 @@ public class MyanmarDate implements Serializable {
      *                         Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12 , Late Tagu = 13, Late Kason = 14]
      * @param monthDay         day of month [from 1 to 29 or 30]
      * @return Myanmar date
-     * @deprecated Use {@link #of(double)} with Julian day number instead.
      */
-    @Deprecated
     public static MyanmarDate create(
             int myear,
             String myanmarMonthName,
@@ -132,7 +128,6 @@ public class MyanmarDate implements Serializable {
         double jd = MyanmarDateKernel.getJulianDayNumber(myear, myanmarMonthName, monthDay);
         return MyanmarDateKernel.julianToMyanmarDate(jd);
     }
-
 
     /**
      * Create Myanmar Date from myanmar year, length of the month, moon phase and fortnight day
@@ -144,9 +139,7 @@ public class MyanmarDate implements Serializable {
      * @param moonPhase    moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
      * @param fortnightDay fortnight day [1 to 15]
      * @return Myanmar date
-     * @deprecated Use {@link #of(double)} with Julian day number instead.
      */
-    @Deprecated
     public static MyanmarDate create(
             int myear,
             int mmonth,
@@ -168,9 +161,7 @@ public class MyanmarDate implements Serializable {
      * @param moonPhase        moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
      * @param fortnightDay     fortnight day [1 to 15]
      * @return Myanmar date
-     * @deprecated Use {@link #of(double)} with Julian day number instead.
      */
-    @Deprecated
     public static MyanmarDate create(
             int myear,
             String myanmarMonthName,

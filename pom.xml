@@ -214,9 +214,8 @@
                 <version>3.0.0</version> <!-- Use the latest version -->
                 <configuration>
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                    <argLine>--add-opens=java.base/java.util=ALL-UNNAMED</argLine>
-                    <parallel>methods</parallel>
-                    <threadCount>5</threadCount>
+                    <argLine>--add-opens=java.base/java.util=ALL-UNNAMED -Dfile.encoding=UTF-8</argLine>
+                    <encoding>UTF-8</encoding>
                     <includes>
                         <include>**/*Test.java</include>
                         <include>**/*TestSuite.java</include>

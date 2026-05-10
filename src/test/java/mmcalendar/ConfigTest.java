@@ -1,5 +1,6 @@
 package mmcalendar;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -12,6 +13,16 @@ public class ConfigTest {
     @BeforeClass
     public static void beforeClass() {
         Config.getInstance();
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        Config.initDefault(
+                new Config.Builder()
+                        .setCalendarType(CalendarType.ENGLISH)
+                        .setLanguage(Language.MYANMAR)
+                        .build()
+        );
     }
 
     @Test

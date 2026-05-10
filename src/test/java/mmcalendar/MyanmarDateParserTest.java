@@ -1,5 +1,6 @@
 package mmcalendar;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -17,6 +18,16 @@ public class MyanmarDateParserTest {
 
     @BeforeClass
     public static void setUp() {
+        Config.initDefault(
+            new Config.Builder()
+                .setCalendarType(CalendarType.ENGLISH)
+                .setLanguage(Language.MYANMAR)
+                .build()
+        );
+    }
+
+    @AfterClass
+    public static void tearDownAfterClass() {
         Config.initDefault(
             new Config.Builder()
                 .setCalendarType(CalendarType.ENGLISH)

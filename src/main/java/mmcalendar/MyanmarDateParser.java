@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Parser for converting formatted Myanmar date strings back to MyanmarDate objects.
  * <p>
- * This parser leverages the existing {@link LanguageTranslator} and {@link MyanmarDate#of(double)} 
+ * This parser leverages the existing {@link LanguageTranslator} and {@link MyanmarDate#create} ink M
  * factory methods to ensure consistency with the rest of the library.
  * </p>
  * 
@@ -369,10 +369,12 @@ public class MyanmarDateParser {
             
             // Calculate day of month from moon phase and fortnight day
             int monthDay = MyanmarCalendarKernel.calculateDayOfMonth(myear, mmonth, moonPhase, fortnightDay);
-            
-            double jd = MyanmarDateKernel.myanmarDateToJulian(myear, mmonth, monthDay);
-            MyanmarDate result = MyanmarDate.of(jd);
 
+            // Create date from year, month, and day of month
+            // This ensures the date has the correct moon phase
+            MyanmarDate result = MyanmarDate.create(myear, mmonth, monthDay);
+
+            // Optional: validate weekday if provided
             if (components.weekDayName != null) {
                 String parsedWeekday = components.weekDayName;
                 String actualWeekday = result.getWeekDay(language);
