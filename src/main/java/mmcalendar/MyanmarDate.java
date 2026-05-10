@@ -102,7 +102,9 @@ public class MyanmarDate implements Serializable {
      *                 Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12 , Late Tagu = 13, Late Kason = 14]
      * @param monthDay day of month [from 1 to 29 or 30]
      * @return Myanmar date
+     * @deprecated Use {@link #of(double)} with Julian day number instead.
      */
+    @Deprecated
     public static MyanmarDate create(
             int myear,
             int mmonth,
@@ -119,7 +121,9 @@ public class MyanmarDate implements Serializable {
      *                         Nadaw=9, Pyatho=10, Tabodwe=11, Tabaung=12 , Late Tagu = 13, Late Kason = 14]
      * @param monthDay         day of month [from 1 to 29 or 30]
      * @return Myanmar date
+     * @deprecated Use {@link #of(double)} with Julian day number instead.
      */
+    @Deprecated
     public static MyanmarDate create(
             int myear,
             String myanmarMonthName,
@@ -140,7 +144,9 @@ public class MyanmarDate implements Serializable {
      * @param moonPhase    moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
      * @param fortnightDay fortnight day [1 to 15]
      * @return Myanmar date
+     * @deprecated Use {@link #of(double)} with Julian day number instead.
      */
+    @Deprecated
     public static MyanmarDate create(
             int myear,
             int mmonth,
@@ -162,7 +168,9 @@ public class MyanmarDate implements Serializable {
      * @param moonPhase        moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
      * @param fortnightDay     fortnight day [1 to 15]
      * @return Myanmar date
+     * @deprecated Use {@link #of(double)} with Julian day number instead.
      */
+    @Deprecated
     public static MyanmarDate create(
             int myear,
             String myanmarMonthName,
@@ -285,6 +293,12 @@ public class MyanmarDate implements Serializable {
      * @return {@link MyanmarDate} Object
      */
     public static MyanmarDate of(int year, int month, int day, CalendarType calendarType, double sg) {
+        if (month < 1 || month > 12) {
+            throw new IllegalArgumentException("Month must be 1-12, got: " + month);
+        }
+        if (day < 1 || day > 31) {
+            throw new IllegalArgumentException("Day must be 1-31, got: " + day);
+        }
         double julianDayNumber = WesternDateKernel.westernToJulian(year, month, day, calendarType, sg);
         return of(julianDayNumber);
     }
@@ -787,6 +801,46 @@ public class MyanmarDate implements Serializable {
      * @return true if the day is identical, false otherwise
      */
     public boolean hasSameDay(MyanmarDate other) {
-        return (this.myear == other.myear) && (this.mmonth == other.mmonth) && (this.weekDay == other.weekDay);
+        return (this.myear == other.myear) && (this.mmonth == other.mmonth) && (this.monthDay == other.monthDay);
+    }
+
+    /**
+     * Returns a MyanmarDate that is the specified number of days after this date.
+     *
+     * @param days number of days to add (can be negative)
+     * @return a new MyanmarDate
+     */
+    public MyanmarDate plusDays(int days) {
+        return MyanmarDateKernel.julianToMyanmarDate(this.jd + days);
+    }
+
+    /**
+     * Returns a MyanmarDate that is the specified number of days before this date.
+     *
+     * @param days number of days to subtract (can be negative)
+     * @return a new MyanmarDate
+     */
+    public MyanmarDate minusDays(int days) {
+        return MyanmarDateKernel.julianToMyanmarDate(this.jd - days);
+    }
+
+    /**
+     * Checks if this date is before the specified date.
+     *
+     * @param other the other MyanmarDate to compare to
+     * @return true if this date is before the other date
+     */
+    public boolean isBefore(MyanmarDate other) {
+        return this.jd < other.jd;
+    }
+
+    /**
+     * Checks if this date is after the specified date.
+     *
+     * @param other the other MyanmarDate to compare to
+     * @return true if this date is after the other date
+     */
+    public boolean isAfter(MyanmarDate other) {
+        return this.jd > other.jd;
     }
 }

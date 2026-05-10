@@ -53,7 +53,7 @@ public final class HolidayCalculator {
      * @param gd day [0-31]
      * @return Name of Holiday Strings List if exist
      */
-    static List<String> englishHoliday(int gy, int gm, int gd) {
+    public static List<String> englishHoliday(int gy, int gm, int gd) {
 
         List<String> holiday = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public final class HolidayCalculator {
         return holiday;
     }
 
-    static List<String> continuousHoliday(int gy, int gm, int gd) {
+    public static List<String> continuousHoliday(int gy, int gm, int gd) {
 
         List<String> holiday = new ArrayList<>();
 
@@ -109,7 +109,7 @@ public final class HolidayCalculator {
      * @param moonPhase Moon phase [0=waxing, 1=full moon, 2=waning, 3=new moon]
      * @return Name of Holiday Strings List if exist
      */
-    static List<String> myanmarHoliday(double myear, int mmonth, int monthDay, int moonPhase) {
+    public static List<String> myanmarHoliday(double myear, int mmonth, int monthDay, int moonPhase) {
 
         List<String> holiday = new ArrayList<>();
 

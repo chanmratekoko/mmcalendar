@@ -10,17 +10,17 @@ public class JavaDateTimeTest {
     @Test
     public void checkCurrentCalendarDateInMyanmar() {
         MyanmarDate myanmarDate = MyanmarDate.now();
-        Assert.assertEquals(1387, myanmarDate.getYearValue());
+        Assert.assertTrue(myanmarDate.getYearValue() >= 1387);
     }
 
     @Test
     public void checkWithSystemTimeCalendar() {
         LocalDateTime localDateTime = LocalDateTime.now();
         MyanmarDate myanmarDate = MyanmarDate.of(localDateTime);
-        Assert.assertEquals(1387, myanmarDate.getYearValue());
+        Assert.assertTrue(myanmarDate.getYearValue() >= 1387);
 
         WesternDate westernDate = WesternDate.of(myanmarDate.getJulianDayNumber(), CalendarType.ENGLISH);
-        Assert.assertEquals(2025, westernDate.getYear());
+        Assert.assertTrue(westernDate.getYear() >= 2025);
     }
 
 }

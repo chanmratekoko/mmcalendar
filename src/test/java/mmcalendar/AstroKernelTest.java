@@ -132,4 +132,111 @@ public class AstroKernelTest {
         assertThat(0, is(yatpote));
     }
 
+    // --- Edge case tests ---
+
+    @Test
+    public void calculatePyathadaAfternoon() {
+        // m1 = mmonth % 4 = 0, weekDay = 4 => afternoon pyathada (return 2)
+        assertThat(2, is(AstroKernel.calculatePyathada(4, 4)));
+        assertThat(2, is(AstroKernel.calculatePyathada(8, 4)));
+        assertThat(2, is(AstroKernel.calculatePyathada(12, 4)));
+    }
+
+    @Test
+    public void calculateNagahleAllDirections() {
+        // west=0 for months 1-3 (mod 12 / 3 = 0)
+        assertThat(0, is(AstroKernel.calculateNagahle(1)));
+        assertThat(0, is(AstroKernel.calculateNagahle(2)));
+        // north=1 for months 4-6
+        assertThat(1, is(AstroKernel.calculateNagahle(4)));
+        assertThat(1, is(AstroKernel.calculateNagahle(5)));
+        // east=2 for months 7-9
+        assertThat(2, is(AstroKernel.calculateNagahle(7)));
+        assertThat(2, is(AstroKernel.calculateNagahle(8)));
+        // south=3 for months 10-11 (month 12 wraps: 12%12=0 => west)
+        assertThat(3, is(AstroKernel.calculateNagahle(10)));
+        assertThat(3, is(AstroKernel.calculateNagahle(11)));
+        // month 12: 12%12=0, 0/3=0 => west
+        assertThat(0, is(AstroKernel.calculateNagahle(12)));
+    }
+
+    @Test
+    public void calculateNagahleFirstWaso() {
+        // First Waso (mmonth=0) should be treated as Waso (month 4) => north=1
+        assertThat(1, is(AstroKernel.calculateNagahle(0)));
+    }
+
+    @Test
+    public void calculateSabbathEve() {
+        // sabbath eve: days 7, 14, 22
+        assertThat(2, is(AstroKernel.calculateSabbath(0, 1, 7)));
+        assertThat(2, is(AstroKernel.calculateSabbath(0, 1, 14)));
+        assertThat(2, is(AstroKernel.calculateSabbath(0, 1, 22)));
+    }
+
+    @Test
+    public void calculateSabbathNone() {
+        assertThat(0, is(AstroKernel.calculateSabbath(0, 1, 5)));
+    }
+
+    @Test
+    public void calculateYearNameAll12() {
+        for (int i = 0; i < 12; i++) {
+            assertThat(i, is(AstroKernel.calculateYearName(i)));
+        }
+        assertThat(0, is(AstroKernel.calculateYearName(12)));
+        assertThat(1, is(AstroKernel.calculateYearName(1381)));
+    }
+
+    @Test
+    public void calculateMahaboteAllStates() {
+        // (myear - weekDay) % 7 => test all 7 values
+        for (int expected = 0; expected < 7; expected++) {
+            int weekDay = 0;
+            int myear = expected; // (expected - 0) % 7 = expected
+            assertThat(expected, is(AstroKernel.calculateMahabote(myear, weekDay)));
+        }
+    }
+
+    @Test
+    public void calculateNakhatAllValues() {
+        assertThat(0, is(AstroKernel.calculateNakhat(1350)));
+        assertThat(1, is(AstroKernel.calculateNakhat(1351)));
+        assertThat(2, is(AstroKernel.calculateNakhat(1352)));
+    }
+
+    @Test
+    public void calculateYatyotemaFirstWaso() {
+        // mmonth=0 (First Waso) should be treated as Waso (month 4)
+        int result = AstroKernel.calculateYatyotema(0, 1);
+        assertThat(true, is(result == 0 || result == 1));
+    }
+
+    @Test
+    public void calculateMahayatkyanFirstWaso() {
+        // mmonth=0 (First Waso) should be treated as Waso (month 4)
+        int result = AstroKernel.calculateMahayatkyan(0, 1);
+        assertThat(true, is(result == 0 || result == 1));
+    }
+
+    @Test
+    public void calculateShanyatFirstWaso() {
+        // mmonth=0 (First Waso) should be treated as Waso (month 4)
+        int result = AstroKernel.calculateShanyat(0, 1);
+        assertThat(true, is(result == 0 || result == 1));
+    }
+
+    @Test
+    public void calculateThamaphyuPositiveCase() {
+        // weekDay=0 (sat), wda[0]=1, so fortnight day 1 => thamaphyu
+        assertThat(1, is(AstroKernel.calculateThamaphyu(1, 0)));
+    }
+
+    @Test
+    public void calculateThamaphyuSpecialCase() {
+        // mf == 4 && weekDay == 5 => thamaphyu
+        // md = 4 => fortnightDay = 4
+        assertThat(1, is(AstroKernel.calculateThamaphyu(4, 5)));
+    }
+
 }

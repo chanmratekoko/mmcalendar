@@ -1,34 +1,28 @@
 package mmcalendar;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * Provides era-specific constants for Myanmar calendar calculations.
+ *
+ * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
+ * @version 1.1.2
+ */
 public class MyanmarYearConstants {
 
     private MyanmarYearConstants() {
     }
 
     /**
-     * Get Myanmar year constants depending on era
+     * Get Myanmar year constants depending on era.
      *
      * @param my myanmar year
-     * @return map
-     * EI = Myanmar calendar era id [1-3]
-     * WO = watat offset to compensate
-     * NM = number of months to find excess days
-     * EW = exception in watat year
+     * @return {@link MyanmarEraConstants} containing era-specific calculation constants
      */
-    public static Map<String, Double> getMyConst(int my) {
+    public static MyanmarEraConstants getMyConst(int my) {
 
-        // Myanmar calendar era id [1-3] : calculations methods/constants depends on era
         double eraId;
-        // watat offset to compensate
         double watatOffset;
-        // number of months to find excess days
         double numberOfMonths;
-        // exception in watat year
         double exceptionInWatatYear = 0;
-        int i;
 
         int[][] fme;
         int[] wte;
@@ -82,61 +76,15 @@ public class MyanmarYearConstants {
             wte = new int[]{};
         }
 
-        i = bSearch2(my, fme);
+        int i = BinarySearchUtil.search(my, fme);
         if (i >= 0) {
-            // full moon day offset exceptions
             watatOffset += fme[i][1];
         }
-        i = bSearch1(my, wte);
+        i = BinarySearchUtil.search(my, wte);
         if (i >= 0) {
-            // correct watat exceptions
             exceptionInWatatYear = 1;
         }
 
-        Map<String, Double> myConst = new HashMap<>();
-        myConst.put("EI", eraId);
-        myConst.put("WO", watatOffset);
-        myConst.put("NM", numberOfMonths);
-        myConst.put("EW", exceptionInWatatYear);
-
-        return myConst;
-    }
-
-    // Binary search for array with two elements
-    private static int bSearch2(int key, int[][] arr) {
-        int low = 0;
-        int high = arr.length - 1;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (arr[mid][0] == key) {
-                return mid;
-            } else if (arr[mid][0] < key) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-        // Key not found
-        return -1;
-    }
-
-    // Binary search for array with one element
-    private static int bSearch1(int key, int[] arr) {
-        int low = 0;
-        int high = arr.length - 1;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (arr[mid] == key) {
-                return mid;
-            } else if (arr[mid] < key) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-        // Key not found
-        return -1;
+        return new MyanmarEraConstants(eraId, watatOffset, numberOfMonths, exceptionInWatatYear);
     }
 }

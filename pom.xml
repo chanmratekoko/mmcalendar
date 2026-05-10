@@ -218,7 +218,8 @@
                     <parallel>methods</parallel>
                     <threadCount>5</threadCount>
                     <includes>
-                        <include>**/Test*.java</include>
+                        <include>**/*Test.java</include>
+                        <include>**/*TestSuite.java</include>
                     </includes>
                     <useFile>false</useFile>
                 </configuration>

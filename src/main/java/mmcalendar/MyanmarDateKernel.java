@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Core Calculation and Algorithms for Myanmar Date
+ * Core Calculation and Algorithms for Myanmar Date.
+ * <p>
+ * Based on the algorithm by Dr. Yan Naing Aye for Myanmar calendar calculations.
+ * Reference: <a href="http://cool-emerald.blogspot.com/2013/06/algorithm-program-and-calculation-of.html">Algorithm, Program and Calculation of Myanmar Calendar</a>
  *
  * @author <a href="mailto:chanmratekoko.dev@gmail.com">Chan Mrate Ko Ko</a>
  * @version 1.0.2
@@ -171,10 +174,10 @@ public final class MyanmarDateKernel {
     public static Map<String, Integer> checkWatat(int my) {
 
         // get constants for the corresponding calendar era
-        Map<String, Double> c = MyanmarYearConstants.getMyConst(my);
+        MyanmarEraConstants c = MyanmarYearConstants.getMyConst(my);
 
         // threshold to adjust
-        double threshold = (Constants.SY / 12 - Constants.LM) * (12 - c.get("NM"));
+        double threshold = (Constants.SY / 12 - Constants.LM) * (12 - c.getNumberOfMonths());
         // excess day
         double ed = (Constants.SY * (my + 3739)) % Constants.LM;
 
@@ -184,14 +187,14 @@ public final class MyanmarDateKernel {
         }
 
         // full moon day of 2nd Waso
-        int fm = (int) Math.round(Constants.SY * my + Constants.MO - ed + 4.5 * Constants.LM + c.get("WO"));
+        int fm = (int) Math.round(Constants.SY * my + Constants.MO - ed + 4.5 * Constants.LM + c.getWatatOffset());
 
         int watat = 0;
 
         // find watat
-        if (c.get("EI") >= 2) {
+        if (c.getEraId() >= 2) {
             // if 2nd era or later find watat based on excess days
-            double tw = (Constants.LM - (Constants.SY / 12 - Constants.LM) * c.get("NM"));
+            double tw = (Constants.LM - (Constants.SY / 12 - Constants.LM) * c.getNumberOfMonths());
 
             if (ed >= tw) {
                 watat = 1;
@@ -208,7 +211,7 @@ public final class MyanmarDateKernel {
             watat = (int) Math.floor(watat / 12.0);
         }
         // correct watat exceptions
-        watat ^= c.get("EW").intValue();
+        watat ^= (int) c.getExceptionInWatatYear();
 
         Map<String, Integer> map = new HashMap<>();
         map.put("fm", fm);

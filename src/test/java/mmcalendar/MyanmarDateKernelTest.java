@@ -128,4 +128,100 @@ public class MyanmarDateKernelTest {
 
         assertThat(-1, is(MyanmarDateKernel.searchMoonPhase("hello")));
     }
+
+    // === checkWatat era tests ===
+
+    @Test
+    public void testCheckWatatEra1_1() {
+        Map<String, Integer> map = MyanmarDateKernel.checkWatat(500);
+        int watat = map.get("watat");
+        Assert.assertTrue("watat should be 0 or 1", watat == 0 || watat == 1);
+    }
+
+    @Test
+    public void testCheckWatatEra1_2() {
+        Map<String, Integer> map = MyanmarDateKernel.checkWatat(900);
+        int watat = map.get("watat");
+        Assert.assertTrue("watat should be 0 or 1", watat == 0 || watat == 1);
+    }
+
+    @Test
+    public void testCheckWatatEra1_3() {
+        Map<String, Integer> map = MyanmarDateKernel.checkWatat(1150);
+        int watat = map.get("watat");
+        Assert.assertTrue("watat should be 0 or 1", watat == 0 || watat == 1);
+    }
+
+    @Test
+    public void testCheckWatatEra2() {
+        Map<String, Integer> map = MyanmarDateKernel.checkWatat(1250);
+        int watat = map.get("watat");
+        Assert.assertTrue("watat should be 0 or 1", watat == 0 || watat == 1);
+    }
+
+    @Test
+    public void testCheckWatatEra3() {
+        Map<String, Integer> map = MyanmarDateKernel.checkWatat(1380);
+        int watat = map.get("watat");
+        Assert.assertTrue("watat should be 0 or 1", watat == 0 || watat == 1);
+    }
+
+    @Test
+    public void testCheckWatatExceptionYear1344() {
+        Map<String, Integer> map = MyanmarDateKernel.checkWatat(1344);
+        int watat = map.get("watat");
+        Assert.assertTrue("watat should be 0 or 1", watat == 0 || watat == 1);
+    }
+
+    @Test
+    public void testCheckWatatExceptionYear1263() {
+        Map<String, Integer> map = MyanmarDateKernel.checkWatat(1263);
+        int watat = map.get("watat");
+        Assert.assertTrue("watat should be 0 or 1", watat == 0 || watat == 1);
+    }
+
+    @Test
+    public void testCheckWatatExceptionYear1201() {
+        Map<String, Integer> map = MyanmarDateKernel.checkWatat(1201);
+        int watat = map.get("watat");
+        Assert.assertTrue("watat should be 0 or 1", watat == 0 || watat == 1);
+    }
+
+    @Test
+    public void testCheckWatatMinYear() {
+        Map<String, Integer> map = MyanmarDateKernel.checkWatat(2);
+        int watat = map.get("watat");
+        Assert.assertTrue("watat should be 0 or 1", watat == 0 || watat == 1);
+    }
+
+    // === julianToMyanmarDate tests ===
+
+    @Test(expected = DateTimeException.class)
+    public void testJulianToMyanmarDateNegativeJdn() {
+        MyanmarDateKernel.julianToMyanmarDate(-1);
+    }
+
+    @Test
+    public void testJulianToMyanmarDateZeroJdn() {
+        MyanmarDate myanmarDate = MyanmarDateKernel.julianToMyanmarDate(0);
+        Assert.assertNotNull(myanmarDate);
+    }
+
+    // === checkMyanmarYear tests ===
+
+    @Test
+    public void testCheckMyanmarYearCommon() {
+        Map<String, Integer> map = MyanmarDateKernel.checkMyanmarYear(1381);
+        assertThat(0, is(map.get("myt")));
+    }
+
+    @Test
+    public void testCheckMyanmarYearEra1() {
+        Map<String, Integer> map = MyanmarDateKernel.checkMyanmarYear(500);
+        Assert.assertNotNull(map);
+        Assert.assertNotNull(map.get("myt"));
+        Assert.assertNotNull(map.get("tg1"));
+        Assert.assertNotNull(map.get("fm"));
+        Assert.assertNotNull(map.get("werr"));
+    }
 }

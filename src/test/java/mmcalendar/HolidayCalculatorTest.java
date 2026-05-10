@@ -100,6 +100,132 @@ public class HolidayCalculatorTest {
         Assert.assertTrue("holiday", HolidayCalculator.isHoliday(MyanmarDate.of(2026, 2, 17)));
     }
 
+    // --- englishHoliday tests ---
+
+    @Test
+    public void testIndependenceDay() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2024, 1, 4);
+        assertTrue(holiday.contains("Independence Day"));
+    }
+
+    @Test
+    public void testUnionDay() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2024, 2, 12);
+        assertTrue(holiday.contains("Union Day"));
+    }
+
+    @Test
+    public void testPeasantsDay() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2024, 3, 2);
+        assertTrue(holiday.contains("Peasants' Day"));
+    }
+
+    @Test
+    public void testResistanceDay() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2024, 3, 27);
+        assertTrue(holiday.contains("Resistance Day"));
+    }
+
+    @Test
+    public void testLabourDay() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2024, 5, 1);
+        assertTrue(holiday.contains("Labour Day"));
+    }
+
+    @Test
+    public void testMartyrsDay() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2024, 7, 19);
+        assertTrue(holiday.contains("Martyrs' Day"));
+    }
+
+    @Test
+    public void testChristmasDay() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2024, 12, 25);
+        assertTrue(holiday.contains("Christmas Day"));
+    }
+
+    @Test
+    public void testNewYearsDay() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2025, 1, 1);
+        assertTrue(holiday.contains("New Year's Day"));
+    }
+
+    @Test
+    public void testNewYearsDayNotHoliday() {
+        List<String> holiday = HolidayCalculator.englishHoliday(2023, 1, 1);
+        assertTrue(holiday.isEmpty());
+    }
+
+    @Test
+    public void testPeasantsDayBeforeStart() {
+        List<String> holiday = HolidayCalculator.englishHoliday(1957, 3, 2);
+        assertTrue(holiday.isEmpty());
+    }
+
+    // --- myanmarHoliday tests ---
+
+    @Test
+    public void testBuddhaDay() {
+        List<String> holiday = HolidayCalculator.myanmarHoliday(1385, 2, 15, 1);
+        assertTrue(holiday.contains("Buddha Day"));
+    }
+
+    @Test
+    public void testStartOfBuddhistLent() {
+        List<String> holiday = HolidayCalculator.myanmarHoliday(1385, 4, 15, 1);
+        assertTrue(holiday.contains("Start of Buddhist Lent"));
+    }
+
+    @Test
+    public void testEndOfBuddhistLent() {
+        List<String> holiday = HolidayCalculator.myanmarHoliday(1385, 7, 15, 1);
+        assertTrue(holiday.contains("End of Buddhist Lent"));
+    }
+
+    @Test
+    public void testTazaungdaing() {
+        List<String> holiday = HolidayCalculator.myanmarHoliday(1385, 8, 15, 1);
+        assertTrue(holiday.contains("Tazaungdaing"));
+    }
+
+    @Test
+    public void testNationalDay() {
+        List<String> holiday = HolidayCalculator.myanmarHoliday(1385, 8, 25, 2);
+        assertTrue(holiday.contains("National Day"));
+    }
+
+    @Test
+    public void testKarenNewYear() {
+        List<String> holiday = HolidayCalculator.myanmarHoliday(1385, 10, 1, 0);
+        assertTrue(holiday.contains("Karen New Year's Day"));
+    }
+
+    @Test
+    public void testTabaungPwe() {
+        List<String> holiday = HolidayCalculator.myanmarHoliday(1385, 12, 15, 1);
+        assertTrue(holiday.contains("Tabaung Pwe"));
+    }
+
+    // --- otherHoliday tests ---
+
+    @Test
+    public void testDiwali() {
+        List<String> holiday = HolidayCalculator.otherHoliday(2456599);
+        assertTrue(holiday.contains("Diwali"));
+    }
+
+    @Test
+    public void testEid() {
+        List<String> holiday = HolidayCalculator.otherHoliday(2456513);
+        assertTrue(holiday.contains("Eid"));
+    }
+
+    @Test
+    public void testNoOtherHoliday() {
+        List<String> holiday = HolidayCalculator.otherHoliday(2400000);
+        assertTrue(holiday.isEmpty());
+    }
+
     @Test
     public void holidayIn2026() {
         // raw input

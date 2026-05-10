@@ -16,7 +16,8 @@ public class BusinessDayCalculatorTest {
         assertEquals(actualList, BusinessDayCalculator.substituteBusinessDay(2025, 3, 22));
         assertEquals(actualList, BusinessDayCalculator.substituteBusinessDay(2025, 3, 29));
         assertEquals(actualList, BusinessDayCalculator.substituteBusinessDay(2025, 11, 8));
-        assertEquals(actualList, BusinessDayCalculator.substituteBusinessDay(2026, 1, 3));
+        assertEquals(actualList, BusinessDayCalculator.substituteBusinessDay(2026, 1, 10));
+        assertEquals(Collections.emptyList(), BusinessDayCalculator.substituteBusinessDay(2025, 6, 15));
     }
 
 }

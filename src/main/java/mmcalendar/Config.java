@@ -16,7 +16,7 @@ public final class Config {
 
     private final Language language;
 
-    private static Config instance;
+    private static volatile Config instance;
 
     /**
      * Set the default Calendar Config
@@ -42,10 +42,16 @@ public final class Config {
      * @return the current Calendar Config
      */
     public static Config getInstance() {
-        if (instance == null) {
-            instance = new Config(new Builder());
+        Config result = instance;
+        if (result == null) {
+            synchronized (Config.class) {
+                result = instance;
+                if (result == null) {
+                    instance = result = new Config(new Builder());
+                }
+            }
         }
-        return instance;
+        return result;
     }
 
     private Config(Builder builder) {

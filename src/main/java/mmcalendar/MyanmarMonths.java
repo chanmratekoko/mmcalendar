@@ -2,6 +2,7 @@ package mmcalendar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,11 +39,11 @@ public class MyanmarMonths implements Serializable {
     }
 
     public List<Integer> getMonthList() {
-        return monthList;
+        return Collections.unmodifiableList(monthList);
     }
 
     public List<String> getMonthNameList() {
-        return monthNameList;
+        return Collections.unmodifiableList(monthNameList);
     }
 
     public List<String> getMonthNameList(Language language) {

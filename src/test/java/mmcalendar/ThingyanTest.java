@@ -41,6 +41,15 @@ public class ThingyanTest {
     }
 
     @Test
+    public void calculatePreEra3() {
+        // Era 2 (pre-1312): uses jk = ja - 2.1675 instead of 2.169918982
+        Thingyan thingyan = Thingyan.of(1200);
+        // Verify it computes without error and returns reasonable values
+        assertEquals(true, thingyan.getAkyaDay() > 0);
+        assertEquals(true, thingyan.getAtatDay() > thingyan.getAkyaDay());
+    }
+
+    @Test
     public void calculateThingyan2025() {
         Thingyan thingyan = Thingyan.of(1387);
         WesternDate akyaDay =  WesternDate.of(thingyan.getAkyaDay());
